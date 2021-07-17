@@ -2,11 +2,11 @@ import React, {lazy, Suspense} from "react";
 import {Route, Switch, useLocation} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import Loading from "./components/loading/Loading";
-import CategoryArea from "./components/category-area/CategoryArea";
 
 const Welcome = lazy(() => import("./components/welcome/Welcome"));
 const SearchBar = lazy(() => import("./components/search-bar/SearchBar"));
 const Products = lazy(() => import("./components/productUX/Products"));
+const CategoryArea = lazy(() => import("./components/category-area/CategoryArea"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
