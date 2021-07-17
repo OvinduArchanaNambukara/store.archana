@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from "react";
 import {Route, Switch, useLocation} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import Loading from "./components/loading/Loading";
+import CategoryArea from "./components/category-area/CategoryArea";
 
 const Welcome = lazy(() => import("./components/welcome/Welcome"));
 const SearchBar = lazy(() => import("./components/search-bar/SearchBar"));
@@ -19,7 +20,7 @@ const Routes: React.FC = () => {
               <Route path='/'>
                 <Welcome/>
                 <SearchBar/>
-
+                <CategoryArea/>
                 <Products/>
               </Route>
             </Switch>
