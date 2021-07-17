@@ -1,12 +1,12 @@
 import {IProduct, IProducts} from "../types/types";
-import cottonWood from "../assets/images/phamasy/cotton.webp";
-import asamodagam from "../assets/images/phamasy/asamodagam.webp";
-import K95 from "../assets/images/phamasy/k95.webp";
-import panadol from "../assets/images/phamasy/panadol.webp";
-import piriton from "../assets/images/phamasy/piriton.webp";
-import plaster from "../assets/images/phamasy/plaster.webp";
-import sanitizer from "../assets/images/phamasy/sanitizer.webp";
-import sidalepa from "../assets/images/phamasy/sidalepa.webp";
+import cottonWood from "../assets/images/products/phamasy/cotton.webp";
+import asamodagam from "../assets/images/products/phamasy/asamodagam.webp";
+import K95 from "../assets/images/products/phamasy/k95.webp";
+import panadol from "../assets/images/products/phamasy/panadol.webp";
+import piriton from "../assets/images/products/phamasy/piriton.webp";
+import plaster from "../assets/images/products/phamasy/plaster.webp";
+import sanitizer from "../assets/images/products/phamasy/sanitizer.webp";
+import sidalepa from "../assets/images/products/phamasy/sidalepa.webp";
 
 
 export const pharmacyList: IProduct[] = [

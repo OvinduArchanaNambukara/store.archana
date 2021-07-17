@@ -1,12 +1,12 @@
 import {IProduct, IProducts} from "../types/types";
-import bairaha from "../assets/images/meat/bairaha.webp";
-import chickendramstick from "../assets/images/meat/chickendrumstick.webp";
-import chickenwings from "../assets/images/meat/chickenwings.webp";
-import hurulla from "../assets/images/meat/hurulla.webp";
-import linna from "../assets/images/meat/linna.webp";
-import paraw from "../assets/images/meat/paraw.webp";
-import prawns from "../assets/images/meat/prawns.webp";
-import tuna from "../assets/images/meat/tuna.webp";
+import bairaha from "../assets/images/products/meat/bairaha.webp";
+import chickendramstick from "../assets/images/products/meat/chickendrumstick.webp";
+import chickenwings from "../assets/images/products/meat/chickenwings.webp";
+import hurulla from "../assets/images/products/meat/hurulla.webp";
+import linna from "../assets/images/products/meat/linna.webp";
+import paraw from "../assets/images/products/meat/paraw.webp";
+import prawns from "../assets/images/products/meat/prawns.webp";
+import tuna from "../assets/images/products/meat/tuna.webp";
 
 export const meatList: IProduct[] = [
   {
