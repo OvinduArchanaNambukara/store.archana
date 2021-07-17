@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../store/reducers";
+import {RootState} from "../../store/reducers/RootReducer";
 import {setLogInButtonStatus} from "../../store/actions/StatusActions";
 
 const ButtonArea: React.FC = () => {

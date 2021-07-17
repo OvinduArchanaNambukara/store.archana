@@ -1,0 +1,48 @@
+@import "variables";
+
+.bottom-nav-bar {
+  font-weight: 500;
+  font-size: 1em;
+
+  .bottom-nav-dropdown {
+    border: 1px solid $bottom-nav-dropdown-border;
+    border-radius: 0.3em;
+
+    a {
+      color: $bottom-nav-font-color;
+      padding: .3em .6em;
+    }
+
+    .dropdown-menu {
+      margin-top: 0.3em !important;
+      padding-left: .2em;
+    }
+  }
+
+  .navbar-toggler {
+    border: 1px solid $bottom-nav-dropdown-border;
+    padding: 0 .3em;
+  }
+
+  .bottom-nav-collapse {
+    .bottom-nav {
+      .nav-link {
+        padding: 0 1em;
+
+        a {
+          color: $bottom-nav-font-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .bottom-nav-collapse {
+    .bottom-nav {
+      .nav-link {
+        margin-top: .6em;
+      }
+    }
+  }
+}
