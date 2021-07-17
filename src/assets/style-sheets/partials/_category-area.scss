@@ -1,0 +1,65 @@
+@import "variables";
+
+.categories {
+  font-size: 1em;
+
+  .header {
+    p {
+      color: $categories-title-color;
+      font-size: 2em;
+      font-weight: 500;
+    }
+  }
+
+  img {
+    width: 7em;
+  }
+
+  .category {
+    max-width: 20%;
+    flex: 0 0 20%;
+
+    div {
+      border: 2px solid $category-item-border;
+      border-radius: .5em;
+      cursor: pointer;
+
+      p {
+        font-size: 1.4em;
+        color: $category-item-title;
+      }
+
+      &:hover {
+        background-color: $category-item-hover-color;
+        border-color: $categories-title-color;
+      }
+    }
+  }
+}
+
+@media (max-width: $layout-breakpoint-xs) {
+  .categories {
+    font-size: .6em;
+
+    .category {
+      div {
+        p {
+          font-size: .9em;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-md) {
+  .categories {
+    font-size: .8em;
+  }
+}
+
+@media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg) {
+  .categories {
+    font-size: .8em;
+  }
+}
+
