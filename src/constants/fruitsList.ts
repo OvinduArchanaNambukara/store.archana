@@ -1,9 +1,9 @@
 import {IProduct, IProducts} from "../types/types";
-import apple from "../assets/images/fruits/apple.webp";
-import banana from "../assets/images/fruits/banana.webp";
-import orange from "../assets/images/fruits/orange.webp";
-import papaya from "../assets/images/fruits/papaya.webp";
-import strawBerry from "../assets/images/fruits/strawberry.webp";
+import apple from "../assets/images/products/fruits/apple.webp";
+import banana from "../assets/images/products/fruits/banana.webp";
+import orange from "../assets/images/products/fruits/orange.webp";
+import papaya from "../assets/images/products/fruits/papaya.webp";
+import strawBerry from "../assets/images/products/fruits/strawberry.webp";
 
 export const FruitList: IProduct[] = [
   {

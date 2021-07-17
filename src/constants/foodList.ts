@@ -1,11 +1,11 @@
 import {IProduct, IProducts} from "../types/types";
-import burger from "../assets/images/food/burger.webp";
-import cake from "../assets/images/food/cake.webp";
-import iceCream from "../assets/images/food/Cone.webp";
-import cupCake from "../assets/images/food/cupcake.webp";
-import pie from "../assets/images/food/pie.webp";
-import pizza from "../assets/images/food/pizza.webp";
-import rice from "../assets/images/food/Rice.webp";
+import burger from "../assets/images/products/food/burger.webp";
+import cake from "../assets/images/products/food/cake.webp";
+import iceCream from "../assets/images/products/food/Cone.webp";
+import cupCake from "../assets/images/products/food/cupcake.webp";
+import pie from "../assets/images/products/food/pie.webp";
+import pizza from "../assets/images/products/food/pizza.webp";
+import rice from "../assets/images/products/food/Rice.webp";
 
 export const FoodList: IProduct[] = [
   {

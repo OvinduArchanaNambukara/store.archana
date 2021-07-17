@@ -1,0 +1,47 @@
+@import "variables";
+
+.welcome {
+  font-size: 1em;
+  position: relative;
+
+  .banner-text {
+    top: 30%;
+    position: absolute;
+    z-index: 10;
+
+    .regular {
+      font-family: 'PT Serif', serif;
+      color: #000;
+      font-size: 1.5em;
+    }
+
+    .organic {
+      font-family: 'Lemonada', cursive;
+      color: $welcome-green-color;
+      font-size: 2.3em;
+      font-weight: 700;
+    }
+
+    .shop-now {
+      background-color: #fff;
+      color: black;
+      font-size: 1em;
+      border: 0;
+      border-radius: 2em;
+      margin-top: 1em;
+      padding: .6em 2em;
+    }
+  }
+}
+
+@media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-md) {
+  .welcome {
+    font-size: .6em;
+  }
+}
+
+@media (max-width: $layout-breakpoint-xs) {
+  .welcome {
+    font-size: .3em;
+  }
+}
