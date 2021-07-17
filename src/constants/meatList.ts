@@ -10,7 +10,7 @@ import tuna from "../assets/images/meat/tuna.webp";
 
 export const meatList: IProduct[] = [
   {
-    product: {id: "0061", name: "Bairaha-Chicken", image: bairaha, currentPrice: 75, oldPrice: 85},
+    product: {id: "0061", name: "Bairaha", image: bairaha, currentPrice: 75, oldPrice: 85},
     inCart: false
   }, {
     product: {id: "0062", name: "Chicken", image: chickendramstick, currentPrice: 35, oldPrice: null},
@@ -43,7 +43,7 @@ export const meatList: IProduct[] = [
 
 export const MeatProducts: IProducts =
     {
-      category: "meat",
+      category: "Meat",
       productDetails: meatList
     }
 
