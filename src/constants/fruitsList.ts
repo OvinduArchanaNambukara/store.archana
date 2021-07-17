@@ -28,7 +28,7 @@ export const FruitList: IProduct[] = [
 ];
 
 export const FruitProducts: IProducts = {
-  category: "fruits",
+  category: "Fruits",
   productDetails: FruitList
 }
 
