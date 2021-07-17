@@ -1,0 +1,95 @@
+@import "variables";
+
+.top-nav-bar {
+  font-size: 1em;
+
+  .header-nav {
+    font-size: .8em;
+    border-bottom: 1px solid $header-nav-bottom-color;
+
+    a:first-child {
+      color: $tele-phone-number-color;
+    }
+
+    a {
+      align-items: center;
+      display: flex;
+    }
+
+    svg {
+      font-size: 2em;
+      color: black;
+      margin-right: 5px;
+    }
+
+    button {
+      background-color: transparent;
+      color: $logo-color;
+      font-weight: 500;
+      border-color: $logo-color;
+
+      &:hover {
+        background-color: $logo-color;
+        color: white;
+      }
+    }
+
+    .navbar-toggler {
+      border: none;
+      padding: 0 .3em;
+
+      svg {
+        color: $close-button-color;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .logo-area {
+    font-size: 1em;
+
+    .dropdown-toggle {
+      background-color: transparent;
+      border: 0;
+      padding-bottom: 0;
+    }
+
+    p {
+      font-size: 3em;
+      font-weight: 600;
+      color: $logo-color;
+
+      span {
+        cursor: pointer;
+      }
+    }
+
+    svg {
+      font-size: 3em;
+      color: $logo-color;
+    }
+
+    button {
+      background-color: $logo-color;
+      font-size: 1em;
+      font-weight: 500;
+    }
+
+    .count {
+      border-radius: 20px;
+      background-color: $logo-color;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      span {
+        color: white;
+        font-size: 0.9em;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
