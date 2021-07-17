@@ -1,0 +1,22 @@
+@import "variables";
+
+@mixin search($font-size) {
+  .search-bar {
+    font-size: $font-size;
+  }
+}
+
+@include search(1em);
+
+@media (max-width: $layout-breakpoint-xs) {
+  @include search(.5em);
+}
+
+@media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-md) {
+  @include search(.7em);
+}
+
+@media (min-width: $layout-breakpoint-lg) and (max-width: $layout-breakpoint-xl) {
+  @include search(.8em);
+}
+
