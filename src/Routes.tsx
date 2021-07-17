@@ -7,6 +7,8 @@ const Welcome = lazy(() => import("./components/welcome/Welcome"));
 const SearchBar = lazy(() => import("./components/search-bar/SearchBar"));
 const Products = lazy(() => import("./components/productUX/Products"));
 const CategoryArea = lazy(() => import("./components/category-area/CategoryArea"));
+const LogInUX = lazy(() => import("./components/log-in/LogInUX"));
+const RegisterUX = lazy(() => import("./components/register/RegisterUX"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
@@ -16,7 +18,12 @@ const Routes: React.FC = () => {
         <CSSTransition classNames='page' timeout={1000} key={location.key}>
           <Suspense fallback={<Loading/>}>
             <Switch location={location}>
-
+              <Route path='/login'>
+                <LogInUX/>
+              </Route>
+              <Route path='/register'>
+                <RegisterUX/>
+              </Route>
               <Route path='/'>
                 <Welcome/>
                 <SearchBar/>
