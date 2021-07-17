@@ -1,17 +1,16 @@
 import React from "react";
-import Products from "./components/productUX/Products";
 import TopNavBar from "./components/top-nav-bar/TopNavBar";
 import BottomNav from "./components/bottom-nav/BottomNav";
-import Welcome from "./components/welcome/Welcome";
+import {BrowserRouter as Router} from "react-router-dom";
+import Routes from "./Routes";
 
 const Client: React.FC = () => {
   return (
-      <React.Fragment>
+      <Router>
         <TopNavBar/>
         <BottomNav/>
-        <Welcome/>
-        <Products/>
-      </React.Fragment>
+        <Routes/>
+      </Router>
   );
 }
 
