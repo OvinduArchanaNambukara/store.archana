@@ -1,0 +1,46 @@
+@import "variables";
+
+.footer {
+  font-size: 1em;
+  background-color: $footer-background;
+
+  .footer-links {
+    .list-group-item {
+      background-color: $footer-background;
+      border: none;
+      padding-bottom: 0;
+
+      a {
+        color: $footer-links;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .footer-icons {
+    .list-group-item {
+      background-color: $footer-background;
+      border: none;
+      padding-top: 0;
+      padding-bottom: 0;
+
+      a {
+        color: $footer-links;
+        font-size: 2em;
+      }
+    }
+  }
+
+  .footer-copy-rights {
+    span {
+      color: $footer-links;
+      font-weight: 500;
+
+      .copy-right {
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}
