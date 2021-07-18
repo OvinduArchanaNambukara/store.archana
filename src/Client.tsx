@@ -3,6 +3,7 @@ import TopNavBar from "./components/top-nav-bar/TopNavBar";
 import BottomNav from "./components/bottom-nav/BottomNav";
 import {BrowserRouter as Router} from "react-router-dom";
 import Routes from "./Routes";
+import Footer from "./components/footer/Footer";
 
 const Client: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const Client: React.FC = () => {
         <TopNavBar/>
         <BottomNav/>
         <Routes/>
+        <Footer/>
       </Router>
   );
 }
