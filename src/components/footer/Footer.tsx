@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <Container fluid={true}>
         <Row className='footer'>
           <Col xs={12} className='footer-links'>
-            <ListGroup horizontal className='justify-content-center'>
+            <ListGroup horizontal={"sm"} className='justify-content-center'>
               <ListGroup.Item>
                 <Link to='/aboutUs'>ABOUT US</Link>
               </ListGroup.Item>
