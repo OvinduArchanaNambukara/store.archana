@@ -1,11 +1,11 @@
 import {IProduct, IProducts} from "../types/types";
-import CarrotImg from "../assets/images/products/vegetable/carrot.jpg";
-import CabbageImg from "../assets/images/products/vegetable/cabbage.jpg";
-import EggplantImg from "../assets/images/products/vegetable/eggplant.jpg";
-import GarlicImg from "../assets/images/products/vegetable/garlic.jpg";
-import LeaksImg from "../assets/images/products/vegetable/leaks.jpg";
-import OnionImg from "../assets/images/products/vegetable/onion.jpg";
-import PotatoImg from "../assets/images/products/vegetable/potato.jpg";
+import CarrotImg from "../assets/images/products/vegetable/carrot.webp";
+import CabbageImg from "../assets/images/products/vegetable/cabbage.webp";
+import EggplantImg from "../assets/images/products/vegetable/egg plant.webp";
+import GarlicImg from "../assets/images/products/vegetable/garlic.webp";
+import LeaksImg from "../assets/images/products/vegetable/leaks.webp";
+import OnionImg from "../assets/images/products/vegetable/onion.webp";
+import PotatoImg from "../assets/images/products/vegetable/potato.webp";
 
 export const vegetableList: IProduct[] = [
   {
