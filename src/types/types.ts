@@ -6,6 +6,7 @@ export interface ISocialLink {
 export interface categoryTypes {
   image: string
   name: string
+  isActive: boolean
 }
 
 export interface optionTypes {

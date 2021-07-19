@@ -4,3 +4,5 @@ export interface StatusActionTypes {
   type: typeof LOG_IN_BUTTON_STATUS,
   payload: boolean
 }
+
+

@@ -2,7 +2,7 @@ import {StatusActionTypes} from "../types/StatusActionTypes";
 import {LOG_IN_BUTTON_STATUS} from "../constants/StatusConstants";
 
 const initialState: storeTypes = {
-  isLogIn: false
+  isLogIn: false,
 }
 
 interface storeTypes {
