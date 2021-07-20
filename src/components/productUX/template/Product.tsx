@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {Col, Image, Row} from "react-bootstrap";
-import {ICheckoutProduct, IProduct} from "../../types/types";
+import {ICheckoutProduct, IProduct} from "../../../types/types";
 import Name from "./Name";
 import CurrentPrice from "./CurrentPrice";
 import OldPrice from "./OldPrice";
 import Quantity from "./Quantity";
 import AddToCartBtn from "./AddToCartBtn";
 import {useDispatch} from "react-redux";
-import {addToCart, updateCartItem} from "../../store/actions/CartActions";
-import {markAddToCart} from "../../store/actions/ProductAction";
+import {addToCart, updateCartItem} from "../../../store/actions/CartActions";
+import {markAddToCart} from "../../../store/actions/ProductAction";
 
 type ProductProps = {
   productDetails: IProduct

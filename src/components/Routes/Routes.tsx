@@ -1,14 +1,14 @@
 import React, {lazy, Suspense} from "react";
 import {Route, Switch, useLocation} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import Loading from "./components/loading/Loading";
+import Loading from "../loading/Loading";
+import ProductRoutes from "./ProductRoutes";
 
-const Welcome = lazy(() => import("./components/welcome/Welcome"));
-const SearchBar = lazy(() => import("./components/search-bar/SearchBar"));
-const Products = lazy(() => import("./components/productUX/Products"));
-const CategoryArea = lazy(() => import("./components/category-area/CategoryArea"));
-const LogInUX = lazy(() => import("./components/log-in/LogInUX"));
-const RegisterUX = lazy(() => import("./components/register/RegisterUX"));
+const Welcome = lazy(() => import("../welcome/Welcome"));
+const SearchBar = lazy(() => import("../search-bar/SearchBar"));
+const CategoryArea = lazy(() => import("../category-area/CategoryArea"));
+const LogInUX = lazy(() => import("../log-in/LogInUX"));
+const RegisterUX = lazy(() => import("../register/RegisterUX"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
@@ -28,7 +28,7 @@ const Routes: React.FC = () => {
                 <Welcome/>
                 <SearchBar/>
                 <CategoryArea/>
-                <Products/>
+                <ProductRoutes/>
               </Route>
             </Switch>
           </Suspense>

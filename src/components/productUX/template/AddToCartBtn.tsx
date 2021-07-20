@@ -13,7 +13,7 @@ const AddToCartBtn: React.FC<AddToCartButtonProps> = (props) => {
   /**
    * when add to cart, click call onAddToCartClick()
    * when update click, call onUpdateClick()
-   * @author Ovindu, Kaveesh
+   * @author Ovindu
    */
   const handleClick = () => {
     if (inCart) {

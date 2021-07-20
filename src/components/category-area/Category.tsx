@@ -29,7 +29,7 @@ const Category: React.FC<CategoryProps> = (props) => {
 
   const handleOnClick = () => {
     dispatch(changeCategory(name));
-    history.push(`${url}/${name}`)
+    history.push(`/${name}`);
   }
 
   return (

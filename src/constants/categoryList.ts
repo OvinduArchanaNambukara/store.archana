@@ -9,12 +9,12 @@ export const CategoryList: categoryTypes[] = [
   {
     image: all,
     name: 'All',
-    isActive: true
+    isActive: false
   },
   {
     image: grocery,
     name: 'Grocery',
-    isActive: false
+    isActive: true
   },
   {
     image: pharmacy,
