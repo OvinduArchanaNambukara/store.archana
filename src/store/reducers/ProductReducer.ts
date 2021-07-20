@@ -29,47 +29,44 @@ export const ProductReducer = (state: storeTypes = initialState, action: Product
       const food = state.food.slice();
       const electronic = state.electronic.slice();
       const pharmacy = state.pharmacy.slice();
-      switch (action.payload.category) {
-        case "Vegetables": {
-          grocery[0].productDetails[action.payload.index].inCart = true;
-          break;
-        }
-        case "Fruits": {
-          grocery[1].productDetails[action.payload.index].inCart = true;
-          break;
-        }
-        case "Meat": {
-          grocery[2].productDetails[action.payload.index].inCart = true;
-          break;
-        }
-        case "Pharmacy": {
-          pharmacy[0].productDetails[action.payload.index].inCart = true;
-          break;
-        }
-        case "Electronic": {
-          electronic[0].productDetails[action.payload.index].inCart = true;
-          break;
-        }
-        case "Food": {
-          food[0].productDetails[action.payload.index].inCart = true;
-          break;
-        }
-        default:
-          break;
-      }
+      const all: IProducts[] = [...grocery, ...food, ...electronic, ...pharmacy];
+
+      all.map((value) => {
+        value.productDetails.map((product: IProduct) => {
+          if (product.product.id === action.payload.id) {
+            product.inCart = true;
+            return;
+          }
+          return;
+        });
+      });
+
       return {
         ...state,
         grocery: grocery, pharmacy: pharmacy, electronic: electronic, food: food
       }
     }
     case MARK_REMOVE_FROM_CART: {
-      const tempList: IProducts[] = [...state.grocery];
-      tempList[0].productDetails.map<void>((value: IProduct) => {
-        if (value.product.id === action.payload.id) {
-          value.inCart = action.payload.value;
-        }
+      const grocery = state.grocery.slice();
+      const food = state.food.slice();
+      const electronic = state.electronic.slice();
+      const pharmacy = state.pharmacy.slice();
+      const all: IProducts[] = [...grocery, ...food, ...electronic, ...pharmacy];
+
+      all.map((value) => {
+        value.productDetails.map((product: IProduct) => {
+          if (product.product.id === action.payload.id) {
+            product.inCart = false;
+            return;
+          }
+          return;
+        });
       })
-      return {...state, grocery: tempList}
+
+      return {
+        ...state,
+        grocery: grocery, food: food, electronic: electronic, pharmacy: pharmacy
+      }
     }
     default:
       return state;

@@ -14,7 +14,7 @@ const ProductCategoryArea: React.FC<ProductCategoryAreaProps> = (props) => {
         <CategoryTitle category={props.products.category}/>
         <Row>
           {props.products.productDetails.map((product: IProduct, index: number) =>
-              <Product productDetails={product} key={index} index={index} category={props.products.category}/>
+              <Product productDetails={product} key={index} index={index}/>
           )}
         </Row>
       </React.Fragment>
