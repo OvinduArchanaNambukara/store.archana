@@ -13,12 +13,14 @@ import {markAddToCart} from "../../../store/actions/ProductAction";
 type ProductProps = {
   productDetails: IProduct
   index: number
+  category: string
 }
 
 const Product: React.FC<ProductProps> = (props) => {
   const dispatch = useDispatch();
   const {name, image, oldPrice, currentPrice, id} = props.productDetails.product;
   const {inCart} = props.productDetails;
+  const {category} = props;
   const [quantity, setQuantity] = useState<null | number>(null);
 
   /**
@@ -39,7 +41,7 @@ const Product: React.FC<ProductProps> = (props) => {
         }
       }
       dispatch(addToCart(item));
-      dispatch(markAddToCart(props.index, true));
+      dispatch(markAddToCart(props.index, category));
     }
   }
 
