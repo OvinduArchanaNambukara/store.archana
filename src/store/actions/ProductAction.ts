@@ -1,12 +1,12 @@
 import {MarkAddToCart, MarkRemoveFromCart} from "../types/ProductActionTypes";
 import {MARK_ADD_TO_CART, MARK_REMOVE_FROM_CART} from "../constants/ProductConstants";
 
-export const markAddToCart = (index: number, value: boolean): MarkAddToCart => {
+export const markAddToCart = (index: number, category: string): MarkAddToCart => {
   return {
     type: MARK_ADD_TO_CART,
     payload: {
       index: index,
-      value: value
+      category: category
     }
   }
 }

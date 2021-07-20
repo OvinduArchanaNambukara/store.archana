@@ -25,11 +25,41 @@ export interface storeTypes {
 export const ProductReducer = (state: storeTypes = initialState, action: ProductActionTypes) => {
   switch (action.type) {
     case MARK_ADD_TO_CART: {
-      const tempList: IProducts[] = [...state.grocery];
-      tempList[0].productDetails[action.payload.index].inCart = action.payload.value;
+      const grocery = state.grocery.slice();
+      const food = state.food.slice();
+      const electronic = state.electronic.slice();
+      const pharmacy = state.pharmacy.slice();
+      switch (action.payload.category) {
+        case "Vegetables": {
+          grocery[0].productDetails[action.payload.index].inCart = true;
+          break;
+        }
+        case "Fruits": {
+          grocery[1].productDetails[action.payload.index].inCart = true;
+          break;
+        }
+        case "Meat": {
+          grocery[2].productDetails[action.payload.index].inCart = true;
+          break;
+        }
+        case "Pharmacy": {
+          pharmacy[0].productDetails[action.payload.index].inCart = true;
+          break;
+        }
+        case "Electronic": {
+          electronic[0].productDetails[action.payload.index].inCart = true;
+          break;
+        }
+        case "Food": {
+          food[0].productDetails[action.payload.index].inCart = true;
+          break;
+        }
+        default:
+          break;
+      }
       return {
         ...state,
-        grocery: tempList
+        grocery: grocery, pharmacy: pharmacy, electronic: electronic, food: food
       }
     }
     case MARK_REMOVE_FROM_CART: {

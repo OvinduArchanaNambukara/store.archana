@@ -4,7 +4,7 @@ export interface MarkAddToCart {
   type: typeof MARK_ADD_TO_CART,
   payload: {
     index: number
-    value: boolean
+    category: string
   }
 }
 
