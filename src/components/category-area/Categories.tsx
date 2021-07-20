@@ -14,7 +14,7 @@ const Categories: React.FC = () => {
           {
             categoryList.map((category: categoryTypes, index: number) => {
               return (
-                  <Category key={index} name={category.name} image={category.image} isActive={category.isActive}/>
+                  <Category key={index} name={category.name} image={category.image}/>
               );
             })
           }

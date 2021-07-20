@@ -1,35 +1,36 @@
 import React, {CSSProperties, useEffect, useState} from "react";
 import {Col, Image} from "react-bootstrap";
 import {categoryClickStyles} from "../../custom-styles/custom-category-click-styles";
-import {useDispatch} from "react-redux";
-import {changeCategory} from "../../store/actions/CategoriesActions";
-import {useHistory, useRouteMatch} from "react-router-dom";
+import {useHistory, useLocation, useRouteMatch} from "react-router-dom";
 
 type CategoryProps = {
   name: string
   image: string
-  isActive: boolean
 }
 
 const Category: React.FC<CategoryProps> = (props) => {
   const [styles, setStyles] = useState<CSSProperties>({});
-  const {name, image, isActive} = props;
-  const dispatch = useDispatch();
-  let {path, url} = useRouteMatch();
+  const {name, image} = props;
   const history = useHistory();
+  const {url, path} = useRouteMatch();
+  const {pathname} = useLocation();
 
+  /**
+   * according to current path change category style
+   */
   useEffect(() => {
-    if (isActive) {
+    if (pathname === `${path}/${name}`) {
       setStyles(categoryClickStyles);
     } else {
       setStyles({});
     }
-  }, [isActive]);
+  }, [pathname])
 
-
+  /**
+   *When click change location to nested route
+   */
   const handleOnClick = () => {
-    dispatch(changeCategory(name));
-    history.push(`/${name}`);
+    history.push(`${url}/${name}`);
   }
 
   return (
