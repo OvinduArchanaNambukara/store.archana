@@ -1,6 +1,6 @@
 import React from 'react';
 import CategoryTitle from "./CategoryTitle";
-import {IProduct, IProducts} from "../../types/types";
+import {IProduct, IProducts} from "../../../types/types";
 import Product from "./Product";
 import {Row} from "react-bootstrap";
 

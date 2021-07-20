@@ -1,12 +1,14 @@
 import React from 'react';
-import {IProducts} from "../../types/types";
+import {IProducts} from "../../../types/types";
 import ProductCategoryArea from "./ProductCategoryArea";
 import {Col, Container, Row} from "react-bootstrap";
-import {useSelector} from "react-redux";
-import {RootState} from "../../store/reducers/RootReducer";
 
-const Products: React.FC = () => {
-  const productList: IProducts[] = useSelector((state: RootState) => state.productReducer.grocery);
+type ProductsProps = {
+  productList: IProducts[]
+}
+
+const Products: React.FC<ProductsProps> = (props) => {
+  const {productList} = props;
 
   return (
       <Container>
