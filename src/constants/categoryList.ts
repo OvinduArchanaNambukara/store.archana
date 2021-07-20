@@ -8,27 +8,22 @@ import electronic from "../assets/images/categories/electronic.webp";
 export const CategoryList: categoryTypes[] = [
   {
     image: all,
-    name: 'All',
-    isActive: false
+    name: 'All'
   },
   {
     image: grocery,
-    name: 'Grocery',
-    isActive: true
+    name: 'Grocery'
   },
   {
     image: pharmacy,
-    name: 'Pharmacy',
-    isActive: false
+    name: 'Pharmacy'
   },
   {
     image: food,
-    name: 'Food',
-    isActive: false
+    name: 'Food'
   },
   {
     image: electronic,
-    name: 'Electronic',
-    isActive: false
+    name: 'Electronic'
   }
 ];

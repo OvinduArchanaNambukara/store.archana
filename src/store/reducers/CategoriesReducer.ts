@@ -14,18 +14,7 @@ interface storeType {
 export const CategoriesReducer = (state: storeType = initialState, action: CategoryTypes) => {
   switch (action.type) {
     case CHANGE_CATEGORY: {
-      const categoryList: categoryTypes[] = state.categories.slice();
-      categoryList.map((category: categoryTypes) => {
-        if (category.name === action.payload.categoryName) {
-          category.isActive = true;
-        } else {
-          category.isActive = false;
-        }
-      })
-      return {
-        ...state,
-        categories: categoryList
-      }
+      return state
     }
     default:
       return state

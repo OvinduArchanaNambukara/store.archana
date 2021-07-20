@@ -1,5 +1,5 @@
-import React, {Suspense, lazy} from "react";
-import {Switch, Route, useLocation} from "react-router-dom";
+import React, {lazy, Suspense} from "react";
+import {Route, Switch, useLocation, Redirect, useRouteMatch} from "react-router-dom";
 import Loading from "../loading/Loading";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 
@@ -10,35 +10,38 @@ const Electronic = lazy(() => import("../productUX/Electronic"));
 
 const ProductRoutes: React.FC = () => {
   let location = useLocation();
+  let {path} = useRouteMatch();
 
   return (
-      <Suspense fallback={<Loading/>}>
-        <TransitionGroup>
-          <CSSTransition classNames='page' timeout={1000} key={location.key}>
+      <TransitionGroup>
+        <CSSTransition classNames='page' timeout={1000} key={location.pathname}>
+          <Suspense fallback={<Loading/>}>
             <Switch location={location}>
-              <Route path='/All'>
+              <Route path={`${path}/All`}>
                 <Food/>
                 <Pharmacy/>
                 <Grocery/>
                 <Electronic/>
               </Route>
-              <Route path='/Pharmacy'>
+              <Route path={`${path}/Pharmacy`}>
                 <Pharmacy/>
               </Route>
-              <Route path='/Electronic'>
+              <Route path={`${path}/Electronic`}>
                 <Electronic/>
               </Route>
-              <Route path='/Food'>
+              <Route path={`${path}/Food`}>
                 <Food/>
+              </Route>
+              <Route path={`${path}/Grocery`}>
+                <Grocery/>
               </Route>
               <Route path='/'>
-                <Grocery/>
+                <Redirect to={`${path}/Grocery`}/>
               </Route>
             </Switch>
-          </CSSTransition>
-        </TransitionGroup>
-      </Suspense>
-
+          </Suspense>
+        </CSSTransition>
+      </TransitionGroup>
   );
 }
 

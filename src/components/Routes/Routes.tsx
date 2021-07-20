@@ -1,21 +1,21 @@
 import React, {lazy, Suspense} from "react";
-import {Route, Switch, useLocation} from "react-router-dom";
+import {Route, Switch, useLocation, Redirect} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import Loading from "../loading/Loading";
-import ProductRoutes from "./ProductRoutes";
 
 const Welcome = lazy(() => import("../welcome/Welcome"));
 const SearchBar = lazy(() => import("../search-bar/SearchBar"));
 const CategoryArea = lazy(() => import("../category-area/CategoryArea"));
 const LogInUX = lazy(() => import("../log-in/LogInUX"));
 const RegisterUX = lazy(() => import("../register/RegisterUX"));
+const ProductRoutes = lazy(() => import("../Routes/ProductRoutes"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
 
   return (
       <TransitionGroup>
-        <CSSTransition classNames='page' timeout={1000} key={location.key}>
+        <CSSTransition classNames='page' timeout={1000} key={location.pathname}>
           <Suspense fallback={<Loading/>}>
             <Switch location={location}>
               <Route path='/login'>
@@ -24,11 +24,14 @@ const Routes: React.FC = () => {
               <Route path='/register'>
                 <RegisterUX/>
               </Route>
-              <Route path='/'>
+              <Route path='/home'>
                 <Welcome/>
                 <SearchBar/>
                 <CategoryArea/>
                 <ProductRoutes/>
+              </Route>
+              <Route path='/'>
+                <Redirect to='/home'/>
               </Route>
             </Switch>
           </Suspense>
