@@ -48,7 +48,7 @@ const Routes: React.FC = () => {
                 <ProductRoutes/>
               </Route>
               <Route path='/'>
-                <Redirect to='/home'/>
+                <Loading/>
               </Route>
             </Switch>
           </Suspense>
