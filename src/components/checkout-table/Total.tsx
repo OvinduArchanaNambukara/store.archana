@@ -1,6 +1,7 @@
 import React from "react";
 import CouponArea from "./CouponArea";
 import {Col, Row} from "react-bootstrap";
+import NumberFormat from "react-number-format";
 
 type CartTotalProps = {
   total: number
@@ -25,7 +26,9 @@ const Total: React.FC<CartTotalProps> = (props) => {
             <h6>Total</h6>
           </Col>
           <Col xs={6} className='mt-2 px-0'>
-            <h6 className='float-right text-danger total'>Rs.{total}.00</h6>
+            <h6 className='float-right text-danger total'>
+              <NumberFormat prefix={'Rs.'} displayType={"text"} value={total} thousandSeparator={true} suffix={'.00'}/>
+            </h6>
           </Col>
         </Row>
       </React.Fragment>
