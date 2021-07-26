@@ -9,6 +9,7 @@ import {dataProductType, ICheckoutProduct} from "../../types/types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
 import NoDataIndicator from "./NoDataIndicator";
+import NumberFormat from "react-number-format";
 
 type CartTableProps = {
   setTotal: (total: number) => void
@@ -31,8 +32,11 @@ const Table: React.FC<CartTableProps> = (props) => {
         item: <ItemImage image={checkedProduct.product.image}/>,
         name: checkedProduct.product.name,
         qty: <Quantity quantity={checkedProduct.quantity} index={index}/>,
-        unitPrice: <UnitPrice price={checkedProduct.product.currentPrice}/>,
-        amount: <UnitPrice price={checkedProduct.product.currentPrice * checkedProduct.quantity}/>,
+        unitPrice: <NumberFormat prefix={'Rs.'} displayType={"text"} value={checkedProduct.product.currentPrice}
+                                 thousandSeparator={true} suffix={'.00'}/>,
+        amount: <NumberFormat prefix={'Rs.'} displayType={"text"}
+                              value={checkedProduct.product.currentPrice * checkedProduct.quantity}
+                              thousandSeparator={true} suffix={'.00'}/>,
         deleteIcon: <TrashIcon index={index} id={checkedProduct.product.id}/>
       })
     }
