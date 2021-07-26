@@ -4,7 +4,6 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import Quantity from "./Quantity";
 import TrashIcon from "./TrashIcon";
 import ItemImage from "./ItemImage";
-import UnitPrice from "./UnitPrice";
 import {dataProductType, ICheckoutProduct} from "../../types/types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
