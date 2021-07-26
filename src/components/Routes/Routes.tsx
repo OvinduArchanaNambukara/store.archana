@@ -9,6 +9,7 @@ const CategoryArea = lazy(() => import("../category-area/CategoryArea"));
 const LogInUX = lazy(() => import("../log-in/LogInUX"));
 const RegisterUX = lazy(() => import("../register/RegisterUX"));
 const ProductRoutes = lazy(() => import("../Routes/ProductRoutes"));
+const CheckOut = lazy(() => import("../checkout-table/Checkout"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
@@ -38,6 +39,9 @@ const Routes: React.FC = () => {
               <Route path='/login'>
                 <LogInUX/>
               </Route>
+              <Route path='/checkout'>
+                <CheckOut/>
+              </Route>
               <Route path='/register'>
                 <RegisterUX/>
               </Route>
@@ -48,7 +52,7 @@ const Routes: React.FC = () => {
                 <ProductRoutes/>
               </Route>
               <Route path='/'>
-                <Loading/>
+                <Redirect to='/home'/>
               </Route>
             </Switch>
           </Suspense>
