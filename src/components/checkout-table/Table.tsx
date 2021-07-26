@@ -8,6 +8,7 @@ import UnitPrice from "./UnitPrice";
 import {dataProductType, ICheckoutProduct} from "../../types/types";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
+import NoDataIndicator from "./NoDataIndicator";
 
 type CartTableProps = {
   setTotal: (total: number) => void
@@ -55,6 +56,13 @@ const Table: React.FC<CartTableProps> = (props) => {
       </span>
   );
 
+  /**
+   * when no data in the table render empty cart image and text
+   */
+  const noDataIndication = (): JSX.Element => {
+    return <NoDataIndicator/>
+  }
+
   const options: PaginationOptions = {
     paginationSize: 4,
     pageStartIndex: 1,
@@ -89,6 +97,7 @@ const Table: React.FC<CartTableProps> = (props) => {
           headerClasses='header-class'
           pagination={paginationFactory(options)}
           defaultSortDirection="asc"
+          noDataIndication={noDataIndication}
       />
   )
 }
