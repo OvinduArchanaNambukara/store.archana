@@ -13,7 +13,7 @@ const Total: React.FC<CartTotalProps> = (props) => {
   return (
       <React.Fragment>
         <CouponArea/>
-        <Row className='border-bottom mx-0'>
+        <Row className='border-bottom mx-0 total-area'>
           <Col xs={6} className='mt-3 px-0'>
             <h6>Delivery Charge</h6>
           </Col>

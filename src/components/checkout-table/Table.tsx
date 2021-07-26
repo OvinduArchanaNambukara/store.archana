@@ -1,4 +1,4 @@
-import React from "react";
+import React, {CSSProperties} from "react";
 import BootstrapTable, {PaginationOptions} from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import Quantity from "./Quantity";
@@ -66,6 +66,32 @@ const Table: React.FC<CartTableProps> = (props) => {
     return <NoDataIndicator/>
   }
 
+  // @ts-ignore
+  const pageButtonRenderer = ({page, active, disabled, title, onPageChange}) => {
+    const handleClick = (e: any) => {
+      e.preventDefault();
+      onPageChange(page);
+    };
+    const activeStyle: CSSProperties = {}
+    if (active) {
+      activeStyle.backgroundColor = "#00a824";
+      activeStyle.color = 'white';
+    } else {
+      activeStyle.backgroundColor = 'white';
+      activeStyle.color = 'black';
+    }
+    if (typeof page === 'string') {
+      activeStyle.backgroundColor = 'white';
+      activeStyle.color = 'black';
+    }
+    return (
+        <li className="page-item">
+          <a href="#" onClick={handleClick} style={activeStyle}>{page}</a>
+        </li>
+    );
+  };
+
+
   const options: PaginationOptions = {
     paginationSize: 4,
     pageStartIndex: 1,
@@ -79,6 +105,7 @@ const Table: React.FC<CartTableProps> = (props) => {
     lastPageTitle: 'Last page',
     showTotal: true,
     paginationTotalRenderer: customTotal,
+    pageButtonRenderer,
     sizePerPageList: [{
       text: '5', value: 5
     }, {
