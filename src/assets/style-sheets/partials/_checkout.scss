@@ -1,0 +1,142 @@
+@import "variables";
+
+.checkout {
+  font-size: 1em;
+
+  .continueShoppingBtn {
+    border-radius: 2em;
+    width: 100%;
+  }
+
+  .button-text {
+    h5 {
+      font-size: 1.2em;
+    }
+  }
+
+  table {
+    border: none;
+
+    thead {
+      tr {
+        border-top: none;
+
+        th:first-child {
+          text-align: left;
+        }
+
+        th {
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          text-align: center;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        text-align: center;
+
+        td:first-child {
+          text-align: left;
+        }
+
+        td {
+          border-left: none;
+          border-right: none;
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .quantity-editor {
+    min-width: 10em;
+  }
+
+  .react-bootstrap-table-pagination {
+    div {
+      span:first-child {
+        margin-right: 10px;
+      }
+    }
+
+    div:nth-child(2) {
+      ul {
+        float: right;
+      }
+    }
+
+    .react-bootstrap-table-pagination-list {
+      ul {
+        .active {
+          a {
+            background-color: $checkout-active-pagination-color;
+          }
+        }
+
+        li {
+          a {
+            color: $checkout-pagination-color;
+            border-color: $checkout-pagination-color;
+          }
+        }
+      }
+    }
+  }
+
+  .tr-image {
+    width: 90px;
+    height: 60px;
+
+  }
+
+  .quantity-editor {
+    label {
+      font-size: 1.1em;
+    }
+
+    svg {
+      color: $checkout-quantity-svg-color;
+
+    }
+  }
+
+  .react-bootstrap-table table {
+    table-layout: auto;
+  }
+
+  .total {
+    font-weight: bold;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+
+}
+
+@media (max-width: $layout-breakpoint-xs) {
+  .checkOut {
+    font-size: .8em;
+
+
+    .tr-image {
+      width: 50px;
+      height: 50px;
+    }
+
+  }
+}
+
+@media (max-width: $layout-breakpoint-lg + 35px) and (min-width: $layout-breakpoint-xs) {
+  .checkOut {
+    .tr-image {
+      width: 90px;
+      height: 70px;
+    }
+
+  }
+}

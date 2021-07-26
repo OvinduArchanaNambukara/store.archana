@@ -8,6 +8,16 @@ export interface optionTypes {
   value: string
 }
 
+export interface dataProductType {
+  id: number
+  item: JSX.Element
+  name: string
+  qty: JSX.Element
+  unitPrice: JSX.Element
+  amount: JSX.Element
+  deleteIcon: JSX.Element
+}
+
 export interface IProducts {
   category: string
   productDetails: IProduct[]
