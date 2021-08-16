@@ -1,20 +1,25 @@
 import React, {useState} from 'react'
 import {Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
+import {countryOptionTypes} from "../../types/types";
+import {customCallStyles} from "../../custom-styles/custom-selector-styles";
+import Select, {ValueType} from "react-select";
 
 type ChangeShippingAddressProps = {
   validated: boolean
+  options: countryOptionTypes[]
 }
 
 const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
-
-  const {validated} = props;
+  const {validated, options} = props;
 
   const [name, setName] = useState<string | null>(null);
   const [billingAddress, setBillingAddress] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
   const [postalCode, setPostalCode] = useState<string | null>(null);
   const [country, setCountry] = useState<string | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string>("+94");
+  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  const [countryCode, setCountryCode] = useState<string | null>(null);
+  const [flag, setFlag] = useState<string | null>(null);
 
   const handleOnNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -32,8 +37,16 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
     setPostalCode(e.target.value);
   }
 
-  const handleOnCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCountry(e.target.value);
+  const handleOnCountryChange = (option: ValueType<any, false>) => {
+    if (option) {
+      setCountry(option.value);
+      setFlag(option.flag);
+      setCountryCode(option.code);
+    } else {
+      setCountry(null);
+      setFlag(null);
+      setCountryCode(null);
+    }
   }
 
   const handleOnPhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,12 +109,13 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
               </Col>
               <Col md={4} className='form-group mb-0'>
                 <Form.Label className='mb-0'>Country*</Form.Label>
-                <Form.Control
-                    type="text"
-                    placeholder="Country"
-                    value={country ? country : ''}
+                <Select
+                    options={options}
+                    value={options.filter(option => option.value === country)}
+                    isClearable
+                    isSearchable
+                    styles={customCallStyles}
                     onChange={handleOnCountryChange}
-                    required
                 />
                 <FormControl.Feedback type="invalid">
                   <p className="font-weight-bold mb-0">Enter Country</p>
@@ -112,20 +126,11 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
               <Form.Label className='mb-0'>Contact Number*</Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
-                  <InputGroup.Text>
-                    <div className='flag'>
-                      <img
-                          src='https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg'
-                          className='pr-1'
-                          alt="sri lanka"
-                      />
-                    </div>
-                    +94
-                  </InputGroup.Text>
+                  <InputGroup.Text id="basic-addon1">{flag} {countryCode}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
                     type="tel"
-                    value={phoneNumber}
+                    value={phoneNumber ? phoneNumber : ''}
                     onChange={handleOnPhoneNumberChange}
                     required
                 />

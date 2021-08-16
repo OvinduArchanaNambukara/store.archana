@@ -33,9 +33,8 @@ export const customSearchStyles = {
 export const customCallStyles = {
   container: (styles: any) => ({
     ...styles,
-    border: `0px solid red`,
+    border: `0px solid #9e9e9e`,
     borderRadius: '10px',
-    width: '12em',
     padding: '0px',
     marginBottom: '0px',
     minHeight: '33.3px'
@@ -43,6 +42,7 @@ export const customCallStyles = {
   valueContainer: (styles: any) => ({
     ...styles,
     padding: '0px',
+    height: '33.2px'
   }),
   placeholder: (styles: any) => ({
     ...styles,
@@ -56,7 +56,8 @@ export const customCallStyles = {
   }),
   control: (styles: any) => ({
     ...styles,
-    minHeight: '33.3px',
-    width: '11em'
+    minHeight: '33.2px',
+    height: '33.2px',
+    border: '1px solid #9e9e9e'
   })
 }

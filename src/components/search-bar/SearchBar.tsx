@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import {components} from "react-select";
 import AsyncSelect from "react-select/async";
-import {optionTypes} from "../../types/types";
+import {searchOptionTypes} from "../../types/types";
 import {BsSearch} from "react-icons/bs"
 import {customSearchStyles} from "../../custom-styles/custom-selector-styles";
 
@@ -22,7 +22,7 @@ const list = [
 ]
 
 const SearchBar: React.FC = () => {
-  const [selectOptions, setSelectOptions] = useState<optionTypes[]>(list);
+  const [selectOptions, setSelectOptions] = useState<searchOptionTypes[]>(list);
 
   const DropdownIndicator = (props: any) => {
     return (
