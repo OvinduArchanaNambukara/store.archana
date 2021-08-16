@@ -3,11 +3,12 @@ import {Button, Card, Col, Container, Form, FormControl, FormGroup, InputGroup, 
 import SignInArea from "./SignInArea";
 import {FaRegCreditCard, FaRegMoneyBillAlt, FiEye, FiEyeOff} from "react-icons/all";
 import ChangeShippingAddress from "./ChangeShippingAddress";
-import Select from "react-select";
+import Select, {ValueType} from "react-select";
 import {customCallStyles} from "../../custom-styles/custom-selector-styles";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
 import {callStateType} from "../../store/reducers/CallReducer";
+import {countryOptionTypes} from "../../types/types";
 
 const CashOnDelivery: React.FC = () => {
   const [fullName, setFullName] = useState<string | null>(null);
@@ -15,7 +16,9 @@ const CashOnDelivery: React.FC = () => {
   const [city, setCity] = useState<string | null>(null);
   const [postalCode, setPostalCode] = useState<string | null>(null);
   const [country, setCountry] = useState<string | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState<string>("+94");
+  const [countryCode, setCountryCode] = useState<string | null>(null);
+  const [flag, setFlag] = useState<string | null>(null);
+  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [retypeEmail, setRetypeEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
@@ -25,12 +28,15 @@ const CashOnDelivery: React.FC = () => {
   const [changeShippingAddress, setChangeShippingAddress] = useState<boolean>(false);
   const countryCodes: callStateType[] = useSelector((state: RootState) => state.callReducer);
 
-  const options = countryCodes.map((country_code: callStateType) => {
+  const options: countryOptionTypes[] = countryCodes.map<countryOptionTypes>((country_code: callStateType) => {
     return {
       label: country_code.flag + ' ' + country_code.name,
-      value: country_code.dial_code
+      value: country_code.name,
+      code: country_code.dial_code,
+      flag: country_code.flag,
+      name: country_code.name
     }
-  })
+  });
 
   const handleOnChangeShippingAddress = () => {
     setChangeShippingAddress(true);
@@ -60,8 +66,16 @@ const CashOnDelivery: React.FC = () => {
     setPostalCode(e.target.value);
   }
 
-  const handleOnCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCountry(e.target.value);
+  const handleOnCountryChange = (option: ValueType<any, false>) => {
+    if (option) {
+      setCountry(option.value);
+      setFlag(option.flag);
+      setCountryCode(option.code);
+    } else {
+      setCountry(null);
+      setFlag(null);
+      setCountryCode(null);
+    }
   }
 
   const handleOnPhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,12 +183,13 @@ const CashOnDelivery: React.FC = () => {
                             </Col>
                             <Col md={4} className='form-group mb-0'>
                               <Form.Label className='mb-0'>Country*</Form.Label>
-                              <Form.Control
-                                  type="text"
-                                  placeholder="Street Address"
-                                  value={country ? country : ''}
+                              <Select
+                                  options={options}
+                                  value={options.filter(option => option.value === country)}
+                                  isClearable
+                                  isSearchable
+                                  styles={customCallStyles}
                                   onChange={handleOnCountryChange}
-                                  required
                               />
                               <FormControl.Feedback type="invalid">
                                 <p className="font-weight-bold mb-0">Enter Country</p>
@@ -185,15 +200,12 @@ const CashOnDelivery: React.FC = () => {
                           <Form.Group controlId="formGridContactNumber" className='mb-0'>
                             <Form.Label className='mb-0'>Contact Number*</Form.Label>
                             <InputGroup>
-                              <Select
-                                  options={options}
-                                  isClearable
-                                  isSearchable
-                                  styles={customCallStyles}
-                              />
+                              <InputGroup.Prepend>
+                                <InputGroup.Text id="basic-addon1">{flag} {countryCode}</InputGroup.Text>
+                              </InputGroup.Prepend>
                               <Form.Control
                                   type="tel"
-                                  value={phoneNumber}
+                                  value={phoneNumber ? phoneNumber : ''}
                                   onChange={handleOnPhoneNumberChange}
                                   required
                               />
@@ -278,7 +290,7 @@ const CashOnDelivery: React.FC = () => {
                       id="radio-2"
                       onChange={handleOnChangeShippingAddress}
                   />
-                  {changeShippingAddress && <ChangeShippingAddress validated={isFormValidated}/>}
+                  {changeShippingAddress && <ChangeShippingAddress validated={isFormValidated} options={options}/>}
                 </div>
                 <Row className='mt-3 text-area px-3'>
                   <Col xs={12} className='pl-0'>

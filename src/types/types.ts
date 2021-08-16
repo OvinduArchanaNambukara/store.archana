@@ -3,7 +3,7 @@ export interface categoryTypes {
   name: string
 }
 
-export interface optionTypes {
+export interface searchOptionTypes {
   label: string
   value: string
 }
@@ -39,4 +39,12 @@ export interface IProduct {
 export interface ICheckoutProduct {
   quantity: number
   product: Item
+}
+
+export interface countryOptionTypes {
+  label: string
+  name: string
+  value: string
+  flag: string
+  code: string
 }
