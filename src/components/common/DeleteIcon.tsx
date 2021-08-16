@@ -1,7 +1,6 @@
 import React from "react";
 import {FiTrash} from "react-icons/all";
-import {deleteIconColor} from "../../custom-styles/DeleteIcon";
-
+import {deleteIconColor} from "../../custom-styles/deleteIconStyles";
 
 type DeleteIconProps = {
     size: number

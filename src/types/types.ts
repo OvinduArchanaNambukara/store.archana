@@ -3,19 +3,9 @@ export interface categoryTypes {
   name: string
 }
 
-export interface searchOptionTypes {
-  label: string
-  value: string
-}
-
-export interface dataProductType {
-  id: number
-  item: JSX.Element
+export interface categoryTypes {
+  image: string
   name: string
-  qty: JSX.Element
-  unitPrice: JSX.Element
-  amount: JSX.Element
-  deleteIcon: JSX.Element
 }
 
 export interface IProducts {
@@ -29,6 +19,8 @@ export interface Item {
   image: string
   currentPrice: number
   oldPrice: number | null
+  qty: string
+  key: string
 }
 
 export interface IProduct {
@@ -41,10 +33,69 @@ export interface ICheckoutProduct {
   product: Item
 }
 
+export interface IOrderDetails {
+  orderId: string,
+  total: number,
+  date: string
+}
+
+export interface QueryItem {
+  _id: string
+  current_price: number
+  old_price: number
+  key: string
+  name: string
+  qty: string
+}
+
+export interface QueryItems {
+  category_name: string
+  products: QueryItem[]
+}
+
+export interface GetFoodProducts {
+  getFoodProducts: QueryItems
+}
+
+export interface GetElectronicProducts {
+  getElectronicProducts: QueryItems
+}
+
+export interface GetVegetableProducts {
+  getVegetableProducts: QueryItems
+}
+
+export interface GetMeatProducts {
+  getMeatProducts: QueryItems
+}
+
+export interface GetFruitProducts {
+  getFruitProducts: QueryItems
+}
+
+export interface GetPharmacyProducts {
+  getPharmacyProducts: QueryItems
+}
+
 export interface countryOptionTypes {
   label: string
   name: string
   value: string
   flag: string
   code: string
+}
+
+export interface searchOptionTypes {
+  label: string
+  value: string
+}
+
+export interface dataProductType {
+  id: number
+  item: JSX.Element
+  name: string
+  qty: JSX.Element
+  unitPrice: JSX.Element
+  amount: JSX.Element
+  deleteIcon: JSX.Element
 }
