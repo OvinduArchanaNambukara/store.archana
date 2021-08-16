@@ -4,7 +4,7 @@ import {components} from "react-select";
 import AsyncSelect from "react-select/async";
 import {optionTypes} from "../../types/types";
 import {BsSearch} from "react-icons/bs"
-import {customStyles} from "../../custom-styles/custom-selector-styles";
+import {customSearchStyles} from "../../custom-styles/custom-selector-styles";
 
 const list = [
   {
@@ -46,7 +46,7 @@ const SearchBar: React.FC = () => {
                 isMulti={true}
                 loadOptions={loadOptions}
                 components={{DropdownIndicator}}
-                styles={customStyles}
+                styles={customSearchStyles}
             />
           </Col>
         </Row>
