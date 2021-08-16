@@ -1,0 +1,161 @@
+@import "variables";
+
+.cashOnDelivery {
+  svg {
+    cursor: pointer;
+  }
+
+  .billing-info {
+    .form-group {
+      .form-label {
+        font-size: .8em;
+        color: black;
+      }
+
+      input {
+        font-size: .8em;
+        border-color: #FF8080;
+      }
+
+      .input-group {
+        .input-group-prepend {
+          vertical-align: middle;
+
+          .input-group-text {
+            line-height: 1.2em;
+            font-size: .9em;
+            border-color: #FF8080;
+
+            .flag {
+              img {
+                display: inline-block;
+                width: 1.4em;
+                height: .82em;
+                font-size: 1.2em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .signInArea {
+    border-radius: .3em;
+
+    button {
+      width: 9em;
+      border-radius: .4em;
+    }
+  }
+
+  .card {
+    .card-header {
+      background-color: white;
+
+      .card-title {
+        font-size: 1em;
+      }
+    }
+
+    .card-body {
+      .form-group {
+        .form-label {
+          font-size: .8em;
+          color: black;
+        }
+
+        input {
+          font-size: .8em;
+          border-color: #FF8080;
+        }
+
+        .input-group {
+          .input-group-prepend {
+            vertical-align: middle;
+
+            .input-group-text {
+              line-height: 1.2em;
+              font-size: .9em;
+              border-color: #FF8080;
+
+              .flag {
+                img {
+                  display: inline-block;
+                  width: 1.4em;
+                  height: .82em;
+                  font-size: 1.2em;
+                }
+              }
+            }
+          }
+
+          .input-group-append {
+            vertical-align: middle;
+            border-left: none;
+
+            .input-group-text {
+              line-height: 1.2em;
+              font-size: .9em;
+              border-color: #FF8080;
+              background-color: white;
+
+            }
+          }
+
+
+        }
+      }
+    }
+  }
+
+  .text-area {
+    textarea {
+      font-size: .8em;
+    }
+  }
+
+  .payment-methods {
+
+    h5 {
+      font-size: 1em;
+    }
+  }
+
+  .payment-method:hover {
+    background-color: $category-item-hover-color;
+  }
+
+  .payment-method {
+
+    border-radius: .4em;
+  }
+
+  .order-btn {
+    button {
+      width: 7em;
+    }
+  }
+}
+
+@media (max-width: $layout-breakpoint-xs) {
+  .cashOnDelivery {
+    .signInArea {
+
+      button {
+        width: 6em;
+      }
+    }
+  }
+
+}
+
+@media (max-width: $layout-breakpoint-lg + 35px) and (min-width: $layout-breakpoint-md) {
+  .cashOnDelivery {
+    .signInArea {
+      p {
+        font-size: .9em;
+      }
+    }
+  }
+}
