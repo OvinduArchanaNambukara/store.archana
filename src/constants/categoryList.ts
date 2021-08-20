@@ -58,4 +58,19 @@ export const categoryOptions = [
     label: 'Foods',
     value: 'FOODS'
   }
-]
+];
+
+export const perOptions = [
+  {
+    label: "Kilograms(Kg)",
+    value: "Kg"
+  },
+  {
+    label: "Grams(g)",
+    value: "g"
+  },
+  {
+    label: "Numeric(num)",
+    value: "num"
+  }
+];
