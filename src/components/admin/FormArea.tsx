@@ -11,9 +11,12 @@ const FormArea: React.FC = () => {
         <Col lg={8} xs={12} md={6}>
           <Form>
             <Form.Group>
-              <Form.Label>Name</Form.Label>
+              <Form.Label>
+                Name
+                <sup className='text-danger'>*</sup>
+              </Form.Label>
               <Form.Control type="text"/>
-              <Form.Label className='pt-3'>Category</Form.Label>
+              <Form.Label className='pt-3'>Category<sup className='text-danger'>*</sup></Form.Label>
               <Select
                   options={categoryOptions}
               />
@@ -21,12 +24,15 @@ const FormArea: React.FC = () => {
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Product Price</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Label>
+                  Product Price
+                  <sup className='text-danger'>*</sup></Form.Label>
+                <Form.Control type="number"/>
               </Form.Group>
-
               <Form.Group as={Col}>
-                <Form.Label>Per</Form.Label>
+                <Form.Label>
+                  Per
+                  <sup className='text-danger'>*</sup></Form.Label>
                 <Select
                     options={categoryOptions}
                 />
@@ -37,12 +43,16 @@ const FormArea: React.FC = () => {
               <Form.Check type="checkbox" label="Discount"/>
             </Form.Group>
 
-            <Form.Label>Discount Price</Form.Label>
-            <Form.Control type="text"/>
+            <Form.Label>
+              Discount Price
+              <sup className='text-danger'>*</sup>
+            </Form.Label>
+            <Form.Control type="number"/>
 
             <Button variant="primary" type="submit" className='my-3'>
               Submit
             </Button>
+
           </Form>
         </Col>
         <Col xs={12} md={6} lg={4}>

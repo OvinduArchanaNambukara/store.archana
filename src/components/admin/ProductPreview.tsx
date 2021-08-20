@@ -43,7 +43,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = (props) => {
               </InputGroup>
             </Col>
             <Col xs={12} md={6} className='pl-md-2 pl-3  text-center'>
-              <Button variant="success"
+              <Button variant="success" disabled={true}
                       className='float-md-right px-md-1 px-3 addToCartBtn'>Add To Cart</Button>
             </Col>
           </Row>
