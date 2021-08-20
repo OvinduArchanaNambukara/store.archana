@@ -1,12 +1,11 @@
 import React from "react";
 import {Button, Col, FormControl, Image, InputGroup, Row} from "react-bootstrap";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/reducers/RootReducer";
 
-type ProductPreviewProps = {
-  croppedImgSrc: string
-}
 
-const ProductPreview: React.FC<ProductPreviewProps> = (props) => {
-  const {croppedImgSrc} = props;
+const ProductPreview: React.FC = (props) => {
+  const croppedImgSrc = useSelector((state: RootState) => state.adminReducer.cropImageSrc);
 
   return (
       <Row className='product-preview justify-content-center m-0 px-4'>
@@ -15,7 +14,7 @@ const ProductPreview: React.FC<ProductPreviewProps> = (props) => {
             <Col xs={12} className="m-0 p-0">
               <Row className='justify-content-center'>
                 <Col xs="auto" className='py-4'>
-                  <Image src={croppedImgSrc} fluid={true}/>
+                  <Image src={croppedImgSrc ? croppedImgSrc : ''} fluid={true}/>
                 </Col>
               </Row>
             </Col>

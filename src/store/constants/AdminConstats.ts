@@ -1,0 +1,1 @@
+export const SHOW_CROP_IMAGE = "SHOW_CROP_IMAGE";

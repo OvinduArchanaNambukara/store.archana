@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 import Select from "react-select";
 import {categoryOptions} from "../../constants/categoryList";
 import ProductPreview from "./ProductPreview";
 
 const FormArea: React.FC = () => {
+  const [displayDiscount, setDisplayDiscount] = useState<boolean>(false);
+
+  const handleOnDiscountCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDisplayDiscount(e.target.checked);
+  }
 
   return (
       <Row className='create-form pt-4'>
@@ -47,19 +52,21 @@ const FormArea: React.FC = () => {
             </Form.Row>
 
             <Form.Group>
-              <Form.Check type="checkbox" label="Discount"/>
+              <Form.Check type="checkbox" label="Discount" onChange={handleOnDiscountCheckBox}/>
             </Form.Group>
 
+            {displayDiscount &&
             <Form.Label>
-              Discount Price
-              <sup className='text-danger'>*</sup>
-            </Form.Label>
+                Discount Price
+                <sup className='text-danger'>*</sup>
+            </Form.Label>}
+            {displayDiscount &&
             <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text id="basic-addon1">Rs</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control type="number"/>
-            </InputGroup>
+                <InputGroup.Prepend>
+                    <InputGroup.Text id="basic-addon1">Rs</InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control type="number"/>
+            </InputGroup>}
 
 
             <Button variant="primary" type="submit" className='my-3'>
@@ -69,7 +76,7 @@ const FormArea: React.FC = () => {
           </Form>
         </Col>
         <Col xs={12} md={6} lg={4}>
-          <ProductPreview croppedImgSrc={'sasasas '}/>
+          <ProductPreview/>
         </Col>
       </Row>
   );

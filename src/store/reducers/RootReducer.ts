@@ -5,13 +5,15 @@ import {ProductReducer} from "./ProductReducer";
 import {StatusReducer} from "./StatusReducer";
 import {CategoriesReducer} from "./CategoriesReducer";
 import {CallReducer} from "./CallReducer";
+import {AdminReducer} from "./AdminReducer";
 
 export const rootReducer = combineReducers({
   productReducer: ProductReducer,
   cartReducer: CartReducer,
   statusReducer: StatusReducer,
   categoriesReducer: CategoriesReducer,
-  callReducer: CallReducer
+  callReducer: CallReducer,
+  adminReducer: AdminReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
