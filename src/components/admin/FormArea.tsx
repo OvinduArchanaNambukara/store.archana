@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 import Select from "react-select";
 import {categoryOptions} from "../../constants/categoryList";
 import ProductPreview from "./ProductPreview";
@@ -23,12 +23,19 @@ const FormArea: React.FC = () => {
             </Form.Group>
 
             <Form.Row>
+
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>
                   Product Price
                   <sup className='text-danger'>*</sup></Form.Label>
-                <Form.Control type="number"/>
+                <InputGroup>
+                  <InputGroup.Prepend>
+                    <InputGroup.Text id="basic-addon1">Rs</InputGroup.Text>
+                  </InputGroup.Prepend>
+                  <Form.Control type="number"/>
+                </InputGroup>
               </Form.Group>
+
               <Form.Group as={Col}>
                 <Form.Label>
                   Per
@@ -47,7 +54,13 @@ const FormArea: React.FC = () => {
               Discount Price
               <sup className='text-danger'>*</sup>
             </Form.Label>
-            <Form.Control type="number"/>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text id="basic-addon1">Rs</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control type="number"/>
+            </InputGroup>
+
 
             <Button variant="primary" type="submit" className='my-3'>
               Submit

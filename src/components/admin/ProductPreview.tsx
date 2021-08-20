@@ -38,12 +38,13 @@ const ProductPreview: React.FC<ProductPreviewProps> = (props) => {
                     type="number"
                     min="1"
                     value={1}
+                    disabled={true}
                 />
                 <InputGroup.Text id="basic-addon1">sa</InputGroup.Text>
               </InputGroup>
             </Col>
             <Col xs={12} md={6} className='pl-md-2 pl-3  text-center'>
-              <Button variant="success" disabled={true}
+              <Button variant="success"
                       className='float-md-right px-md-1 px-3 addToCartBtn'>Add To Cart</Button>
             </Col>
           </Row>
