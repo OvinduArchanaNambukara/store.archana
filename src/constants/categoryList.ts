@@ -27,3 +27,35 @@ export const CategoryList: categoryTypes[] = [
     name: 'Electronic'
   }
 ];
+
+export const categoryOptions = [
+  {
+    label: 'Vegetables',
+    value: 'VEGETABLES'
+  },
+
+  {
+    label: 'Meat',
+    value: 'MEAT'
+  },
+
+  {
+    label: 'Fruits',
+    value: 'FRUITS'
+  },
+
+  {
+    label: 'Electronics',
+    value: 'ELECTRONICS'
+  },
+
+  {
+    label: 'Pharmacy',
+    value: 'PHARMACY'
+  },
+
+  {
+    label: 'Foods',
+    value: 'FOODS'
+  }
+]
