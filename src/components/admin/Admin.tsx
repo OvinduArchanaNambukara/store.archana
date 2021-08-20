@@ -1,7 +1,7 @@
 import React from "react";
 import "cropperjs/dist/cropper.css";
 import {Col, Container, Row} from "react-bootstrap";
-import ImageArea from "./ImageArea";
+import DropZoneArea from "./DropZoneArea";
 import FormArea from "./FormArea";
 
 export const Demo: React.FC = () => {
@@ -10,7 +10,7 @@ export const Demo: React.FC = () => {
       <Container>
         <Row className='add-product-image justify-content-center my-3'>
           <Col xs={12} className='min-vh-100'>
-            <ImageArea/>
+            <DropZoneArea/>
             <FormArea/>
           </Col>
         </Row>

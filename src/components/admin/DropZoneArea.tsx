@@ -3,7 +3,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import DropZone from "./DropZone";
 import Cropper from "react-cropper";
 
-const ImageArea: React.FC = () => {
+const DropZoneArea: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const [cropData, setCropData] = useState("#");
   const [cropper, setCropper] = useState<any>();
@@ -53,4 +53,4 @@ const ImageArea: React.FC = () => {
   );
 }
 
-export default ImageArea;
+export default DropZoneArea;

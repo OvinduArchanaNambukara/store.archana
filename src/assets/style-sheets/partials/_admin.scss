@@ -2,6 +2,7 @@
 
 .add-product-image {
   font-size: 1em;
+  font-weight: 500;
 
   .box {
     display: inline-block;
@@ -14,10 +15,18 @@
   }
 
   .dropzone {
-    border: 10px solid black;
-    background-color: green;
+    border: 2px solid black;
+    background-color: $category-item-hover-color;
     height: 10em;
     width: 100%;
+
+    img {
+      width: 100px;
+    }
+
+    h5 {
+      font-size: 1em;
+    }
   }
 
   .cropper {
@@ -28,6 +37,7 @@
 
   button {
     font-size: 1em;
+    background-color: $current-price-color;
   }
 
   .create-form {
@@ -44,6 +54,7 @@
           border-radius: 3em;
           font-size: .9em;
           width: 100%;
+          background-color: $current-price-color;
         }
 
         h3 {
@@ -85,5 +96,11 @@
 @media (max-width: $layout-breakpoint-xs) {
   .add-product-image {
     font-size: .6em;
+
+    .dropzone {
+      img {
+        width: 50px;
+      }
+    }
   }
 }
