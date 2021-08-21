@@ -3,6 +3,10 @@ import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 import Select, {ValueType} from "react-select";
 import {categoryOptions, perOptions} from "../../constants/categoryList";
 import ProductPreview from "./ProductPreview";
+import {blogToFile} from "../../functions/ProcessCroppedImage";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/reducers/RootReducer";
+import axios from "axios";
 
 const FormArea: React.FC = () => {
   const [displayOldPrice, setDisplayOldPrice] = useState<boolean>(false);
@@ -12,9 +16,12 @@ const FormArea: React.FC = () => {
   const [oldPrice, setOldPrice] = useState<number | null>(null);
   const [qty, setQty] = useState<string | null>(null);
   const [submitButtonStatus, setSubmitButtonStatus] = useState<boolean>(true);
+  const croppedImgSrc = useSelector((state: RootState) => state.adminReducer.cropImageSrc);
+
 
   useEffect(() => {
-    if (name === null || name === '' || productPrice === null || isNaN(productPrice) || category === null || qty === null) {
+    if (name === null || name === '' || productPrice === null || isNaN(productPrice) || category === null ||
+        qty === null || croppedImgSrc === null) {
       setSubmitButtonStatus(true);
       return;
     }
@@ -23,7 +30,7 @@ const FormArea: React.FC = () => {
       return;
     }
     setSubmitButtonStatus(false);
-  }, [displayOldPrice, name, productPrice, category, oldPrice, qty]);
+  }, [displayOldPrice, name, productPrice, category, oldPrice, qty, croppedImgSrc]);
 
   const handleOnOldCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayOldPrice(e.target.checked);
@@ -60,9 +67,23 @@ const FormArea: React.FC = () => {
     }
   }
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert('submit');
+    if (!croppedImgSrc) {
+      return;
+    }
+    const file: File = blogToFile(croppedImgSrc);
+    const options = {
+      headers: {
+        'Content-Type': file.type
+      }
+    };
+    const res = await axios.post('https://api.bitsandbytes.me/uploadImage', {
+      key: file.name,
+      content_type: file.type
+    })
+
+    await axios.put(res.data, file, options).then(() => console.log('ok')).catch((err: any) => console.log(err));
   }
 
   return (
