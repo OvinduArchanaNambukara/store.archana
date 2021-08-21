@@ -12,7 +12,7 @@ const Name: React.FC<NameProps> = (props) => {
     return (
         <Row className='justify-content-center'>
             <Col xs="auto">
-                <h3>{name}</h3>
+                <h3 className="text-center">{name}</h3>
             </Col>
         </Row>
     )

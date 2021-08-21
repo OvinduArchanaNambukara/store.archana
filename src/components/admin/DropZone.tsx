@@ -21,16 +21,17 @@ const DropZone: React.FC<DropZoneProps> = (props) => {
   });
 
   return (
-      <div {...getRootProps({className: 'dropzone'})}>
-        <input {...getInputProps()} />
+      <Col xs={12}>
         <Row className='justify-content-center'>
-          <Col xs={12} className='text-center'>
-            <img src={upload}/>
-            <h5>Drag & drop image here, or click to select files</h5>
-          </Col>
+          <div {...getRootProps({className: 'dropzone'})}>
+            <input {...getInputProps()} />
+            <Col xs={12} className='text-center m-0 p-0'>
+              <img src={upload}/>
+              <h5>Drag & drop image here, or click to select files</h5>
+            </Col>
+          </div>
         </Row>
-      </div>
-
+      </Col>
   );
 }
 

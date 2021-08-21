@@ -1,0 +1,12 @@
+@import "variables";
+
+.error {
+  font-size: 2em;
+  min-height: 15rem;
+  color: $close-button-color;
+
+  label {
+    font-size: 1em;
+    font-weight: 600;
+  }
+}
