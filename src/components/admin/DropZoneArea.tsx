@@ -11,26 +11,6 @@ const DropZoneArea: React.FC = () => {
   const [cropper, setCropper] = useState<any>();
   const dispatch = useDispatch();
 
-  const dataURItoBlob = (dataURI: string): Blob => {
-    // convert base64/URLEncoded data component to raw binary data held in a string
-    let byteString;
-    if (dataURI.split(',')[0].indexOf('base64') >= 0)
-      byteString = atob(dataURI.split(',')[1]);
-    else
-      byteString = unescape(dataURI.split(',')[1]);
-
-    // separate out the mime component
-    let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-    // write the bytes of the string to a typed array
-    let ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ia], {type: mimeString});
-  }
-
   useEffect(() => {
     dispatch(showCropImage(cropData));
   }, [cropData]);
@@ -45,10 +25,7 @@ const DropZoneArea: React.FC = () => {
 
   const getCropData = async () => {
     if (typeof cropper !== "undefined") {
-      setCropData(cropper.getCroppedCanvas().toDataURL());
-      let blobImg = dataURItoBlob(cropper.getCroppedCanvas().toDataURL());
-      console.log(new File([blobImg], 'hi', {lastModified: Date.now(), type: 'image/png'}));
-      const file = new File([blobImg], 'hi', {lastModified: Date.now(), type: 'image/png'});
+      setCropData(cropper.getCroppedCanvas().toDataURL('image/webp', 0.92));
     }
   };
 
