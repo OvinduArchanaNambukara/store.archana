@@ -6,7 +6,9 @@ import ProductPreview from "./ProductPreview";
 import {blogToFile} from "../../functions/ProcessCroppedImage";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
-import axios from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
+import {useMutation} from "@apollo/client";
+import {ADD_PRODUCT} from "../../graphql/mutation";
 
 const FormArea: React.FC = () => {
   const [displayOldPrice, setDisplayOldPrice] = useState<boolean>(false);
@@ -15,9 +17,10 @@ const FormArea: React.FC = () => {
   const [category, setCategory] = useState<null | string>(null);
   const [oldPrice, setOldPrice] = useState<number | null>(null);
   const [qty, setQty] = useState<string | null>(null);
+  const [s3Path, setS3Path] = useState<string | null>(null);
   const [submitButtonStatus, setSubmitButtonStatus] = useState<boolean>(true);
   const croppedImgSrc = useSelector((state: RootState) => state.adminReducer.cropImageSrc);
-
+  const [addProduct] = useMutation(ADD_PRODUCT);
 
   useEffect(() => {
     if (name === null || name === '' || productPrice === null || isNaN(productPrice) || category === null ||
@@ -62,6 +65,7 @@ const FormArea: React.FC = () => {
   const handleSelectCategory = (option: ValueType<any, false>) => {
     if (option) {
       setCategory(option.value);
+      setS3Path(option.s3Path);
     } else {
       setCategory(null);
     }
@@ -79,11 +83,25 @@ const FormArea: React.FC = () => {
       }
     };
     const res = await axios.post('https://api.bitsandbytes.me/uploadImage', {
-      key: file.name,
+      key: `images/products/${s3Path}/${file.name}`,
       content_type: file.type
     })
 
-    await axios.put(res.data, file, options).then(() => console.log('ok')).catch((err: any) => console.log(err));
+    await axios.put(res.data, file, options)
+        .then((response: AxiosResponse) => {
+          addProduct({
+            variables: {
+              name: name,
+              image: file.name,
+              currentPrice: productPrice,
+              key: `images/products/${s3Path}/${file.name}`,
+              qty: qty,
+              category: category,
+              old_price: oldPrice
+            }
+          });
+        })
+        .catch((err: AxiosError) => console.log(err));
   }
 
   return (
