@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Col, Image, Row} from "react-bootstrap";
 import {ICheckoutProduct, IProduct} from "../../../types/types";
 import Name from "./Name";
@@ -8,7 +8,7 @@ import Quantity from "./Quantity";
 import AddToCartBtn from "./AddToCartBtn";
 import {useDispatch} from "react-redux";
 import {addToCart, updateCartItem} from "../../../store/actions/CartActions";
-import {markAddToCart} from "../../../store/actions/ProductAction";
+import {getImagePreSignedUrls, markAddToCart} from "../../../store/actions/ProductAction";
 
 type ProductProps = {
   productDetails: IProduct
@@ -17,9 +17,17 @@ type ProductProps = {
 
 const Product: React.FC<ProductProps> = (props) => {
   const dispatch = useDispatch();
-  const {name, image, oldPrice, currentPrice, id} = props.productDetails.product;
+  const {name, image, oldPrice, currentPrice, id, qty, key} = props.productDetails.product;
   const {inCart} = props.productDetails;
   const [quantity, setQuantity] = useState<null | number>(null);
+  const [btnStatus, setBtnStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (image !== key) {
+      return;
+    }
+    dispatch(getImagePreSignedUrls(key, id));
+  }, []);
 
   /**
    * create ICheckout Product item and add to redux store cartItems[]
@@ -35,7 +43,9 @@ const Product: React.FC<ProductProps> = (props) => {
           name: name,
           image: image,
           oldPrice: oldPrice,
-          currentPrice: currentPrice
+          currentPrice: currentPrice,
+          qty: qty,
+          key: key
         }
       }
       dispatch(addToCart(item));
@@ -67,9 +77,9 @@ const Product: React.FC<ProductProps> = (props) => {
             {oldPrice && <OldPrice oldPrice={oldPrice}/>}
           </Row>
           <Row>
-            <Quantity quantity={setQuantity} inCart={inCart} id={id}/>
+            <Quantity quantity={setQuantity} inCart={inCart} id={id} qty={qty} addBtnStatus={setBtnStatus}/>
             <AddToCartBtn onAddToCartClick={handleOnAddToCartClick} inCart={inCart}
-                          onUpdateClick={handleOnUpdateClick}/>
+                          onUpdateClick={handleOnUpdateClick} btnStatus={btnStatus}/>
           </Row>
         </div>
       </Col>
