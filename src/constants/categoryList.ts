@@ -31,32 +31,38 @@ export const CategoryList: categoryTypes[] = [
 export const categoryOptions = [
   {
     label: 'Vegetables',
-    value: 'VEGETABLES'
+    value: 'VEGETABLES',
+    s3Path: 'vegetable'
   },
 
   {
     label: 'Meat',
-    value: 'MEAT'
+    value: 'MEAT',
+    s3Path: 'meat'
   },
 
   {
     label: 'Fruits',
-    value: 'FRUITS'
+    value: 'FRUITS',
+    s3Path: 'fruits'
   },
 
   {
     label: 'Electronics',
-    value: 'ELECTRONICS'
+    value: 'ELECTRONICS',
+    s3Path: 'electronic'
   },
 
   {
     label: 'Pharmacy',
-    value: 'PHARMACY'
+    value: 'PHARMACY',
+    s3Path: 'phamasy'
   },
 
   {
     label: 'Foods',
-    value: 'FOODS'
+    value: 'FOODS',
+    s3Path: 'food'
   }
 ];
 

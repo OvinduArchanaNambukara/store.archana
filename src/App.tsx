@@ -3,12 +3,37 @@ import Client from "./Client";
 import "./assets/style-sheets/main.scss"
 import {Provider} from "react-redux";
 import {store} from "./store/reducers/RootReducer"
+import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from "@apollo/client";
+import {setContext} from "@apollo/client/link/context";
+import {ADMIN_TOKEN} from "./constants/tempTokens";
+
+const httpLink = createHttpLink({
+  uri: 'https://api.bitsandbytes.me/graphql',
+});
+
+const authLink = setContext((_, {headers}) => {
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      ...headers,
+      authorization: ADMIN_TOKEN,
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+
 
 function App() {
   return (
-      <Provider store={store}>
-        <Client/>
-      </Provider>
+      <ApolloProvider client={client}>
+        <Provider store={store}>
+          <Client/>
+        </Provider>
+      </ApolloProvider>
   );
 }
 
