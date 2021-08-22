@@ -1,3 +1,5 @@
+@import "../variables";
+
 .product-admin-table {
   font-size: 1em;
 
@@ -8,5 +10,87 @@
   .product-category {
     font-size: .9em;
     font-weight: 500;
+  }
+
+  table {
+    thead {
+      tr {
+        th {
+          vertical-align: middle;
+          border-left: 0;
+          border-right: 0;
+
+          input {
+            width: 250px;
+            padding: 2px;
+            margin-top: 10px;
+            height: 25px;
+          }
+        }
+
+        th:first-child {
+          width: 300px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+          border-left: 0;
+          border-right: 0;
+        }
+      }
+    }
+
+    svg {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@media (max-width: $layout-breakpoint-xs) {
+  .product-admin-table {
+    font-size: .8em;
+
+    .product-id {
+      font-size: 0.7em;
+    }
+
+    .product-category {
+      font-size: .9em;
+      font-weight: 500;
+    }
+
+    table {
+      thead {
+        tr {
+          th {
+            vertical-align: middle;
+            border-left: 0;
+            border-right: 0;
+            font-size: 0.9em;
+
+            input {
+              width: 200px;
+              padding: 2px;
+              margin-top: 10px;
+              height: 25px;
+              font-size: 0.9em;
+            }
+          }
+
+        }
+      }
+
+      svg {
+        cursor: pointer;
+        width: 14px;
+        height: 14px;
+      }
+    }
   }
 }

@@ -32,37 +32,43 @@ export const categoryOptions = [
   {
     label: 'Vegetables',
     value: 'VEGETABLES',
-    s3Path: 'vegetable'
+    s3Path: 'vegetable',
+    color: 'green'
   },
 
   {
     label: 'Meat',
     value: 'MEAT',
-    s3Path: 'meat'
+    s3Path: 'meat',
+    color: 'green'
   },
 
   {
     label: 'Fruits',
     value: 'FRUITS',
-    s3Path: 'fruits'
+    s3Path: 'fruits',
+    color: 'green'
   },
 
   {
     label: 'Electronics',
     value: 'ELECTRONICS',
-    s3Path: 'electronic'
+    s3Path: 'electronic',
+    color: 'green'
   },
 
   {
     label: 'Pharmacy',
     value: 'PHARMACY',
-    s3Path: 'phamasy'
+    s3Path: 'phamasy',
+    color: 'green'
   },
 
   {
     label: 'Foods',
     value: 'FOODS',
-    s3Path: 'food'
+    s3Path: 'food',
+    color: 'green'
   }
 ];
 
