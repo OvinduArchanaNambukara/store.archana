@@ -2,6 +2,7 @@ import React, {lazy, Suspense, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import Loading from "../loading/Loading";
+import ProductTable from "../admin/product-table/ProductTable";
 
 const Welcome = lazy(() => import("../welcome/Welcome"));
 const SearchBar = lazy(() => import("../search-bar/SearchBar"));
@@ -11,6 +12,7 @@ const RegisterUX = lazy(() => import("../register/RegisterUX"));
 const ProductRoutes = lazy(() => import("../Routes/ProductRoutes"));
 const CheckOut = lazy(() => import("../checkout-table/Checkout"));
 const CashOnDelivery = lazy(() => import("../cash-on-delivery/CashOnDelivery"));
+const Admin = lazy(() => import("../admin/Admin"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
@@ -44,6 +46,10 @@ const Routes: React.FC = () => {
                 <CheckOut/>
                 <CashOnDelivery/>
               </Route>
+              <Route path='/admin'>
+                <ProductTable/>
+                {/* <Admin/>*/}
+              </Route>
               <Route path='/register'>
                 <RegisterUX/>
               </Route>
@@ -51,7 +57,7 @@ const Routes: React.FC = () => {
                 <Welcome/>
                 <SearchBar/>
                 <CategoryArea/>
-                <ProductRoutes/>
+                {/*<ProductRoutes/>*/}
               </Route>
               <Route path='/'>
                 <Redirect to='/home'/>
