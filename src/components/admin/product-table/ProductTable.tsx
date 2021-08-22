@@ -1,25 +1,30 @@
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, useState} from "react";
 import BootstrapTable, {PaginationOptions} from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import {Container} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import NoDataIndicator from "../../checkout-table/NoDataIndicator";
 import tempImage from "../../../assets/images/log-in/logInCart.png";
+import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import Actions from "./Actions";
 import Price from "./Price";
 import ProductImage from "./ProductImage";
-import Name from "./Name";
 import Id from "./Id";
 import Category from "./Category";
+import {colourStyles} from "../../../custom-styles/custom-selector-styles";
+import Select, {components} from "react-select";
+import {BsSearch} from "react-icons/bs";
+import {categoryOptions} from "../../../constants/categoryList";
 
 type CartTableProps = {}
 
 const ProductTable: React.FC<CartTableProps> = (props) => {
+  const [filterState, setFilterState] = useState<boolean>(false);
 
   const tempProductList = [
     {
       id: <Id id={"1c56f54a-31ba-40d2-b33d-6f1999de1e86"}/>,
       item: <ProductImage src={tempImage}/>,
-      name: <Name name={'xxxxxxxxxxxx'}/>,
+      name: 'good',
       category: <Category category={'Vegetables'} variant={'danger'}/>,
       currentPrice: <Price/>,
       oldPrice: <Price/>,
@@ -28,7 +33,7 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
     {
       id: <Id id={"1c56f54a-31ba-40d2-b33d-6f1999de1e86"}/>,
       item: <ProductImage src={tempImage}/>,
-      name: <Name name={'xxxxxxxxxxxx'}/>,
+      name: 'good',
       category: <Category category={'Vegetables'} variant={'danger'}/>,
       currentPrice: <Price/>,
       oldPrice: <Price/>,
@@ -37,7 +42,7 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
     {
       id: <Id id={"1c56f54a-31ba-40d2-b33d-6f1999de1e86"}/>,
       item: <ProductImage src={tempImage}/>,
-      name: <Name name={'xxxxxxxxxxxx'}/>,
+      name: 'as',
       category: <Category category={'Foods'} variant={'danger'}/>,
       currentPrice: <Price/>,
       oldPrice: <Price/>,
@@ -46,13 +51,30 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
   ]
 
   const columns = [
-    {dataField: 'id', text: 'Id'},
-    {dataField: 'item', text: 'Item'},
-    {dataField: 'name', text: 'Name', sort: true},
-    {dataField: 'category', text: 'Category'},
-    {dataField: 'currentPrice', text: 'Current Price'},
-    {dataField: 'oldPrice', text: 'Old Price'},
-    {dataField: 'actions', text: 'Actions'}
+    {dataField: 'id', text: 'Id', headerAlign: 'center', align: 'center'},
+    {dataField: 'item', text: 'Item', headerAlign: 'center', align: 'center'},
+    {
+      dataField: 'name',
+      text: 'Name 🔎',
+      sort: true,
+      filter: textFilter({
+        style: {
+          display: filterState ? 'block' : 'none',
+        }
+      }),
+      headerAlign: 'center',
+      align: 'center',
+      headerStyle: {
+        cursor: "pointer"
+      },
+      headerEvents: {
+        onClick: (e: any) => setFilterState(!filterState)
+      }
+    },
+    {dataField: 'category', text: 'Category', headerAlign: 'center', align: 'center'},
+    {dataField: 'currentPrice', text: 'Current Price', headerAlign: 'center', align: 'center'},
+    {dataField: 'oldPrice', text: 'Old Price', headerAlign: 'center', align: 'center'},
+    {dataField: 'actions', text: 'Actions', headerAlign: 'center', align: 'center'}
   ];
 
   const customTotal = (from: number, to: number, size: number) => (
@@ -67,6 +89,14 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
   const noDataIndication = (): JSX.Element => {
     return <NoDataIndicator/>
   }
+
+  const DropdownIndicator = (props: any) => {
+    return (
+        <components.DropdownIndicator {...props}>
+          <BsSearch/>
+        </components.DropdownIndicator>
+    );
+  };
 
   // @ts-ignore
   const pageButtonRenderer = ({page, active, disabled, title, onPageChange}) => {
@@ -93,7 +123,6 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
     );
   };
 
-
   const options: PaginationOptions = {
     paginationSize: 4,
     pageStartIndex: 1,
@@ -118,7 +147,26 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
   };
 
   return (
-      <Container className='product-admin-table'>
+      <Container className='product-admin-table p-0'>
+        <Row className='mt-4'>
+          <Col xs={12}>
+            <h3>Product Table</h3>
+          </Col>
+        </Row>
+        <Row className='search-bar mt-3 mb-4'>
+          <Col xs={8} md={8} lg={6} xl={5}>
+            <Select
+                placeholder='Search...'
+                options={categoryOptions}
+                components={{DropdownIndicator}}
+                styles={colourStyles}
+                isMulti={true}
+            />
+          </Col>
+          <Col xs={4}>
+            <Button variant={"success"}>Create</Button>
+          </Col>
+        </Row>
         <BootstrapTable
             bootstrap4
             keyField='id'
@@ -131,6 +179,7 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
             pagination={paginationFactory(options)}
             defaultSortDirection="asc"
             noDataIndication={noDataIndication}
+            filter={filterFactory()}
         />
       </Container>
   )
