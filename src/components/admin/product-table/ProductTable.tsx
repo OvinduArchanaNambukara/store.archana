@@ -1,9 +1,8 @@
-import React, {CSSProperties, useState} from "react";
+import React, {CSSProperties, useEffect, useState} from "react";
 import BootstrapTable, {PaginationOptions} from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {Button, Col, Container, Row} from "react-bootstrap";
 import NoDataIndicator from "../../checkout-table/NoDataIndicator";
-import tempImage from "../../../assets/images/log-in/logInCart.png";
 import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import Actions from "./Actions";
 import Price from "./Price";
@@ -14,41 +13,104 @@ import {colourStyles} from "../../../custom-styles/custom-selector-styles";
 import Select, {components} from "react-select";
 import {BsSearch} from "react-icons/bs";
 import {categoryOptions} from "../../../constants/categoryList";
+import {QueryResult, useQuery} from "@apollo/client";
+import {
+  GetElectronicProducts,
+  GetFoodProducts,
+  GetFruitProducts,
+  GetMeatProducts,
+  GetPharmacyProducts,
+  GetVegetableProducts,
+  IProducts
+} from "../../../types/types";
+import {GET_ELECTRONICS, GET_FOOD, GET_FRUITS, GET_MEAT, GET_PHARMACY, GET_VEGETABLES} from "../../../graphql/query";
+import {processQueryData} from "../../../store/actions/ProductAction";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/reducers/RootReducer";
 
-type CartTableProps = {}
+const createTableList = (arr: IProducts[], variant: string) => {
+  if (!arr[0]) {
+    return [];
+  }
+  const list = arr[0].productDetails.map((product) => {
+    return {
+      id: <Id id={product.product.id}/>,
+      item: <ProductImage image={product.product.image} tokenKey={product.product.key} id={product.product.id}/>,
+      name: product.product.name,
+      category: <Category category={arr[0].category} variant={'danger'}/>,
+      currentPrice: <Price price={product.product.currentPrice}/>,
+      oldPrice: <Price price={product.product.oldPrice}/>,
+      actions: <Actions/>
+    }
+  });
+  return list;
+}
 
-const ProductTable: React.FC<CartTableProps> = (props) => {
+
+const ProductTable: React.FC = () => {
   const [filterState, setFilterState] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const electronicQuery: QueryResult = useQuery<GetElectronicProducts>(GET_ELECTRONICS);
+  const foodQuery: QueryResult = useQuery<GetFoodProducts>(GET_FOOD);
+  const fruitQuery: QueryResult = useQuery<GetFruitProducts>(GET_FRUITS);
+  const meatQuery: QueryResult = useQuery<GetMeatProducts>(GET_MEAT);
+  const pharmacyQuery: QueryResult = useQuery<GetPharmacyProducts>(GET_PHARMACY);
+  const vegetableQuery: QueryResult = useQuery<GetVegetableProducts>(GET_VEGETABLES);
+  const electronicProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.electronic);
+  const foodProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.food);
+  const meatProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.meat);
+  const fruitProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.fruits);
+  const pharmacyProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.pharmacy);
+  const vegetableProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.vegetables);
 
-  const tempProductList = [
-    {
-      id: <Id id={"1c56f54a-31ba-40d2-b33d-6f1999de1e86"}/>,
-      item: <ProductImage src={tempImage}/>,
-      name: 'good',
-      category: <Category category={'Vegetables'} variant={'danger'}/>,
-      currentPrice: <Price/>,
-      oldPrice: <Price/>,
-      actions: <Actions/>
-    },
-    {
-      id: <Id id={"1c56f54a-31ba-40d2-b33d-6f1999de1e86"}/>,
-      item: <ProductImage src={tempImage}/>,
-      name: 'good',
-      category: <Category category={'Vegetables'} variant={'danger'}/>,
-      currentPrice: <Price/>,
-      oldPrice: <Price/>,
-      actions: <Actions/>
-    },
-    {
-      id: <Id id={"1c56f54a-31ba-40d2-b33d-6f1999de1e86"}/>,
-      item: <ProductImage src={tempImage}/>,
-      name: 'as',
-      category: <Category category={'Foods'} variant={'danger'}/>,
-      currentPrice: <Price/>,
-      oldPrice: <Price/>,
-      actions: <Actions/>
-    },
-  ]
+  useEffect(() => {
+    if (!electronicQuery.data) {
+      return;
+    }
+    dispatch(processQueryData(electronicQuery.data.getElectronicProducts));
+  }, [electronicQuery.data]);
+
+  useEffect(() => {
+    if (!foodQuery.data) {
+      return;
+    }
+    dispatch(processQueryData(foodQuery.data.getFoodProducts));
+  }, [foodQuery.data]);
+
+  useEffect(() => {
+    if (!fruitQuery.data) {
+      return;
+    }
+    dispatch(processQueryData(fruitQuery.data.getFruitProducts));
+  }, [fruitQuery.data]);
+
+  useEffect(() => {
+    if (!meatQuery.data) {
+      return;
+    }
+    dispatch(processQueryData(meatQuery.data.getMeatProducts));
+  }, [meatQuery.data]);
+
+  useEffect(() => {
+    if (!pharmacyQuery.data) {
+      return;
+    }
+    dispatch(processQueryData(pharmacyQuery.data.getPharmacyProducts));
+  }, [pharmacyQuery.data]);
+
+  useEffect(() => {
+    if (!vegetableQuery.data) {
+      return;
+    }
+    dispatch(processQueryData(vegetableQuery.data.getVegetableProducts));
+  }, [vegetableQuery.data]);
+
+  const electronicTableList = createTableList(electronicProductList, 'danger');
+  const foodTableList = createTableList(foodProductList, 'primary');
+  const fruitsTableList = createTableList(fruitProductList, 'success');
+  const vegetableTableList = createTableList(vegetableProductList, 'warning');
+  const meatTableList = createTableList(meatProductList, 'info');
+  const pharmacyTableList = createTableList(pharmacyProductList, 'dark');
 
   const columns = [
     {dataField: 'id', text: 'Id', headerAlign: 'center', align: 'center'},
@@ -142,7 +204,7 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
     }, {
       text: '10', value: 10
     }, {
-      text: 'All', value: tempProductList.length
+      text: 'All', value: electronicTableList.length
     }]
   };
 
@@ -170,7 +232,7 @@ const ProductTable: React.FC<CartTableProps> = (props) => {
         <BootstrapTable
             bootstrap4
             keyField='id'
-            data={tempProductList}
+            data={electronicTableList}
             columns={columns}
             wrapperClasses='table-responsive overflow-x'
             classes='custom-table item-table'
