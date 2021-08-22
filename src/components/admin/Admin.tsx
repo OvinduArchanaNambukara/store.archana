@@ -15,7 +15,6 @@ export const Demo: React.FC = () => {
           </Col>
         </Row>
       </Container>
-
   );
 };
 
