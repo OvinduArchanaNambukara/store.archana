@@ -128,3 +128,20 @@ export interface GetPharmacyProducts {
   getPharmacyProducts: QueryItems
 }
 
+
+export interface AdminProductTableListType {
+  item: JSX.Element
+  oldPrice: JSX.Element
+  name: string
+  currentPrice: JSX.Element
+  id: JSX.Element
+  category: JSX.Element
+  actions: JSX.Element
+}
+
+export interface AdminCategoryOptionType {
+  label: string
+  value: string
+  s3Path: string
+  color: string
+}

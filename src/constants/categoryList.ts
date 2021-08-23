@@ -1,4 +1,4 @@
-import {categoryTypes} from "../types/types";
+import {AdminCategoryOptionType, categoryTypes} from "../types/types";
 import all from "../assets/images/categories/all.webp";
 import grocery from "../assets/images/categories/grocery.webp";
 import pharmacy from "../assets/images/categories/pharmacy.webp";
@@ -28,47 +28,47 @@ export const CategoryList: categoryTypes[] = [
   }
 ];
 
-export const categoryOptions = [
+export const categoryOptions: AdminCategoryOptionType[] = [
   {
     label: 'Vegetables',
     value: 'VEGETABLES',
     s3Path: 'vegetable',
-    color: 'green'
+    color: '#ffc107'
   },
 
   {
     label: 'Meat',
     value: 'MEAT',
     s3Path: 'meat',
-    color: 'green'
+    color: '#17a2b8'
   },
 
   {
     label: 'Fruits',
     value: 'FRUITS',
     s3Path: 'fruits',
-    color: 'green'
+    color: '#28a745'
   },
 
   {
     label: 'Electronics',
     value: 'ELECTRONICS',
     s3Path: 'electronic',
-    color: 'green'
+    color: '#dc3545'
   },
 
   {
     label: 'Pharmacy',
     value: 'PHARMACY',
     s3Path: 'phamasy',
-    color: 'green'
+    color: '#343a40'
   },
 
   {
     label: 'Foods',
     value: 'FOODS',
     s3Path: 'food',
-    color: 'green'
+    color: '#007bff'
   }
 ];
 
