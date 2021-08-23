@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Image} from "react-bootstrap";
-import {getImagePreSignedUrls} from "../../../store/actions/ProductAction";
-import {useDispatch} from "react-redux";
+import axios from "axios";
 
 type ItemImageProps = {
   image: string
@@ -9,20 +8,21 @@ type ItemImageProps = {
   id: string
 }
 
+const getImage = async (key: string) => {
+  const res = await axios.post('https://api.bitsandbytes.me/getImage', {key: key});
+  return res.data;
+}
+
 const ProductImage: React.FC<ItemImageProps> = (props) => {
   const {image, tokenKey, id} = props;
-  const dispatch = useDispatch();
+  const [imgSrc, setImgSrc] = useState('/');
 
   useEffect(() => {
-    console.log(image)
-    if (image !== tokenKey) {
-      return;
-    }
-    dispatch(getImagePreSignedUrls(tokenKey, id));
-  }, []);
+    getImage(tokenKey).then((data) => setImgSrc(data))
+  }, [tokenKey]);
 
   return (
-      <Image src={image} width={45}/>
+      <Image src={imgSrc} width={45}/>
   );
 }
 
