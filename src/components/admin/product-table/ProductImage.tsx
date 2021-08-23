@@ -14,7 +14,7 @@ const ProductImage: React.FC<ItemImageProps> = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(tokenKey)
+    console.log(image)
     if (image !== tokenKey) {
       return;
     }

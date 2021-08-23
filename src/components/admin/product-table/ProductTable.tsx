@@ -10,17 +10,20 @@ import ProductImage from "./ProductImage";
 import Id from "./Id";
 import Category from "./Category";
 import {colourStyles} from "../../../custom-styles/custom-selector-styles";
-import Select, {components} from "react-select";
+import Select, {components, ValueType} from "react-select";
 import {BsSearch} from "react-icons/bs";
 import {categoryOptions} from "../../../constants/categoryList";
 import {QueryResult, useQuery} from "@apollo/client";
 import {
+  AdminCategoryOptionType,
+  AdminProductTableListType,
   GetElectronicProducts,
   GetFoodProducts,
   GetFruitProducts,
   GetMeatProducts,
   GetPharmacyProducts,
   GetVegetableProducts,
+  IProduct,
   IProducts
 } from "../../../types/types";
 import {GET_ELECTRONICS, GET_FOOD, GET_FRUITS, GET_MEAT, GET_PHARMACY, GET_VEGETABLES} from "../../../graphql/query";
@@ -28,16 +31,16 @@ import {processQueryData} from "../../../store/actions/ProductAction";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/RootReducer";
 
-const createTableList = (arr: IProducts[], variant: string) => {
+const createTableList = (arr: IProducts[], variant: string): AdminProductTableListType[] => {
   if (!arr[0]) {
     return [];
   }
-  const list = arr[0].productDetails.map((product) => {
+  const list = arr[0].productDetails.map<AdminProductTableListType>((product: IProduct) => {
     return {
       id: <Id id={product.product.id}/>,
       item: <ProductImage image={product.product.image} tokenKey={product.product.key} id={product.product.id}/>,
       name: product.product.name,
-      category: <Category category={arr[0].category} variant={'danger'}/>,
+      category: <Category category={arr[0].category} variant={variant}/>,
       currentPrice: <Price price={product.product.currentPrice}/>,
       oldPrice: <Price price={product.product.oldPrice}/>,
       actions: <Actions/>
@@ -49,6 +52,7 @@ const createTableList = (arr: IProducts[], variant: string) => {
 
 const ProductTable: React.FC = () => {
   const [filterState, setFilterState] = useState<boolean>(false);
+  const [tableList, setTableList] = useState<AdminProductTableListType[]>([]);
   const dispatch = useDispatch();
   const electronicQuery: QueryResult = useQuery<GetElectronicProducts>(GET_ELECTRONICS);
   const foodQuery: QueryResult = useQuery<GetFoodProducts>(GET_FOOD);
@@ -111,6 +115,37 @@ const ProductTable: React.FC = () => {
   const vegetableTableList = createTableList(vegetableProductList, 'warning');
   const meatTableList = createTableList(meatProductList, 'info');
   const pharmacyTableList = createTableList(pharmacyProductList, 'dark');
+
+  const handleOnSelect = (option: ValueType<AdminCategoryOptionType, true>) => {
+    const list: AdminProductTableListType[] = [];
+    if (option.length === 0) {
+      list.push(...electronicTableList, ...meatTableList, ...vegetableTableList, ...fruitsTableList,
+          ...pharmacyTableList, ...foodTableList);
+      setTableList(list);
+      return;
+    }
+    option.map((value: any) => {
+      if (value.label === 'Meat') {
+        list.push(...meatTableList);
+      }
+      if (value.label === 'Vegetables') {
+        list.push(...vegetableTableList);
+      }
+      if (value.label === 'Fruits') {
+        list.push(...fruitsTableList);
+      }
+      if (value.label === 'Electronics') {
+        list.push(...electronicTableList);
+      }
+      if (value.label === 'Pharmacy') {
+        list.push(...pharmacyTableList);
+      }
+      if (value.label === 'Foods') {
+        list.push(...foodTableList);
+      }
+    });
+    setTableList(list);
+  }
 
   const columns = [
     {dataField: 'id', text: 'Id', headerAlign: 'center', align: 'center'},
@@ -204,7 +239,7 @@ const ProductTable: React.FC = () => {
     }, {
       text: '10', value: 10
     }, {
-      text: 'All', value: electronicTableList.length
+      text: 'All', value: tableList.length
     }]
   };
 
@@ -223,6 +258,7 @@ const ProductTable: React.FC = () => {
                 components={{DropdownIndicator}}
                 styles={colourStyles}
                 isMulti={true}
+                onChange={handleOnSelect}
             />
           </Col>
           <Col xs={4}>
@@ -232,7 +268,7 @@ const ProductTable: React.FC = () => {
         <BootstrapTable
             bootstrap4
             keyField='id'
-            data={electronicTableList}
+            data={tableList}
             columns={columns}
             wrapperClasses='table-responsive overflow-x'
             classes='custom-table item-table'
