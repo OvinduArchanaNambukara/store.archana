@@ -49,7 +49,6 @@ const createTableList = (arr: IProducts[], variant: string): AdminProductTableLi
   return list;
 }
 
-
 const ProductTable: React.FC = () => {
   const [filterState, setFilterState] = useState<boolean>(false);
   const [tableList, setTableList] = useState<AdminProductTableListType[]>([]);
@@ -66,6 +65,17 @@ const ProductTable: React.FC = () => {
   const fruitProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.fruits);
   const pharmacyProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.pharmacy);
   const vegetableProductList: IProducts[] = useSelector((state: RootState) => state.productReducer.vegetables);
+  const electronicTableList = createTableList(electronicProductList, 'danger');
+  const foodTableList = createTableList(foodProductList, 'primary');
+  const fruitsTableList = createTableList(fruitProductList, 'success');
+  const vegetableTableList = createTableList(vegetableProductList, 'warning');
+  const meatTableList = createTableList(meatProductList, 'info');
+  const pharmacyTableList = createTableList(pharmacyProductList, 'dark');
+
+  useEffect(() => {
+    setTableList([...foodTableList, ...vegetableTableList, ...fruitsTableList, ...pharmacyTableList,
+      ...electronicTableList, ...meatTableList]);
+  }, [foodTableList]);
 
   useEffect(() => {
     if (!electronicQuery.data) {
@@ -108,13 +118,6 @@ const ProductTable: React.FC = () => {
     }
     dispatch(processQueryData(vegetableQuery.data.getVegetableProducts));
   }, [vegetableQuery.data]);
-
-  const electronicTableList = createTableList(electronicProductList, 'danger');
-  const foodTableList = createTableList(foodProductList, 'primary');
-  const fruitsTableList = createTableList(fruitProductList, 'success');
-  const vegetableTableList = createTableList(vegetableProductList, 'warning');
-  const meatTableList = createTableList(meatProductList, 'info');
-  const pharmacyTableList = createTableList(pharmacyProductList, 'dark');
 
   const handleOnSelect = (option: ValueType<AdminCategoryOptionType, true>) => {
     const list: AdminProductTableListType[] = [];
