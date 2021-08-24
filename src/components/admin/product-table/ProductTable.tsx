@@ -75,7 +75,7 @@ const ProductTable: React.FC = () => {
   useEffect(() => {
     setTableList([...foodTableList, ...vegetableTableList, ...fruitsTableList, ...pharmacyTableList,
       ...electronicTableList, ...meatTableList]);
-  }, [foodTableList]);
+  }, [foodProductList, meatProductList, electronicProductList, vegetableProductList, pharmacyProductList, fruitProductList]);
 
   useEffect(() => {
     if (!electronicQuery.data) {
@@ -247,7 +247,7 @@ const ProductTable: React.FC = () => {
   };
 
   return (
-      <Container className='product-admin-table p-0'>
+      <Container className='product-admin-table p-md-0'>
         <Row className='mt-4'>
           <Col xs={12}>
             <h3>Product Table</h3>
