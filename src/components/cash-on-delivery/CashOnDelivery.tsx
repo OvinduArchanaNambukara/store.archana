@@ -1,20 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Card, Col, Container, Form, FormControl, FormGroup, InputGroup, Row} from "react-bootstrap";
 import SignInArea from "./SignInArea";
 import {FaRegCreditCard, FaRegMoneyBillAlt, FiEye, FiEyeOff} from "react-icons/all";
 import ChangeShippingAddress from "./ChangeShippingAddress";
 import Select, {ValueType} from "react-select";
 import {customCallStyles} from "../../custom-styles/custom-selector-styles";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
 import {callStateType} from "../../store/reducers/CallReducer";
-import {countryOptionTypes} from "../../types/types";
+import {countryOptionTypes, DeliveryFormType} from "../../types/types";
+import {addDeliveryFormDetails} from "../../store/actions/OrderFormAction";
 
 const CashOnDelivery: React.FC = () => {
   const [fullName, setFullName] = useState<string | null>(null);
   const [address, setAddress] = useState<string | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
-  const [postalCode, setPostalCode] = useState<string | null>(null);
+  const [postalCode, setPostalCode] = useState<number | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [countryCode, setCountryCode] = useState<string | null>(null);
   const [flag, setFlag] = useState<string | null>(null);
@@ -22,11 +24,14 @@ const CashOnDelivery: React.FC = () => {
   const [email, setEmail] = useState<string | null>(null);
   const [retypeEmail, setRetypeEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
+  const [instruction, setInstruction] = useState<string | null>(null);
   const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
   const [match, setMatch] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [changeShippingAddress, setChangeShippingAddress] = useState<boolean>(false);
   const countryCodes: callStateType[] = useSelector((state: RootState) => state.callReducer);
+  const deliveryForm = useSelector((state: RootState) => state.orderFormReducer.deliveryForm);
+  const dispatch = useDispatch();
 
   const options: countryOptionTypes[] = countryCodes.map<countryOptionTypes>((country_code: callStateType) => {
     return {
@@ -38,12 +43,34 @@ const CashOnDelivery: React.FC = () => {
     }
   });
 
+  useEffect(() => {
+    let deliveryDetails: DeliveryFormType = {
+      fullName: fullName ? fullName : deliveryForm ? deliveryForm.fullName : '',
+      address: address ? address : deliveryForm ? deliveryForm.address : '',
+      city: city ? city : deliveryForm ? deliveryForm.city : '',
+      postalCode: postalCode ? postalCode : deliveryForm ? deliveryForm.postalCode : 0,
+      country: country ? country : deliveryForm ? deliveryForm.country : '',
+      contactNo: phoneNumber ? phoneNumber : deliveryForm ? deliveryForm.contactNo : '',
+      payment_method: paymentMethod ? paymentMethod : deliveryForm ? deliveryForm.payment_method : '',
+      email: email ? email : deliveryForm ? deliveryForm.email : '',
+      deliveryInstructions: instruction ? instruction : deliveryForm ? deliveryForm.deliveryInstructions : '',
+      password: password ? password : deliveryForm ? deliveryForm.password : '',
+      retypeEmail: retypeEmail ? retypeEmail : deliveryForm ? deliveryForm.retypeEmail : ''
+    }
+    dispatch(addDeliveryFormDetails(deliveryDetails));
+  }, [fullName, address, city, postalCode, country, country, phoneNumber, email, instruction, paymentMethod,
+    password, retypeEmail]);
+
   const handleOnChangeShippingAddress = () => {
     setChangeShippingAddress(true);
   }
 
   const handleOnChangeUserAddress = () => {
     setChangeShippingAddress(false);
+  }
+
+  const handleOnPaymentMethod = (payment: string) => {
+    setPaymentMethod(payment);
   }
 
   const handleOnShowPassword = () => {
@@ -63,7 +90,7 @@ const CashOnDelivery: React.FC = () => {
   }
 
   const handleOnPostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPostalCode(e.target.value);
+    setPostalCode(parseInt(e.target.value));
   }
 
   const handleOnCountryChange = (option: ValueType<any, false>) => {
@@ -90,6 +117,10 @@ const CashOnDelivery: React.FC = () => {
     setRetypeEmail(e.target.value);
   }
 
+  const handleOnInstructionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInstruction(e.target.value);
+  }
+
   const handleOnPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
@@ -97,7 +128,7 @@ const CashOnDelivery: React.FC = () => {
   const handleOnSubmit = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (fullName === '' || fullName === null || address === '' || address === null || city === '' || city === null ||
-        postalCode === '' || postalCode === null || country === '' || country === null || phoneNumber === '' ||
+        postalCode === 0 || postalCode === null || country === '' || country === null || phoneNumber === '' ||
         phoneNumber === null || email === '' || retypeEmail === '' || retypeEmail === null || password === '' ||
         password === null) {
       setIsFormValidated(true);
@@ -132,7 +163,7 @@ const CashOnDelivery: React.FC = () => {
                             <Form.Control
                                 type="text"
                                 placeholder="Your Full Name"
-                                value={fullName ? fullName : ''}
+                                value={deliveryForm ? deliveryForm.fullName : ''}
                                 onChange={handleOnFullNameChange}
                                 required
                             />
@@ -145,7 +176,7 @@ const CashOnDelivery: React.FC = () => {
                             <Form.Control
                                 type="text"
                                 placeholder="Street Address"
-                                value={address ? address : ''}
+                                value={deliveryForm ? deliveryForm.address : ''}
                                 onChange={handleOnAddressChange}
                                 required
                             />
@@ -160,7 +191,7 @@ const CashOnDelivery: React.FC = () => {
                               <Form.Control
                                   type="text"
                                   placeholder="City / suburb"
-                                  value={city ? city : ''}
+                                  value={deliveryForm ? deliveryForm.city : ''}
                                   onChange={handleOnCityChange}
                                   required
                               />
@@ -170,10 +201,10 @@ const CashOnDelivery: React.FC = () => {
                             </Col>
                             <Col md={4} className='form-group mb-0 pr-md-0'>
                               <Form.Label className='mb-0'>Postal Code*</Form.Label>
-                              <Form.Control type="text"
+                              <Form.Control type="number"
                                             pattern="[0-9]*"
                                             placeholder="Postal Code"
-                                            value={postalCode ? postalCode : ''}
+                                            value={deliveryForm ? deliveryForm.postalCode : ''}
                                             onChange={handleOnPostalCodeChange}
                                             required
                               />
@@ -204,8 +235,8 @@ const CashOnDelivery: React.FC = () => {
                                 <InputGroup.Text id="basic-addon1">{flag} {countryCode}</InputGroup.Text>
                               </InputGroup.Prepend>
                               <Form.Control
-                                  type="tel"
-                                  value={phoneNumber ? phoneNumber : ''}
+                                  type="number"
+                                  value={deliveryForm ? deliveryForm.contactNo : ''}
                                   onChange={handleOnPhoneNumberChange}
                                   required
                               />
@@ -221,7 +252,7 @@ const CashOnDelivery: React.FC = () => {
                               <Form.Control
                                   type="email"
                                   placeholder="Email"
-                                  value={email ? email : ''}
+                                  value={deliveryForm ? deliveryForm.email : ''}
                                   onChange={handleOnEmailChange}
                                   required
                               />
@@ -233,7 +264,7 @@ const CashOnDelivery: React.FC = () => {
                               <Form.Label className='mb-0'>Retype Email*</Form.Label>
                               <Form.Control
                                   type="email"
-                                  value={retypeEmail ? retypeEmail : ''}
+                                  value={deliveryForm ? deliveryForm.retypeEmail : ''}
                                   onChange={handleOnRetypeEmailChange}
                                   required
                               />
@@ -248,14 +279,13 @@ const CashOnDelivery: React.FC = () => {
                             <InputGroup>
                               <Form.Control
                                   type={showPassword ? 'text' : 'password'}
-                                  value={password ? password : ''}
+                                  value={deliveryForm ? deliveryForm.password : ''}
                                   onChange={handleOnPasswordChange}
                                   required
                               />
                               <InputGroup.Append>
                                 <InputGroup.Text onClick={handleOnShowPassword}>
                                   {showPassword ? <FiEyeOff/> : <FiEye/>}
-
                                 </InputGroup.Text>
                               </InputGroup.Append>
                               <FormControl.Feedback type="invalid">
@@ -296,7 +326,8 @@ const CashOnDelivery: React.FC = () => {
                   <Col xs={12} className='pl-0'>
                     <p>Add Delivery Instructions (Optional)</p>
                   </Col>
-                  <Form.Control as='textarea' rows={4} className=''/>
+                  <Form.Control as='textarea' rows={4} value={deliveryForm ? deliveryForm.deliveryInstructions : ''}
+                                onChange={handleOnInstructionChange}/>
                 </Row>
                 <Row className='payment-methods mt-3'>
                   <Col xs={12}>
@@ -305,7 +336,9 @@ const CashOnDelivery: React.FC = () => {
                 </Row>
                 <Row className='mx-md-3 mx-0'>
                   <Col md={6} className='pl-md-0 pl-0 pr-0 pr-md-4'>
-                    <div className='border text-center payment-method'>
+                    <div className='border text-center payment-method'
+                         style={deliveryForm ? deliveryForm.payment_method === 'card' ? {backgroundColor: '#e1fdc1'} : {} : {}}
+                         onClick={() => handleOnPaymentMethod('card')}>
                       <FaRegCreditCard size={100} className='mt-2'/>
                       <Row>
                         <Col xs={12}>
@@ -315,7 +348,9 @@ const CashOnDelivery: React.FC = () => {
                     </div>
                   </Col>
                   <Col md={6} className='pl-0 pl-md-4 mt-2 mt-md-0 pr-0'>
-                    <div className='border text-center payment-method'>
+                    <div className='border text-center payment-method'
+                         style={deliveryForm ? deliveryForm.payment_method === 'cash' ? {backgroundColor: '#e1fdc1'} : {} : {}}
+                         onClick={() => handleOnPaymentMethod('cash')}>
                       <FaRegMoneyBillAlt size={100} className='mt-2'/>
                       <Row>
                         <Col xs={12}>

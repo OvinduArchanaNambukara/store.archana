@@ -7,6 +7,7 @@ import {CategoriesReducer} from "./CategoriesReducer";
 import {CallReducer} from "./CallReducer";
 import {AdminReducer} from "./AdminReducer";
 import thunk from "redux-thunk";
+import {OrderFormReducer} from "./OrderFormReducer";
 
 export const rootReducer = combineReducers({
   productReducer: ProductReducer,
@@ -14,7 +15,8 @@ export const rootReducer = combineReducers({
   statusReducer: StatusReducer,
   categoriesReducer: CategoriesReducer,
   callReducer: CallReducer,
-  adminReducer: AdminReducer
+  adminReducer: AdminReducer,
+  orderFormReducer: OrderFormReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
