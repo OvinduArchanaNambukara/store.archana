@@ -3,6 +3,9 @@ import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {setLogInButtonStatus} from "../../store/actions/StatusActions";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
+import {ApolloError, FetchResult, useMutation} from "@apollo/client";
+import {SIGN_UP} from "../../graphql/mutation";
+import {toast} from "react-toastify";
 
 const RegisterForm: React.FC = () => {
   const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
@@ -13,6 +16,7 @@ const RegisterForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
   const [disable, setDisable] = useState<boolean>(true);
   const [match, setMatch] = useState<boolean>(false);
+  const [signUp] = useMutation(SIGN_UP);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,9 +32,23 @@ const RegisterForm: React.FC = () => {
       setMatch(true);
       return;
     } else {
-      alert(`registered`);
-      dispatch(setLogInButtonStatus(true));
-      history.push('/');
+      toast.info('🙄 Loading...');
+      signUp({
+        variables: {
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName
+        }
+      }).then((res: FetchResult<{ signUp: string }>) => {
+        localStorage.setItem('token', `${res.data?.signUp}`);
+        toast.success('😎 Successfully Registered');
+        toast.warning('😍 Welcome!');
+        dispatch(setLogInButtonStatus(true));
+        history.push('/');
+      }).catch((err: ApolloError) => {
+        toast('😪 Something Wrong');
+      });
     }
   }
 
