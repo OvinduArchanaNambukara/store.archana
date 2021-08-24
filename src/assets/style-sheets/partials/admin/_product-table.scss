@@ -12,6 +12,31 @@
     font-weight: 500;
   }
 
+  .react-bootstrap-table-pagination {
+    margin-top: 12px;
+    font-size: 1em;
+
+    button {
+      margin-right: 5px;
+    }
+
+    .react-bootstrap-table-pagination-list {
+      ul {
+        float: right;
+
+        li {
+          a {
+            font-size: 1em;
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
   table {
     thead {
       tr {
@@ -63,6 +88,31 @@
     .product-category {
       font-size: .9em;
       font-weight: 500;
+    }
+
+    .react-bootstrap-table-pagination {
+      margin-top: 12px;
+      font-size: .9em;
+
+      button {
+        margin-right: 5px;
+      }
+
+      .react-bootstrap-table-pagination-list {
+        ul {
+          float: right;
+
+          li {
+            a {
+              font-size: .6em;
+              padding: 6px 8px;
+              border: 1px solid #dee2e6;
+              border-radius: 5px;
+              text-decoration: none;
+            }
+          }
+        }
+      }
     }
 
     table {
