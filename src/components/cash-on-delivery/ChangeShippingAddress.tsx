@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
-import {countryOptionTypes} from "../../types/types";
+import {countryOptionTypes, ShippingFormType} from "../../types/types";
 import {customCallStyles} from "../../custom-styles/custom-selector-styles";
 import Select, {ValueType} from "react-select";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/reducers/RootReducer";
+import {addShoppingFormDetails} from "../../store/actions/OrderFormAction";
 
 type ChangeShippingAddressProps = {
   validated: boolean
@@ -11,15 +14,28 @@ type ChangeShippingAddressProps = {
 
 const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
   const {validated, options} = props;
-
   const [name, setName] = useState<string | null>(null);
   const [billingAddress, setBillingAddress] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
-  const [postalCode, setPostalCode] = useState<string | null>(null);
+  const [postalCode, setPostalCode] = useState<number | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [countryCode, setCountryCode] = useState<string | null>(null);
   const [flag, setFlag] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const shippingForm = useSelector((state: RootState) => state.orderFormReducer.shippingForm);
+
+  useEffect(() => {
+    let shippingDetails: ShippingFormType = {
+      name: name ? name : shippingForm ? shippingForm.name : '',
+      address: billingAddress ? billingAddress : shippingForm ? shippingForm.address : '',
+      postalCode: postalCode ? postalCode : shippingForm ? shippingForm.postalCode : 0,
+      country: country ? country : shippingForm ? shippingForm.country : '',
+      city: city ? city : shippingForm ? shippingForm.city : '',
+      contactNumber: phoneNumber ? phoneNumber : shippingForm ? shippingForm.contactNumber : ''
+    }
+    dispatch(addShoppingFormDetails(shippingDetails));
+  }, [name, billingAddress, city, postalCode, country, phoneNumber, countryCode]);
 
   const handleOnNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -34,7 +50,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
   }
 
   const handleOnPostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPostalCode(e.target.value);
+    setPostalCode(parseInt(e.target.value));
   }
 
   const handleOnCountryChange = (option: ValueType<any, false>) => {
@@ -62,7 +78,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
               <Form.Control
                   type="text"
                   placeholder="Name"
-                  value={name ? name : ''}
+                  value={shippingForm ? shippingForm.name : ''}
                   required
                   onChange={handleOnNameChange}
               />
@@ -75,7 +91,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
               <Form.Control
                   type="text"
                   placeholder="Billing Address"
-                  value={billingAddress ? billingAddress : ''}
+                  value={shippingForm ? shippingForm.address : ''}
                   required
                   onChange={handleOnBillingAddressChange}
               />
@@ -86,7 +102,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
                 <Form.Control
                     type="text"
                     placeholder="City / suburb"
-                    value={city ? city : ''}
+                    value={shippingForm ? shippingForm.city : ''}
                     onChange={handleOnCityChange}
                     required
                 />
@@ -96,10 +112,10 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
               </Col>
               <Col md={4} className='form-group mb-0 pr-md-0'>
                 <Form.Label className='mb-0'>Postal Code*</Form.Label>
-                <Form.Control type="text"
+                <Form.Control type="number"
                               pattern="[0-9]*"
                               placeholder="Postal Code"
-                              value={postalCode ? postalCode : ''}
+                              value={shippingForm ? shippingForm.postalCode : ''}
                               onChange={handleOnPostalCodeChange}
                               required
                 />
@@ -130,7 +146,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
                 </InputGroup.Prepend>
                 <Form.Control
                     type="tel"
-                    value={phoneNumber ? phoneNumber : ''}
+                    value={shippingForm ? shippingForm.contactNumber : ''}
                     onChange={handleOnPhoneNumberChange}
                     required
                 />

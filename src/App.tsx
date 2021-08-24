@@ -5,7 +5,6 @@ import {Provider} from "react-redux";
 import {store} from "./store/reducers/RootReducer"
 import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from "@apollo/client";
 import {setContext} from "@apollo/client/link/context";
-import {ADMIN_TOKEN} from "./constants/tempTokens";
 
 const httpLink = createHttpLink({
   uri: 'https://api.bitsandbytes.me/graphql',
@@ -16,7 +15,7 @@ const authLink = setContext((_, {headers}) => {
   return {
     headers: {
       ...headers,
-      authorization: ADMIN_TOKEN,
+      authorization: token,
     }
   }
 });

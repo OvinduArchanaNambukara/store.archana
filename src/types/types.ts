@@ -145,3 +145,26 @@ export interface AdminCategoryOptionType {
   s3Path: string
   color: string
 }
+
+export interface DeliveryFormType {
+  fullName: string
+  address: string
+  city: string
+  postalCode: number
+  country: string
+  contactNo: string
+  email: string
+  payment_method: string
+  deliveryInstructions: string
+  password: string
+  retypeEmail: string
+}
+
+export interface ShippingFormType {
+  name: string
+  address: string
+  city: string
+  postalCode: number
+  country: string
+  contactNumber: string
+}
