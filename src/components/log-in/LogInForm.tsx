@@ -21,6 +21,7 @@ const LogInForm: React.FC = () => {
     if (email === '' || email === null || password === '' || password === null) {
       setIsFormValidated(true);
     } else {
+      toast.info('🙄 Loading...');
       signIn({
         variables: {
           email: email,
@@ -29,12 +30,12 @@ const LogInForm: React.FC = () => {
       })
           .then((res: FetchResult<{ signIn: string }>) => {
             localStorage.setItem('token', `${res.data?.signIn}`);
-            toast.success('Welcome');
+            toast.success('😍 Welcome');
             dispatch(setLogInButtonStatus(true));
             history.push('/');
           })
           .catch((err: ApolloError) => {
-            toast.error('Failed, User name or password error')
+            toast.error('😪 Failed, User name or password error')
           });
     }
   }
