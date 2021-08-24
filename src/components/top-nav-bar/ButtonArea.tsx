@@ -12,9 +12,11 @@ const ButtonArea: React.FC = () => {
 
   /**
    * when log out click set route to /  path and set log in button status false in redux store
+   * clear local storage tokens
    * @author Ovindu
    */
   const handleOnLogOutClick = () => {
+    localStorage.clear();
     history.push('/');
     dispatch(setLogInButtonStatus(false));
   }

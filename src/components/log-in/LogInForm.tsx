@@ -3,24 +3,39 @@ import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {setLogInButtonStatus} from "../../store/actions/StatusActions";
 import {useHistory} from "react-router-dom";
+import {ApolloError, FetchResult, useMutation} from "@apollo/client";
+import {SIGN_IN} from "../../graphql/mutation";
+import {toast} from "react-toastify";
 
 const LogInForm: React.FC = () => {
   const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [check, setCheck] = useState<boolean | null>(null);
+  const [signIn] = useMutation(SIGN_IN);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, password)
     if (email === '' || email === null || password === '' || password === null) {
       setIsFormValidated(true);
     } else {
-      alert('Log in successful');
-      dispatch(setLogInButtonStatus(true));
-      history.push('/');
+      signIn({
+        variables: {
+          email: email,
+          password: password
+        }
+      })
+          .then((res: FetchResult<{ signIn: string }>) => {
+            localStorage.setItem('token', `${res.data?.signIn}`);
+            toast.success('Welcome');
+            dispatch(setLogInButtonStatus(true));
+            history.push('/');
+          })
+          .catch((err: ApolloError) => {
+            toast.error('Failed, User name or password error')
+          });
     }
   }
 
