@@ -10,8 +10,10 @@ import {RootState} from "../../store/reducers/RootReducer";
 import {callStateType} from "../../store/reducers/CallReducer";
 import {countryOptionTypes, DeliveryFormType} from "../../types/types";
 import {addDeliveryFormDetails} from "../../store/actions/OrderFormAction";
-import {useMutation} from "@apollo/client";
+import {ApolloError, useMutation} from "@apollo/client";
 import {ADD_ORDER} from "../../graphql/mutation";
+import {toast} from "react-toastify";
+import {processOrderDetails} from "../../functions/ProcessOrderDetails";
 
 const CashOnDelivery: React.FC = () => {
   const [fullName, setFullName] = useState<string | null>(null);
@@ -35,6 +37,7 @@ const CashOnDelivery: React.FC = () => {
   const countryCodes: callStateType[] = useSelector((state: RootState) => state.callReducer);
   const deliveryForm = useSelector((state: RootState) => state.orderFormReducer.deliveryForm);
   const shippingForm = useSelector((state: RootState) => state.orderFormReducer.shippingForm);
+  const cartState = useSelector((state: RootState) => state.cartReducer);
   const [createOrder] = useMutation(ADD_ORDER);
   const dispatch = useDispatch();
 
@@ -61,7 +64,8 @@ const CashOnDelivery: React.FC = () => {
       deliveryInstructions: instruction !== null ? instruction : deliveryForm ? deliveryForm.deliveryInstructions : '',
       password: password !== null ? password : deliveryForm ? deliveryForm.password : '',
       retypeEmail: retypeEmail !== null ? retypeEmail : deliveryForm ? deliveryForm.retypeEmail : '',
-      checkButton: changeShippingAddress !== null ? changeShippingAddress : deliveryForm ? deliveryForm.checkButton : false
+      checkButton: changeShippingAddress !== null ? changeShippingAddress : deliveryForm ? deliveryForm.checkButton : false,
+      countryCode: countryCode !== null ? countryCode : deliveryForm ? deliveryForm.countryCode : ''
     }
     dispatch(addDeliveryFormDetails(deliveryDetails));
   }, [fullName, address, city, postalCode, country, country, phoneNumber, email, instruction, paymentMethod,
@@ -152,8 +156,18 @@ const CashOnDelivery: React.FC = () => {
       setMatch(true);
       return;
     }
-
-    alert("order confirmed");
+    toast.info('🙄 Loading');
+    if (!deliveryForm) {
+      return;
+    }
+    createOrder({
+      variables: {
+        order: processOrderDetails(deliveryForm, shippingForm, cartState.cartList, changeShippingAddress,
+            cartState.subTotal)
+      }
+    })
+        .then(() => toast.success('😘 Process Success'))
+        .catch((err: ApolloError) => toast.error('😓 Something wrong'));
   }
 
   return (

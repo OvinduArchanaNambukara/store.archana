@@ -57,7 +57,7 @@ const Routes: React.FC = () => {
                 <Welcome/>
                 <SearchBar/>
                 <CategoryArea/>
-                {/*<ProductRoutes/>*/}
+                <ProductRoutes/>
               </Route>
               <Route path='/'>
                 <Redirect to='/home'/>

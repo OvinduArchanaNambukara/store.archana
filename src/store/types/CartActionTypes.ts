@@ -2,7 +2,9 @@ import {
   ADD_TO_CART,
   CHANGE_QUANTITY,
   DELETE_FROM_CART,
-  DISPLAY_CART_PREVIEW, UPDATE_CART_ITEM
+  DISPLAY_CART_PREVIEW,
+  SET_SUB_TOTAL,
+  UPDATE_CART_ITEM
 } from "../constants/CartConstants";
 import {ICheckoutProduct} from "../../types/types";
 
@@ -37,4 +39,15 @@ export interface UpdateCartItem {
   }
 }
 
-export type CartActionTypes = AddToCart | DeleteFromCart | DisplayCartPreview | ChangeQuantity | UpdateCartItem
+export interface SetSubTotal {
+  type: typeof SET_SUB_TOTAL,
+  payload: number
+}
+
+export type CartActionTypes =
+    AddToCart
+    | DeleteFromCart
+    | DisplayCartPreview
+    | ChangeQuantity
+    | UpdateCartItem
+    | SetSubTotal

@@ -152,6 +152,7 @@ export interface DeliveryFormType {
   city: string
   postalCode: number
   country: string
+  countryCode: string
   contactNo: string
   email: string
   payment_method: string
@@ -167,5 +168,45 @@ export interface ShippingFormType {
   city: string
   postalCode: number
   country: string
+  countryCode: string
   contactNumber: string
 }
+
+export interface OrderType {
+  date: string
+  discount: number
+  order_list: OrderProductListType[]
+  payment_method: string
+  sub_total: number,
+  delivery: OrderDeliveryType
+  shipping: OrderShippingType
+}
+
+export interface OrderDeliveryType {
+  full_name: string
+  country: string
+  city: string
+  postal_code: number
+  address: string
+  email: string
+  tel: string
+  instructions: string
+}
+
+export interface OrderShippingType {
+  city: string
+  country: string
+  address: string
+  postal_code: number
+  full_name: string
+  tel: string
+}
+
+export interface OrderProductListType {
+  _id: string
+  name: string
+  unit_price: string
+  qty: string
+  price: number
+}
+
