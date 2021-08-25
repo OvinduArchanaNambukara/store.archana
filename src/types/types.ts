@@ -158,6 +158,7 @@ export interface DeliveryFormType {
   deliveryInstructions: string
   password: string
   retypeEmail: string
+  checkButton: boolean
 }
 
 export interface ShippingFormType {

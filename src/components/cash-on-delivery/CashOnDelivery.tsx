@@ -10,6 +10,8 @@ import {RootState} from "../../store/reducers/RootReducer";
 import {callStateType} from "../../store/reducers/CallReducer";
 import {countryOptionTypes, DeliveryFormType} from "../../types/types";
 import {addDeliveryFormDetails} from "../../store/actions/OrderFormAction";
+import {useMutation} from "@apollo/client";
+import {ADD_ORDER} from "../../graphql/mutation";
 
 const CashOnDelivery: React.FC = () => {
   const [fullName, setFullName] = useState<string | null>(null);
@@ -26,11 +28,14 @@ const CashOnDelivery: React.FC = () => {
   const [password, setPassword] = useState<string | null>(null);
   const [instruction, setInstruction] = useState<string | null>(null);
   const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
+  const [isShippingFormValidated, setIsShippingFormValidated] = useState<boolean>(false);
   const [match, setMatch] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [changeShippingAddress, setChangeShippingAddress] = useState<boolean>(false);
+  const [changeShippingAddress, setChangeShippingAddress] = useState<boolean | null>(null);
   const countryCodes: callStateType[] = useSelector((state: RootState) => state.callReducer);
   const deliveryForm = useSelector((state: RootState) => state.orderFormReducer.deliveryForm);
+  const shippingForm = useSelector((state: RootState) => state.orderFormReducer.shippingForm);
+  const [createOrder] = useMutation(ADD_ORDER);
   const dispatch = useDispatch();
 
   const options: countryOptionTypes[] = countryCodes.map<countryOptionTypes>((country_code: callStateType) => {
@@ -45,21 +50,22 @@ const CashOnDelivery: React.FC = () => {
 
   useEffect(() => {
     let deliveryDetails: DeliveryFormType = {
-      fullName: fullName ? fullName : deliveryForm ? deliveryForm.fullName : '',
-      address: address ? address : deliveryForm ? deliveryForm.address : '',
-      city: city ? city : deliveryForm ? deliveryForm.city : '',
-      postalCode: postalCode ? postalCode : deliveryForm ? deliveryForm.postalCode : 0,
-      country: country ? country : deliveryForm ? deliveryForm.country : '',
-      contactNo: phoneNumber ? phoneNumber : deliveryForm ? deliveryForm.contactNo : '',
-      payment_method: paymentMethod ? paymentMethod : deliveryForm ? deliveryForm.payment_method : '',
-      email: email ? email : deliveryForm ? deliveryForm.email : '',
-      deliveryInstructions: instruction ? instruction : deliveryForm ? deliveryForm.deliveryInstructions : '',
-      password: password ? password : deliveryForm ? deliveryForm.password : '',
-      retypeEmail: retypeEmail ? retypeEmail : deliveryForm ? deliveryForm.retypeEmail : ''
+      fullName: fullName !== null ? fullName : deliveryForm ? deliveryForm.fullName : '',
+      address: address !== null ? address : deliveryForm ? deliveryForm.address : '',
+      city: city !== null ? city : deliveryForm ? deliveryForm.city : '',
+      postalCode: postalCode !== null ? postalCode : deliveryForm ? deliveryForm.postalCode : 0,
+      country: country !== null ? country : deliveryForm ? deliveryForm.country : '',
+      contactNo: phoneNumber !== null ? phoneNumber : deliveryForm ? deliveryForm.contactNo : '',
+      payment_method: paymentMethod !== null ? paymentMethod : deliveryForm ? deliveryForm.payment_method : 'cash',
+      email: email !== null ? email : deliveryForm ? deliveryForm.email : '',
+      deliveryInstructions: instruction !== null ? instruction : deliveryForm ? deliveryForm.deliveryInstructions : '',
+      password: password !== null ? password : deliveryForm ? deliveryForm.password : '',
+      retypeEmail: retypeEmail !== null ? retypeEmail : deliveryForm ? deliveryForm.retypeEmail : '',
+      checkButton: changeShippingAddress !== null ? changeShippingAddress : deliveryForm ? deliveryForm.checkButton : false
     }
     dispatch(addDeliveryFormDetails(deliveryDetails));
   }, [fullName, address, city, postalCode, country, country, phoneNumber, email, instruction, paymentMethod,
-    password, retypeEmail]);
+    password, retypeEmail, changeShippingAddress]);
 
   const handleOnChangeShippingAddress = () => {
     setChangeShippingAddress(true);
@@ -111,10 +117,12 @@ const CashOnDelivery: React.FC = () => {
 
   const handleOnEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    setMatch(false);
   }
 
   const handleOnRetypeEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRetypeEmail(e.target.value);
+    setMatch(false);
   }
 
   const handleOnInstructionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -127,6 +135,12 @@ const CashOnDelivery: React.FC = () => {
 
   const handleOnSubmit = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
+    if (changeShippingAddress && shippingForm && (shippingForm.city === '' || shippingForm.name === '' ||
+        shippingForm.address === '' || isNaN(shippingForm.postalCode) || shippingForm.contactNumber === '' ||
+        shippingForm.country === '')) {
+      setIsShippingFormValidated(true);
+      return;
+    }
     if (fullName === '' || fullName === null || address === '' || address === null || city === '' || city === null ||
         postalCode === 0 || postalCode === null || country === '' || country === null || phoneNumber === '' ||
         phoneNumber === null || email === '' || retypeEmail === '' || retypeEmail === null || password === '' ||
@@ -134,11 +148,11 @@ const CashOnDelivery: React.FC = () => {
       setIsFormValidated(true);
       return;
     }
-    if (email !== retypeEmail && retypeEmail !== '' && retypeEmail !== null) {
+    if (email !== retypeEmail) {
       setMatch(true);
-      console.log("not similar")
       return;
     }
+
     alert("order confirmed");
   }
 
@@ -155,9 +169,8 @@ const CashOnDelivery: React.FC = () => {
                       <Card.Header className='pb-0'>
                         <Card.Title>Shipping and Billing Address</Card.Title>
                       </Card.Header>
-
                       <Card.Body>
-                        <Form noValidate validated={isFormValidated || match}>
+                        <Form noValidate validated={isFormValidated}>
                           <Form.Group controlId="formGridFullName" className='mb-0'>
                             <Form.Label className='mb-0'>Full Name*</Form.Label>
                             <Form.Control
@@ -259,6 +272,7 @@ const CashOnDelivery: React.FC = () => {
                               <FormControl.Feedback type="invalid">
                                 <p className="font-weight-bold mb-0">Enter Email</p>
                               </FormControl.Feedback>
+                              {match && <small className='text-danger font-weight-bold'>Emails are not matched</small>}
                             </Col>
                             <Col md={6} className='form-group mb-0'>
                               <Form.Label className='mb-0'>Retype Email*</Form.Label>
@@ -271,6 +285,7 @@ const CashOnDelivery: React.FC = () => {
                               <FormControl.Feedback type="invalid">
                                 <p className="font-weight-bold mb-0">Enter Retype Email</p>
                               </FormControl.Feedback>
+                              {match && <small className='text-danger font-weight-bold'>Emails are not matched</small>}
                             </Col>
                           </Row>
 
@@ -307,20 +322,25 @@ const CashOnDelivery: React.FC = () => {
                   <Form.Check
                       inline
                       label="Same as user address"
-                      name="group1"
                       type="radio"
                       id="radio-1"
                       onChange={handleOnChangeUserAddress}
+                      checked={deliveryForm ? !deliveryForm.checkButton : changeShippingAddress === null ?
+                          false : changeShippingAddress}
                   />
                   <Form.Check
                       inline
                       label="Change shipping address"
-                      name="group1"
                       type="radio"
                       id="radio-2"
                       onChange={handleOnChangeShippingAddress}
+                      checked={deliveryForm ? deliveryForm.checkButton : changeShippingAddress === null ?
+                          true : !changeShippingAddress}
                   />
-                  {changeShippingAddress && <ChangeShippingAddress validated={isFormValidated} options={options}/>}
+
+                  {(deliveryForm ? deliveryForm.checkButton : false) &&
+                  <ChangeShippingAddress validated={isShippingFormValidated} options={options}/>}
+
                 </div>
                 <Row className='mt-3 text-area px-3'>
                   <Col xs={12} className='pl-0'>
