@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {setLogInButtonStatus} from "../../store/actions/StatusActions";
+import {setLogInButtonStatus, setUserRole} from "../../store/actions/StatusActions";
 import {useHistory} from "react-router-dom";
 import {ApolloError, FetchResult, useMutation} from "@apollo/client";
 import {SIGN_IN} from "../../graphql/mutation";
 import {toast} from "react-toastify";
+import {SignInResponse} from "../../types/types";
 
 const LogInForm: React.FC = () => {
   const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
@@ -28,9 +29,10 @@ const LogInForm: React.FC = () => {
           password: password
         }
       })
-          .then((res: FetchResult<{ signIn: string }>) => {
-            localStorage.setItem('token', `${res.data?.signIn}`);
+          .then((res: FetchResult<SignInResponse>) => {
+            localStorage.setItem('token', `${res.data?.signIn.token}`);
             toast.success('😍 Welcome');
+            dispatch(setUserRole(res.data ? res.data.signIn.role : ''));
             dispatch(setLogInButtonStatus(true));
             history.push('/');
           })
