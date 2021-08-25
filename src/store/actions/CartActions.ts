@@ -4,6 +4,7 @@ import {
   ChangeQuantity,
   DeleteFromCart,
   DisplayCartPreview,
+  SetSubTotal,
   UpdateCartItem
 } from "../types/CartActionTypes";
 import {
@@ -11,6 +12,7 @@ import {
   CHANGE_QUANTITY,
   DELETE_FROM_CART,
   DISPLAY_CART_PREVIEW,
+  SET_SUB_TOTAL,
   UPDATE_CART_ITEM
 } from "../constants/CartConstants";
 
@@ -52,5 +54,12 @@ export const updateCartItem = (id: string, quantity: number): UpdateCartItem => 
       id: id,
       quantity: quantity
     }
+  }
+}
+
+export const setSubTotal = (total: number): SetSubTotal => {
+  return {
+    type: SET_SUB_TOTAL,
+    payload: total
   }
 }

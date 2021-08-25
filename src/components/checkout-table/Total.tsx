@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import CouponArea from "./CouponArea";
 import {Col, Row} from "react-bootstrap";
 import NumberFormat from "react-number-format";
+import {useDispatch} from "react-redux";
+import {setSubTotal} from "../../store/actions/CartActions";
 
 type CartTotalProps = {
   total: number
@@ -9,6 +11,11 @@ type CartTotalProps = {
 
 const Total: React.FC<CartTotalProps> = (props) => {
   const {total} = props;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSubTotal(total))
+  }, [total]);
 
   return (
       <React.Fragment>

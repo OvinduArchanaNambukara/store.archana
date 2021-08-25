@@ -32,7 +32,8 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
       postalCode: postalCode !== null ? postalCode : shippingForm ? shippingForm.postalCode : 0,
       country: country !== null ? country : shippingForm ? shippingForm.country : '',
       city: city !== null ? city : shippingForm ? shippingForm.city : '',
-      contactNumber: phoneNumber !== null ? phoneNumber : shippingForm ? shippingForm.contactNumber : ''
+      contactNumber: phoneNumber !== null ? phoneNumber : shippingForm ? shippingForm.contactNumber : '',
+      countryCode: countryCode !== null ? countryCode : shippingForm ? shippingForm.countryCode : ''
     }
     dispatch(addShoppingFormDetails(shippingDetails));
   }, [name, billingAddress, city, postalCode, country, phoneNumber, countryCode]);

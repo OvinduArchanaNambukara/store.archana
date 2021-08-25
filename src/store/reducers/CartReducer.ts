@@ -5,17 +5,20 @@ import {
   CHANGE_QUANTITY,
   DELETE_FROM_CART,
   DISPLAY_CART_PREVIEW,
+  SET_SUB_TOTAL,
   UPDATE_CART_ITEM
 } from "../constants/CartConstants";
 
 const initialState: cartStateType = {
   cartList: [],
-  displayCartPreview: false
+  displayCartPreview: false,
+  subTotal: 0
 };
 
 interface cartStateType {
   cartList: ICheckoutProduct[],
   displayCartPreview: boolean
+  subTotal: number
 }
 
 export const CartReducer = (state: cartStateType = initialState, action: CartActionTypes) => {
@@ -59,6 +62,12 @@ export const CartReducer = (state: cartStateType = initialState, action: CartAct
       return {
         ...state,
         cartList: cartList
+      }
+    }
+    case SET_SUB_TOTAL: {
+      return {
+        ...state,
+        subTotal: action.payload
       }
     }
     default:
