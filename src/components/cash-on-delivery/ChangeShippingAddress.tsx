@@ -27,12 +27,12 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
 
   useEffect(() => {
     let shippingDetails: ShippingFormType = {
-      name: name ? name : shippingForm ? shippingForm.name : '',
-      address: billingAddress ? billingAddress : shippingForm ? shippingForm.address : '',
-      postalCode: postalCode ? postalCode : shippingForm ? shippingForm.postalCode : 0,
-      country: country ? country : shippingForm ? shippingForm.country : '',
-      city: city ? city : shippingForm ? shippingForm.city : '',
-      contactNumber: phoneNumber ? phoneNumber : shippingForm ? shippingForm.contactNumber : ''
+      name: name !== null ? name : shippingForm ? shippingForm.name : '',
+      address: billingAddress !== null ? billingAddress : shippingForm ? shippingForm.address : '',
+      postalCode: postalCode !== null ? postalCode : shippingForm ? shippingForm.postalCode : 0,
+      country: country !== null ? country : shippingForm ? shippingForm.country : '',
+      city: city !== null ? city : shippingForm ? shippingForm.city : '',
+      contactNumber: phoneNumber !== null ? phoneNumber : shippingForm ? shippingForm.contactNumber : ''
     }
     dispatch(addShoppingFormDetails(shippingDetails));
   }, [name, billingAddress, city, postalCode, country, phoneNumber, countryCode]);
@@ -145,7 +145,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
                   <InputGroup.Text id="basic-addon1">{flag} {countryCode}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <Form.Control
-                    type="tel"
+                    type="number"
                     value={shippingForm ? shippingForm.contactNumber : ''}
                     onChange={handleOnPhoneNumberChange}
                     required

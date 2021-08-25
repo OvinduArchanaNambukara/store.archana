@@ -19,3 +19,11 @@ export const SIGN_UP = gql`
     signUp(email: $email, password: $password, first_name: $firstName, last_name: $lastName)
   }
 `;
+
+export const ADD_ORDER = gql`
+  mutation($order: CreateOrder!) {
+    createOrder(order: $order) {
+      _id
+    } 
+  }
+`;
