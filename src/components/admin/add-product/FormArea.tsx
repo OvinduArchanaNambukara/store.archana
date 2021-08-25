@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Form, InputGroup, Row} from "react-bootstrap";
 import Select, {ValueType} from "react-select";
-import {categoryOptions, perOptions} from "../../constants/categoryList";
+import {categoryOptions, perOptions} from "../../../constants/categoryList";
 import ProductPreview from "./ProductPreview";
-import {blogToFile} from "../../functions/ProcessCroppedImage";
+import {blogToFile} from "../../../functions/ProcessCroppedImage";
 import {useSelector} from "react-redux";
-import {RootState} from "../../store/reducers/RootReducer";
+import {RootState} from "../../../store/reducers/RootReducer";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {useMutation} from "@apollo/client";
-import {ADD_PRODUCT} from "../../graphql/mutation";
+import {ADD_PRODUCT} from "../../../graphql/mutation";
 
 const FormArea: React.FC = () => {
   const [displayOldPrice, setDisplayOldPrice] = useState<boolean>(false);

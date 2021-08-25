@@ -8,7 +8,7 @@ export const setLogInButtonStatus = (value: boolean): LogInStatusTypes => {
   }
 }
 
-export const setUserRole = (role: string): SetRoleType => {
+export const setUserRole = (role: string | null): SetRoleType => {
   return {
     type: SET_ROLE,
     payload: role

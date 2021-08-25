@@ -1,6 +1,6 @@
 import React from "react";
 import {useDropzone} from "react-dropzone";
-import upload from "../../assets/images/admin/upload-icon.png"
+import upload from "../../../assets/images/admin/upload-icon.png"
 import {Col, Row} from "react-bootstrap";
 
 type DropZoneProps = {

@@ -3,7 +3,7 @@ import {Button} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
-import {setLogInButtonStatus} from "../../store/actions/StatusActions";
+import {setLogInButtonStatus, setUserRole} from "../../store/actions/StatusActions";
 
 const ButtonArea: React.FC = () => {
   const isLogIn: boolean = useSelector((state: RootState) => state.statusReducer.isLogIn);
@@ -19,6 +19,7 @@ const ButtonArea: React.FC = () => {
     localStorage.clear();
     history.push('/');
     dispatch(setLogInButtonStatus(false));
+    dispatch(setUserRole(null));
   }
 
   /**
