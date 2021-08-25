@@ -3,7 +3,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import DropZone from "./DropZone";
 import Cropper from "react-cropper";
 import {useDispatch} from "react-redux";
-import {showCropImage} from "../../store/actions/AdminActions";
+import {showCropImage} from "../../../store/actions/AdminActions";
 
 const DropZoneArea: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);

@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Col, FormControl, Image, InputGroup, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
-import {RootState} from "../../store/reducers/RootReducer";
+import {RootState} from "../../../store/reducers/RootReducer";
 
 type ProductPreviewProps = {
   name: string | null

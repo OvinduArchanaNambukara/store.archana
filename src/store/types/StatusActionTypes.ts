@@ -7,7 +7,7 @@ export interface LogInStatusTypes {
 
 export interface SetRoleType {
   type: typeof SET_ROLE
-  payload: string
+  payload: string | null
 }
 
 export type StatusActionTypes = LogInStatusTypes | SetRoleType;

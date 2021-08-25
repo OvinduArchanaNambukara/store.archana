@@ -1,21 +1,29 @@
-import React from "react";
-import "cropperjs/dist/cropper.css";
-import {Col, Container, Row} from "react-bootstrap";
-import DropZoneArea from "./DropZoneArea";
-import FormArea from "./FormArea";
+import React, {lazy, Suspense} from "react";
+import {Redirect, Route, Switch, useLocation, useRouteMatch} from "react-router-dom";
+import Loading from "../loading/Loading";
 
-export const Demo: React.FC = () => {
+const ProductTable = lazy(() => import("../admin/product-table/ProductTable"));
+const AddProduct = lazy(() => import("../admin/add-product/AddProduct"));
+
+const Admin: React.FC = () => {
+  let location = useLocation();
+  let {path} = useRouteMatch();
 
   return (
-      <Container>
-        <Row className='add-product-image justify-content-center my-3'>
-          <Col xs={12} className='min-vh-100'>
-            <DropZoneArea/>
-            <FormArea/>
-          </Col>
-        </Row>
-      </Container>
+      <Suspense fallback={<Loading/>}>
+        <Switch location={location}>
+          <Route path={`${path}/product-list`}>
+            <ProductTable/>
+          </Route>
+          <Route path={`${path}/add`}>
+            <AddProduct/>
+          </Route>
+          <Route path='/'>
+            <Redirect to={`${path}/add`}/>
+          </Route>
+        </Switch>
+      </Suspense>
   );
-};
+}
 
-export default Demo;
+export default Admin;

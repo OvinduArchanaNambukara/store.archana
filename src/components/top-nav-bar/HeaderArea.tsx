@@ -10,6 +10,7 @@ const HeaderArea: React.FC = () => {
   const [toggleIcon, setToggleIcon] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
+
   useEffect(() => {
     if (isClicked) {
       changeToNight();
@@ -65,7 +66,7 @@ const HeaderArea: React.FC = () => {
                 </NavLink>
               </Nav.Link>
               <Nav.Link className='pr-3'>
-                <NavLink to='/'>
+                <NavLink to='/my-account'>
                   <FiUser/>
                   My Account
                 </NavLink>
