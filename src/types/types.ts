@@ -150,7 +150,7 @@ export interface DeliveryFormType {
   fullName: string
   address: string
   city: string
-  postalCode: number
+  postalCode: string
   country: string
   countryCode: string
   contactNo: string
@@ -166,7 +166,7 @@ export interface ShippingFormType {
   name: string
   address: string
   city: string
-  postalCode: number
+  postalCode: string
   country: string
   countryCode: string
   contactNumber: string

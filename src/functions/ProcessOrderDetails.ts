@@ -26,7 +26,7 @@ const createDeliveryInfo = (deliveryDetails: DeliveryFormType): OrderDeliveryTyp
     full_name: deliveryDetails.fullName,
     country: deliveryDetails.country,
     city: deliveryDetails.city,
-    postal_code: deliveryDetails.postalCode,
+    postal_code: parseInt(deliveryDetails.postalCode),
     address: deliveryDetails.address,
     email: deliveryDetails.email,
     tel: deliveryDetails.countryCode + deliveryDetails.contactNo,
@@ -38,7 +38,7 @@ const createShippingInfo = (shippingDetails: ShippingFormType): OrderShippingTyp
   return {
     full_name: shippingDetails.name,
     address: shippingDetails.address,
-    postal_code: shippingDetails.postalCode,
+    postal_code: parseInt(shippingDetails.postalCode),
     tel: shippingDetails.countryCode + shippingDetails.contactNumber,
     country: shippingDetails.country,
     city: shippingDetails.city
@@ -49,7 +49,7 @@ const createShippingInfoDelivery = (deliveryDetails: DeliveryFormType): OrderShi
   return {
     full_name: deliveryDetails.fullName,
     address: deliveryDetails.address,
-    postal_code: deliveryDetails.postalCode,
+    postal_code: parseInt(deliveryDetails.postalCode),
     tel: deliveryDetails.countryCode + deliveryDetails.contactNo,
     country: deliveryDetails.country,
     city: deliveryDetails.city

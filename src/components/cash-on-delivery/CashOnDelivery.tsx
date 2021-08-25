@@ -9,18 +9,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
 import {callStateType} from "../../store/reducers/CallReducer";
 import {countryOptionTypes, DeliveryFormType} from "../../types/types";
-import {addDeliveryFormDetails} from "../../store/actions/OrderFormAction";
+import {addDeliveryFormDetails, deleteOrderFormDetails} from "../../store/actions/OrderFormAction";
 import {ApolloError, useMutation} from "@apollo/client";
 import {ADD_ORDER} from "../../graphql/mutation";
 import {toast} from "react-toastify";
 import {processOrderDetails} from "../../functions/ProcessOrderDetails";
+import {clearCart} from "../../store/actions/CartActions";
+import {useHistory} from "react-router-dom";
 
 const CashOnDelivery: React.FC = () => {
   const [fullName, setFullName] = useState<string | null>(null);
   const [address, setAddress] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
-  const [postalCode, setPostalCode] = useState<number | null>(null);
+  const [postalCode, setPostalCode] = useState<string | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [countryCode, setCountryCode] = useState<string | null>(null);
   const [flag, setFlag] = useState<string | null>(null);
@@ -40,6 +42,7 @@ const CashOnDelivery: React.FC = () => {
   const cartState = useSelector((state: RootState) => state.cartReducer);
   const [createOrder] = useMutation(ADD_ORDER);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const options: countryOptionTypes[] = countryCodes.map<countryOptionTypes>((country_code: callStateType) => {
     return {
@@ -56,7 +59,7 @@ const CashOnDelivery: React.FC = () => {
       fullName: fullName !== null ? fullName : deliveryForm ? deliveryForm.fullName : '',
       address: address !== null ? address : deliveryForm ? deliveryForm.address : '',
       city: city !== null ? city : deliveryForm ? deliveryForm.city : '',
-      postalCode: postalCode !== null ? postalCode : deliveryForm ? deliveryForm.postalCode : 0,
+      postalCode: postalCode !== null ? postalCode : deliveryForm ? deliveryForm.postalCode : '',
       country: country !== null ? country : deliveryForm ? deliveryForm.country : '',
       contactNo: phoneNumber !== null ? phoneNumber : deliveryForm ? deliveryForm.contactNo : '',
       payment_method: paymentMethod !== null ? paymentMethod : deliveryForm ? deliveryForm.payment_method : 'cash',
@@ -73,6 +76,7 @@ const CashOnDelivery: React.FC = () => {
 
   const handleOnChangeShippingAddress = () => {
     setChangeShippingAddress(true);
+    setIsShippingFormValidated(false);
   }
 
   const handleOnChangeUserAddress = () => {
@@ -100,7 +104,7 @@ const CashOnDelivery: React.FC = () => {
   }
 
   const handleOnPostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPostalCode(parseInt(e.target.value));
+    setPostalCode(e.target.value);
   }
 
   const handleOnCountryChange = (option: ValueType<any, false>) => {
@@ -140,15 +144,14 @@ const CashOnDelivery: React.FC = () => {
   const handleOnSubmit = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (changeShippingAddress && shippingForm && (shippingForm.city === '' || shippingForm.name === '' ||
-        shippingForm.address === '' || isNaN(shippingForm.postalCode) || shippingForm.contactNumber === '' ||
+        shippingForm.address === '' || shippingForm.postalCode === '' || shippingForm.contactNumber === '' ||
         shippingForm.country === '')) {
       setIsShippingFormValidated(true);
       return;
     }
-    if (fullName === '' || fullName === null || address === '' || address === null || city === '' || city === null ||
-        postalCode === 0 || postalCode === null || country === '' || country === null || phoneNumber === '' ||
-        phoneNumber === null || email === '' || retypeEmail === '' || retypeEmail === null || password === '' ||
-        password === null) {
+    if (deliveryForm && (deliveryForm.fullName === '' || deliveryForm.address === '' || deliveryForm.city === '' ||
+        deliveryForm.postalCode === '' || deliveryForm.country === '' || deliveryForm.contactNo === '' ||
+        deliveryForm.email === '' || deliveryForm.retypeEmail === '' || deliveryForm.password === '')) {
       setIsFormValidated(true);
       return;
     }
@@ -166,7 +169,12 @@ const CashOnDelivery: React.FC = () => {
             cartState.subTotal)
       }
     })
-        .then(() => toast.success('😘 Process Success'))
+        .then(() => {
+          toast.success('😘 Process Success');
+          dispatch(clearCart());
+          dispatch(deleteOrderFormDetails());
+          history.push('/');
+        })
         .catch((err: ApolloError) => toast.error('😓 Something wrong'));
   }
 

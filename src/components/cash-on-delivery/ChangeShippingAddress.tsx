@@ -17,7 +17,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
   const [name, setName] = useState<string | null>(null);
   const [billingAddress, setBillingAddress] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
-  const [postalCode, setPostalCode] = useState<number | null>(null);
+  const [postalCode, setPostalCode] = useState<string | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
   const [countryCode, setCountryCode] = useState<string | null>(null);
@@ -29,7 +29,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
     let shippingDetails: ShippingFormType = {
       name: name !== null ? name : shippingForm ? shippingForm.name : '',
       address: billingAddress !== null ? billingAddress : shippingForm ? shippingForm.address : '',
-      postalCode: postalCode !== null ? postalCode : shippingForm ? shippingForm.postalCode : 0,
+      postalCode: postalCode !== null ? postalCode : shippingForm ? shippingForm.postalCode : '',
       country: country !== null ? country : shippingForm ? shippingForm.country : '',
       city: city !== null ? city : shippingForm ? shippingForm.city : '',
       contactNumber: phoneNumber !== null ? phoneNumber : shippingForm ? shippingForm.contactNumber : '',
@@ -51,7 +51,7 @@ const ChangeShippingAddress: React.FC<ChangeShippingAddressProps> = (props) => {
   }
 
   const handleOnPostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPostalCode(parseInt(e.target.value));
+    setPostalCode(e.target.value);
   }
 
   const handleOnCountryChange = (option: ValueType<any, false>) => {

@@ -3,6 +3,7 @@ import {CartActionTypes} from "../types/CartActionTypes";
 import {
   ADD_TO_CART,
   CHANGE_QUANTITY,
+  CLEAR_CART,
   DELETE_FROM_CART,
   DISPLAY_CART_PREVIEW,
   SET_SUB_TOTAL,
@@ -68,6 +69,12 @@ export const CartReducer = (state: cartStateType = initialState, action: CartAct
       return {
         ...state,
         subTotal: action.payload
+      }
+    }
+    case CLEAR_CART: {
+      return {
+        ...state,
+        cartList: []
       }
     }
     default:
