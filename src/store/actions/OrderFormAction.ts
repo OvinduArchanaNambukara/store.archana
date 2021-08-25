@@ -26,7 +26,6 @@ export const addShoppingFormDetails = (shoppingDetails: ShippingFormType | null)
 
 export const deleteOrderFormDetails = (): DeleteOrderFormDetailsType => {
   return {
-    type: DELETE_ORDER_FORM_DETAILS,
-    payload: null
+    type: DELETE_ORDER_FORM_DETAILS
   }
 }

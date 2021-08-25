@@ -2,6 +2,7 @@ import {ICheckoutProduct} from "../../types/types";
 import {
   AddToCart,
   ChangeQuantity,
+  ClearCart,
   DeleteFromCart,
   DisplayCartPreview,
   SetSubTotal,
@@ -10,6 +11,7 @@ import {
 import {
   ADD_TO_CART,
   CHANGE_QUANTITY,
+  CLEAR_CART,
   DELETE_FROM_CART,
   DISPLAY_CART_PREVIEW,
   SET_SUB_TOTAL,
@@ -61,5 +63,11 @@ export const setSubTotal = (total: number): SetSubTotal => {
   return {
     type: SET_SUB_TOTAL,
     payload: total
+  }
+}
+
+export const clearCart = (): ClearCart => {
+  return {
+    type: CLEAR_CART
   }
 }

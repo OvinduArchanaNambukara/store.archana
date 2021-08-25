@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   CHANGE_QUANTITY,
+  CLEAR_CART,
   DELETE_FROM_CART,
   DISPLAY_CART_PREVIEW,
   SET_SUB_TOTAL,
@@ -44,6 +45,11 @@ export interface SetSubTotal {
   payload: number
 }
 
+export interface ClearCart {
+  type: typeof CLEAR_CART,
+}
+
+
 export type CartActionTypes =
     AddToCart
     | DeleteFromCart
@@ -51,3 +57,4 @@ export type CartActionTypes =
     | ChangeQuantity
     | UpdateCartItem
     | SetSubTotal
+    | ClearCart

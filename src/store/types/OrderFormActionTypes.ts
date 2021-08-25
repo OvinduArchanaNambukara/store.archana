@@ -17,7 +17,6 @@ export interface AddShoppingFormDetailsType {
 
 export interface DeleteOrderFormDetailsType {
   type: typeof DELETE_ORDER_FORM_DETAILS
-  payload: null
 }
 
 export type OrderActionType = AddDeliveryFormDetailsType | DeleteOrderFormDetailsType | AddShoppingFormDetailsType;
