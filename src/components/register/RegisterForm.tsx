@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {setLogInButtonStatus} from "../../store/actions/StatusActions";
+import {setLogInButtonStatus, setUserRole} from "../../store/actions/StatusActions";
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
 import {ApolloError, FetchResult, useMutation} from "@apollo/client";
 import {SIGN_UP} from "../../graphql/mutation";
 import {toast} from "react-toastify";
+import {SignUpResponse} from "../../types/types";
 
 const RegisterForm: React.FC = () => {
   const [isFormValidated, setIsFormValidated] = useState<boolean>(false);
@@ -40,10 +41,11 @@ const RegisterForm: React.FC = () => {
           firstName: firstName,
           lastName: lastName
         }
-      }).then((res: FetchResult<{ signUp: string }>) => {
-        localStorage.setItem('token', `${res.data?.signUp}`);
+      }).then((res: FetchResult<SignUpResponse>) => {
+        localStorage.setItem('token', `${res.data?.signUp.token}`);
         toast.success('😎 Successfully Registered');
         toast.warning('😍 Welcome!');
+        dispatch(setUserRole(res.data ? res.data.signUp.role : ''));
         dispatch(setLogInButtonStatus(true));
         history.push('/');
       }).catch((err: ApolloError) => {

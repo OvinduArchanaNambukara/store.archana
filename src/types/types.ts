@@ -210,3 +210,16 @@ export interface OrderProductListType {
   price: number
 }
 
+interface res {
+  token: string
+  role: string
+}
+
+export interface SignInResponse {
+  signIn: res
+}
+
+export interface SignUpResponse {
+  signUp: res
+}
+

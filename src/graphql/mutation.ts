@@ -10,13 +10,19 @@ export const ADD_PRODUCT = gql`
 
 export const SIGN_IN = gql`
   mutation($email: String!, $password: String!) {
-    signIn(email: $email, password: $password)
+    signIn(email: $email, password: $password){
+      token
+      role
+    }
   }
 `;
 
 export const SIGN_UP = gql`
   mutation($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
-    signUp(email: $email, password: $password, first_name: $firstName, last_name: $lastName)
+    signUp(email: $email, password: $password, first_name: $firstName, last_name: $lastName){
+      token
+      role
+    }
   }
 `;
 
