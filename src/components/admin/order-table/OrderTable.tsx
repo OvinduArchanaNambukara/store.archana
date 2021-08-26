@@ -24,7 +24,7 @@ const createOrderTableList = (orders: QueryOrderType[]): OrderListType[] => {
       status: <Category category={order.status ? 'Completed' : 'Pending'}
                         variant={order.status ? 'success' : 'danger'}/>,
       total: order.sub_total.toString(),
-      actions: <Actions/>,
+      actions: <Actions orderStatus={order.status}/>,
       order: order
     }
   });
@@ -129,6 +129,7 @@ const OrderTable: React.FC = () => {
 
   const expandRow: ExpandRowProps<any> = {
     onlyOneExpanding: true,
+    className: 'expanding-foo',
     renderer: (row: any) => (
         <OrderDetails order={row.order}/>
     )
@@ -158,7 +159,7 @@ const OrderTable: React.FC = () => {
   };
 
   return (
-      <Container className='product-admin-table p-md-0'>
+      <Container className='order-table p-md-0'>
         <Row className='mt-4'>
           <Col xs={12}>
             <h3>Order Table</h3>

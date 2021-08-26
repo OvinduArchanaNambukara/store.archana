@@ -1,6 +1,10 @@
 import React from "react";
-import {Container, Jumbotron, Table} from "react-bootstrap";
+import {Button, Container, Jumbotron, Table} from "react-bootstrap";
 import {QueryOrderType} from "../../../types/types";
+import {ApolloError, FetchResult, useMutation} from "@apollo/client";
+import {ORDER_DELIVERED} from "../../../graphql/mutation";
+import {toast} from "react-toastify";
+import {GET_ALL_COMPLETED_ORDERS, GET_ALL_PENDING_ORDERS} from "../../../graphql/query";
 
 type OrderDetails = {
   order: QueryOrderType
@@ -8,13 +12,30 @@ type OrderDetails = {
 
 const OrderDetails: React.FC<OrderDetails> = (props) => {
   const {order} = props;
+  const [setOrderCompleted] = useMutation(ORDER_DELIVERED);
+
+  const handleOnButtonClick = () => {
+    toast.info('🙄 Loading...');
+    setOrderCompleted({
+      variables: {
+        orderId: order._id
+      },
+      refetchQueries: [{query: GET_ALL_PENDING_ORDERS}, {query: GET_ALL_COMPLETED_ORDERS}]
+    })
+        .then((res: FetchResult) => {
+          toast.success('😍 Order Complete')
+        })
+        .catch((err: ApolloError) => {
+          toast.error('😪 Failed, User name or password error');
+        })
+  }
 
   return (
       <React.Fragment>
         <Jumbotron fluid>
           <Container>
             <h3>Details</h3>
-            <h6>User Id : {order?._id}</h6>
+            <h6>User Id : {order?.user_id}</h6>
             <h6>Date : {order?.date}</h6>
             <h6>Discount : {order?.discount}</h6>
             <h6>Sub Total : {order?.sub_total}</h6>
@@ -52,10 +73,10 @@ const OrderDetails: React.FC<OrderDetails> = (props) => {
         <Table responsive={true} striped bordered>
           <thead>
           <tr>
-            <th>Item</th>
-            <th>Unit Price</th>
-            <th>Qty</th>
-            <th>Total</th>
+            <th className='text-center'>Item</th>
+            <th className='text-center'>Unit Price</th>
+            <th className='text-center'>Qty</th>
+            <th className='text-center'>Total</th>
           </tr>
           </thead>
           <tbody>
@@ -63,16 +84,18 @@ const OrderDetails: React.FC<OrderDetails> = (props) => {
             order?.order_list.map((value) => {
               return (
                   <tr>
-                    <td>{value.name}</td>
-                    <td>{value.unit_price}</td>
-                    <td>{value.qty}</td>
-                    <td>{value.qty}</td>
+                    <td className='text-center'>{value.name}</td>
+                    <td className='text-center'>{value.unit_price}</td>
+                    <td className='text-center'>{value.qty}</td>
+                    <td className='text-center'>{value.qty}</td>
                   </tr>
               )
             })
           }
           </tbody>
         </Table>
+        {!order.status &&
+        <Button className='mt-4 mark-button' onClick={handleOnButtonClick}>Mark Order Completed</Button>}
       </React.Fragment>
   );
 }
