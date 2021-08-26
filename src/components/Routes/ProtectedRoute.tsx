@@ -9,9 +9,7 @@ const ProtectedRoute: React.FC = () => {
 
   if (role === 'admin') {
     return (
-        <Container>
-          <Admin/>
-        </Container>
+        <Admin/>
     );
   }
 

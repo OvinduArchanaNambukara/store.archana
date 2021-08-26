@@ -75,7 +75,8 @@ const ProductTable: React.FC = () => {
   useEffect(() => {
     setTableList([...foodTableList, ...vegetableTableList, ...fruitsTableList, ...pharmacyTableList,
       ...electronicTableList, ...meatTableList]);
-  }, [foodProductList, meatProductList, electronicProductList, vegetableProductList, pharmacyProductList, fruitProductList]);
+  }, [foodProductList, meatProductList, electronicProductList, vegetableProductList, pharmacyProductList,
+    fruitProductList]);
 
   useEffect(() => {
     if (!electronicQuery.data) {
@@ -125,7 +126,6 @@ const ProductTable: React.FC = () => {
       list.push(...electronicTableList, ...meatTableList, ...vegetableTableList, ...fruitsTableList,
           ...pharmacyTableList, ...foodTableList);
       setTableList(list);
-      return;
     }
     option.map((value: any) => {
       if (value.label === 'Meat') {
@@ -256,7 +256,7 @@ const ProductTable: React.FC = () => {
         <Row className='search-bar mt-3 mb-4'>
           <Col xs={8} md={8} lg={6} xl={5}>
             <Select
-                placeholder='Search...'
+                placeholder='Search Category...'
                 options={categoryOptions}
                 components={{DropdownIndicator}}
                 styles={colourStyles}

@@ -86,3 +86,16 @@ export const perOptions = [
     value: "num"
   }
 ];
+
+export const orderStatusOptions = [
+  {
+    label: 'Pending',
+    value: 'Pending',
+    color: '#dc3545'
+  },
+  {
+    label: 'Completed',
+    value: 'Completed',
+    color: '#28a745'
+  }
+]

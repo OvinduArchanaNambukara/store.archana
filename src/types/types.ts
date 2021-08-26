@@ -146,6 +146,12 @@ export interface AdminCategoryOptionType {
   color: string
 }
 
+export interface OrderStatusType {
+  label: string
+  value: string
+  color: string
+}
+
 export interface DeliveryFormType {
   fullName: string
   address: string
@@ -221,5 +227,34 @@ export interface SignInResponse {
 
 export interface SignUpResponse {
   signUp: res
+}
+
+export interface OrderListType {
+  orderId: JSX.Element
+  date: string
+  status: JSX.Element
+  total: string
+  actions: JSX.Element
+}
+
+export interface GetAllCompletedOrdersType {
+  getAllCompletedOrders: QueryOrderType[]
+}
+
+export interface GetAllPendingOrdersType {
+  getAllPendingOrders: QueryOrderType[]
+}
+
+export interface QueryOrderType {
+  _id: string
+  user_id: string
+  date: string
+  discount: number
+  sub_total: number
+  payment_method: string
+  status: boolean
+  order_list: OrderProductListType[]
+  delivery: OrderDeliveryType
+  shipping: OrderShippingType
 }
 
