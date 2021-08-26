@@ -18,6 +18,9 @@ const Admin: React.FC = () => {
           <Route path={`${path}/add`}>
             <AddProduct/>
           </Route>
+          <Route path={`${path}/add`}>
+            <AddProduct/>
+          </Route>
           <Route path='/'>
             <Redirect to={`${path}/add`}/>
           </Route>

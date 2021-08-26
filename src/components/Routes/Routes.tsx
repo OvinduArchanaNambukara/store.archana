@@ -2,7 +2,7 @@ import React, {lazy, Suspense, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import Loading from "../loading/Loading";
-import ProtectedRoute from "./ProtectedRoute";
+import OrderTable from "../admin/order-table/OrderTable";
 
 
 const Welcome = lazy(() => import("../welcome/Welcome"));
@@ -48,7 +48,8 @@ const Routes: React.FC = () => {
                 <CashOnDelivery/>
               </Route>
               <Route path='/my-account'>
-                <ProtectedRoute/>
+                {/*<ProtectedRoute/>*/}
+                <OrderTable/>
               </Route>
               <Route path='/register'>
                 <RegisterUX/>
