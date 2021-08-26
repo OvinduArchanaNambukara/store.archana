@@ -235,6 +235,7 @@ export interface OrderListType {
   status: JSX.Element
   total: string
   actions: JSX.Element
+  order: QueryOrderType
 }
 
 export interface GetAllCompletedOrdersType {
