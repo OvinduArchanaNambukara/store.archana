@@ -4,7 +4,7 @@ import Select, {components, ValueType} from "react-select";
 import filterFactory from "react-bootstrap-table2-filter";
 import NoDataIndicator from "../../checkout-table/NoDataIndicator";
 import {BsSearch} from "react-icons/bs";
-import BootstrapTable, {PageButtonRendererOptions, PaginationOptions} from "react-bootstrap-table-next";
+import BootstrapTable, {ExpandRowProps, PageButtonRendererOptions, PaginationOptions} from "react-bootstrap-table-next";
 import {Col, Container, Row} from "react-bootstrap";
 import {orderStatusOptions} from "../../../constants/categoryList";
 import {colourStyles} from "../../../custom-styles/custom-selector-styles";
@@ -24,7 +24,8 @@ const createOrderTableList = (orders: QueryOrderType[]): OrderListType[] => {
       status: <Category category={order.status ? 'Completed' : 'Pending'}
                         variant={order.status ? 'success' : 'danger'}/>,
       total: order.sub_total.toString(),
-      actions: <Actions orderStatus={order.status} order={order}/>
+      actions: <Actions/>,
+      order: order
     }
   });
   return list;
@@ -55,8 +56,6 @@ const OrderTable: React.FC = () => {
     }
     setOrderList(list);
   }, [allPendingOrderTableList, allCompletedTableList]);
-
-  console.log(orderList)
 
   const columns = [
     {dataField: 'orderId', text: 'Order Id', headerAlign: 'center', align: 'center'},
@@ -128,10 +127,10 @@ const OrderTable: React.FC = () => {
     );
   };
 
-  const expandRow = {
+  const expandRow: ExpandRowProps<any> = {
     onlyOneExpanding: true,
     renderer: (row: any) => (
-        <OrderDetails/>
+        <OrderDetails order={row.order}/>
     )
   };
 
