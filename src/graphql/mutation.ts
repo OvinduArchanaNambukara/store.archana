@@ -33,3 +33,11 @@ export const ADD_ORDER = gql`
     } 
   }
 `;
+
+export const ORDER_DELIVERED = gql`
+  mutation($orderId: String!) {
+    setOrderDelivered(order_id: $orderId) {
+      user_id
+    }
+  }
+`;

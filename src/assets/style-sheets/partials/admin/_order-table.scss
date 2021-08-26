@@ -1,0 +1,170 @@
+@import "../variables";
+
+.order-table {
+  font-size: 1em;
+
+  .product-id {
+    font-size: 0.7em;
+  }
+
+  .product-category {
+    font-size: .9em;
+    font-weight: 500;
+  }
+
+  .react-bootstrap-table-pagination {
+    margin-top: 12px;
+    font-size: 1em;
+
+    button {
+      margin-right: 5px;
+    }
+
+    .react-bootstrap-table-pagination-list {
+      ul {
+        float: right;
+
+        li {
+          a {
+            font-size: 1em;
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  table {
+    .expanding-foo {
+      background-color: #e5f3ee;
+    }
+
+    thead {
+      tr {
+        th {
+          vertical-align: middle;
+          border-left: 0;
+          border-right: 0;
+        }
+
+        th:first-child {
+          width: 300px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+          border-left: 0;
+          border-right: 0;
+        }
+      }
+
+      .reset-expansion-style {
+
+      }
+    }
+
+    svg {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-lg) {
+  .order-table {
+    tbody {
+      .reset-expansion-style {
+        h3 {
+          font-size: 1.1em;
+        }
+
+        h6 {
+          font-size: .8em;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $layout-breakpoint-xs) {
+  .order-table {
+    font-size: .8em;
+
+    .product-id {
+      font-size: 0.7em;
+    }
+
+    .product-category {
+      font-size: .9em;
+      font-weight: 500;
+    }
+
+    .react-bootstrap-table-pagination {
+      margin-top: 12px;
+      font-size: .9em;
+
+      button {
+        margin-right: 5px;
+      }
+
+      .react-bootstrap-table-pagination-list {
+        ul {
+          float: right;
+
+          li {
+            a {
+              font-size: .6em;
+              padding: 6px 8px;
+              border: 1px solid #dee2e6;
+              border-radius: 5px;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+
+    table {
+      thead {
+        tr {
+          th {
+            vertical-align: middle;
+            border-left: 0;
+            border-right: 0;
+            font-size: 0.9em;
+          }
+        }
+      }
+
+      tbody {
+        .reset-expansion-style {
+          h3 {
+            font-size: 1em;
+          }
+
+          h6 {
+            font-size: .8em;
+          }
+        }
+      }
+
+      svg {
+        cursor: pointer;
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    .mark-button {
+      font-size: .6em;
+    }
+  }
+}
