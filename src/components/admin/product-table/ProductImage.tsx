@@ -14,11 +14,11 @@ const getImage = async (key: string) => {
 }
 
 const ProductImage: React.FC<ItemImageProps> = (props) => {
-  const {image, tokenKey, id} = props;
+  const {tokenKey} = props;
   const [imgSrc, setImgSrc] = useState('/');
 
   useEffect(() => {
-    //getImage(tokenKey).then((data) => setImgSrc(data))
+    getImage(tokenKey).then((data) => setImgSrc(data))
   }, [tokenKey]);
 
   return (

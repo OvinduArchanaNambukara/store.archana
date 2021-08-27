@@ -49,7 +49,7 @@ const RegisterForm: React.FC = () => {
         dispatch(setLogInButtonStatus(true));
         history.push('/');
       }).catch((err: ApolloError) => {
-        toast('😪 Something Wrong');
+        toast.error('😪 Something Wrong');
       });
     }
   }
