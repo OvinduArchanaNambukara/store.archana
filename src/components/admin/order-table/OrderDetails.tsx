@@ -67,7 +67,7 @@ const OrderDetails: React.FC<OrderDetails> = (props) => {
         <Jumbotron fluid>
           <Container>
             <h3>Instructions</h3>
-            <h6>Full Name : {order?.delivery.full_name}</h6>
+            <h6>{order?.delivery.instructions}</h6>
           </Container>
         </Jumbotron>
         <Table responsive={true} striped bordered>

@@ -2,7 +2,6 @@ import React, {CSSProperties, useEffect, useState} from "react";
 import BootstrapTable, {PaginationOptions} from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import {Button, Col, Container, Row} from "react-bootstrap";
-import NoDataIndicator from "../../checkout-table/NoDataIndicator";
 import filterFactory, {textFilter} from 'react-bootstrap-table2-filter';
 import Actions from "./Actions";
 import Price from "./Price";
@@ -31,6 +30,7 @@ import {processQueryData} from "../../../store/actions/ProductAction";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/RootReducer";
 import {useHistory} from "react-router-dom";
+import NoData from "../order-table/NoData";
 
 const createTableList = (arr: IProducts[], variant: string): AdminProductTableListType[] => {
   if (!arr[0]) {
@@ -38,7 +38,7 @@ const createTableList = (arr: IProducts[], variant: string): AdminProductTableLi
   }
   const list = arr[0].productDetails.map<AdminProductTableListType>((product: IProduct) => {
     return {
-      id: <Id id={product.product.id}/>,
+      id: <Id id={product.product.id} variant={'info'}/>,
       item: <ProductImage image={product.product.image} tokenKey={product.product.key} id={product.product.id}/>,
       name: product.product.name,
       category: <Category category={arr[0].category} variant={variant}/>,
@@ -193,7 +193,7 @@ const ProductTable: React.FC = () => {
    * when no data in the table render empty cart image and text
    */
   const noDataIndication = (): JSX.Element => {
-    return <NoDataIndicator/>
+    return <NoData/>
   }
 
   const DropdownIndicator = (props: any) => {
