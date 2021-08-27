@@ -10,6 +10,8 @@ import axios, {AxiosError, AxiosResponse} from "axios";
 import {useMutation} from "@apollo/client";
 import {ADD_PRODUCT} from "../../../graphql/mutation";
 import {GET_ELECTRONICS, GET_FOOD, GET_FRUITS, GET_MEAT, GET_PHARMACY, GET_VEGETABLES} from "../../../graphql/query";
+import {toast} from "react-toastify";
+import {useHistory} from "react-router-dom";
 
 const FormArea: React.FC = () => {
   const [displayOldPrice, setDisplayOldPrice] = useState<boolean>(false);
@@ -22,6 +24,7 @@ const FormArea: React.FC = () => {
   const [submitButtonStatus, setSubmitButtonStatus] = useState<boolean>(true);
   const croppedImgSrc = useSelector((state: RootState) => state.adminReducer.cropImageSrc);
   const [addProduct] = useMutation(ADD_PRODUCT);
+  const history = useHistory();
 
   useEffect(() => {
     if (name === null || name === '' || productPrice === null || isNaN(productPrice) || category === null ||
@@ -86,8 +89,8 @@ const FormArea: React.FC = () => {
     const res = await axios.post('https://api.bitsandbytes.me/uploadImage', {
       key: `images/products/${s3Path}/${file.name}`,
       content_type: file.type
-    })
-
+    });
+    toast.info('🙄 Loading...');
     await axios.put(res.data, file, options)
         .then((response: AxiosResponse) => {
           addProduct({
@@ -102,8 +105,12 @@ const FormArea: React.FC = () => {
             }, refetchQueries: [{query: GET_VEGETABLES}, {query: GET_FRUITS}, {query: GET_MEAT}, {query: GET_PHARMACY},
               {query: GET_FOOD}, {query: GET_ELECTRONICS}]
           });
+          toast.success('😎 Product Added Successfully');
+          history.push('/my-account/product-list');
         })
-        .catch((err: AxiosError) => console.log(err));
+        .catch((err: AxiosError) => {
+          toast.error('😪 Something Wrong');
+        });
   }
 
   return (

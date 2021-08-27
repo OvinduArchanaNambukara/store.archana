@@ -19,11 +19,11 @@ const Admin: React.FC = () => {
           <Route path={`${path}/order-table`}>
             <OrderTable/>
           </Route>
-          <Route path={`${path}/add`}>
+          <Route path={`${path}/create-product`}>
             <AddProduct/>
           </Route>
           <Route path='/'>
-            <Redirect to={`${path}/add`}/>
+            <Redirect to={`${path}/order-table`}/>
           </Route>
         </Switch>
       </Suspense>

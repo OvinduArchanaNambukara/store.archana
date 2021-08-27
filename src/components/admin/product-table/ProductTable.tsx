@@ -30,6 +30,7 @@ import {GET_ELECTRONICS, GET_FOOD, GET_FRUITS, GET_MEAT, GET_PHARMACY, GET_VEGET
 import {processQueryData} from "../../../store/actions/ProductAction";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/reducers/RootReducer";
+import {useHistory} from "react-router-dom";
 
 const createTableList = (arr: IProducts[], variant: string): AdminProductTableListType[] => {
   if (!arr[0]) {
@@ -53,6 +54,7 @@ const ProductTable: React.FC = () => {
   const [filterState, setFilterState] = useState<boolean>(false);
   const [tableList, setTableList] = useState<AdminProductTableListType[]>([]);
   const dispatch = useDispatch();
+  const history = useHistory();
   const electronicQuery: QueryResult = useQuery<GetElectronicProducts>(GET_ELECTRONICS);
   const foodQuery: QueryResult = useQuery<GetFoodProducts>(GET_FOOD);
   const fruitQuery: QueryResult = useQuery<GetFruitProducts>(GET_FRUITS);
@@ -148,6 +150,10 @@ const ProductTable: React.FC = () => {
       }
     });
     setTableList(list);
+  }
+
+  const handleOnClickCreate = () => {
+    history.push('/my-account/create-product');
   }
 
   const columns = [
@@ -265,7 +271,7 @@ const ProductTable: React.FC = () => {
             />
           </Col>
           <Col xs={4}>
-            <Button variant={"success"}>Create</Button>
+            <Button variant={"success"} onClick={handleOnClickCreate}>Create</Button>
           </Col>
         </Row>
         <BootstrapTable
