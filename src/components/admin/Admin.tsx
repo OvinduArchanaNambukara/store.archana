@@ -3,6 +3,7 @@ import {Redirect, Route, Switch, useLocation, useRouteMatch} from "react-router-
 import Loading from "../loading/Loading";
 
 const ProductTable = lazy(() => import("../admin/product-table/ProductTable"));
+const OrderTable = lazy(() => import("../admin/order-table/OrderTable"));
 const AddProduct = lazy(() => import("../admin/add-product/AddProduct"));
 
 const Admin: React.FC = () => {
@@ -15,8 +16,8 @@ const Admin: React.FC = () => {
           <Route path={`${path}/product-list`}>
             <ProductTable/>
           </Route>
-          <Route path={`${path}/add`}>
-            <AddProduct/>
+          <Route path={`${path}/order-table`}>
+            <OrderTable/>
           </Route>
           <Route path={`${path}/add`}>
             <AddProduct/>

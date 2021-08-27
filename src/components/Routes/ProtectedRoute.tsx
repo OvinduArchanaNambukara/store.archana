@@ -1,8 +1,9 @@
 import React from "react";
-import {Container} from "react-bootstrap";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers/RootReducer";
 import Admin from "../admin/Admin";
+import {Redirect} from "react-router-dom";
+import User from "../user/User";
 
 const ProtectedRoute: React.FC = () => {
   const role = useSelector((state: RootState) => state.statusReducer.role);
@@ -15,14 +16,12 @@ const ProtectedRoute: React.FC = () => {
 
   if (role === 'user') {
     return (
-        <Container>
-          hi user
-        </Container>
+        <User/>
     );
   }
 
   return (
-      <h1>hi from no one</h1>
+      <Redirect to='/login'/>
   )
 }
 
