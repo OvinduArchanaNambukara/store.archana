@@ -18,7 +18,7 @@ const ContinueShoppingBtn: React.FC = () => {
   }
 
   return (
-      <Col md={4} xl={2} lg={3} sm={6} className='px-0 mt-2 mt-md-0'>
+      <Col md={4} xl={3} lg={3} sm={6} className='px-0 mt-2 mt-md-0 text-center'>
         <Button variant='outline-secondary' className='continueShoppingBtn' onClick={handleOnClick}>
           <BiChevronLeft className='pb-1'/>Continue Shopping
         </Button>
