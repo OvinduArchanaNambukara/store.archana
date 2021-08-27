@@ -2,7 +2,6 @@ import React, {CSSProperties, useEffect, useState} from "react";
 import {OrderListType, OrderStatusType, QueryOrderType} from "../../../types/types";
 import Select, {components, ValueType} from "react-select";
 import filterFactory from "react-bootstrap-table2-filter";
-import NoDataIndicator from "../../checkout-table/NoDataIndicator";
 import {BsSearch} from "react-icons/bs";
 import BootstrapTable, {ExpandRowProps, PageButtonRendererOptions, PaginationOptions} from "react-bootstrap-table-next";
 import {Col, Container, Row} from "react-bootstrap";
@@ -15,12 +14,13 @@ import {QueryResult, useQuery} from "@apollo/client";
 import {GET_ALL_COMPLETED_ORDERS, GET_ALL_PENDING_ORDERS} from "../../../graphql/query";
 import Actions from "./Actions";
 import OrderDetails from "./OrderDetails";
+import NoData from "./NoData";
 
 const createOrderTableList = (orders: QueryOrderType[]): OrderListType[] => {
   const list: OrderListType[] = orders.map((order: QueryOrderType) => {
     return {
-      orderId: <Id id={order._id}/>,
-      date: order.date,
+      orderId: <Id id={order._id} variant={'info'}/>,
+      date: <Id id={order.date} variant={'warning'}/>,
       status: <Category category={order.status ? 'Completed' : 'Pending'}
                         variant={order.status ? 'success' : 'danger'}/>,
       total: order.sub_total.toString(),
@@ -91,7 +91,7 @@ const OrderTable: React.FC = () => {
    * when no data in the table render empty cart image and text
    */
   const noDataIndication = (): JSX.Element => {
-    return <NoDataIndicator/>
+    return <NoData/>
   }
 
   const DropdownIndicator = (props: any) => {

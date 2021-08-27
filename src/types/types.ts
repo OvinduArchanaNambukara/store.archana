@@ -231,7 +231,7 @@ export interface SignUpResponse {
 
 export interface OrderListType {
   orderId: JSX.Element
-  date: string
+  date: JSX.Element
   status: JSX.Element
   total: string
   actions: JSX.Element
