@@ -66,7 +66,7 @@ export const categoryOptions: AdminCategoryOptionType[] = [
 
   {
     label: 'Foods',
-    value: 'FOODS',
+    value: 'FOOD',
     s3Path: 'food',
     color: '#007bff'
   }

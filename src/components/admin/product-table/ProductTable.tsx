@@ -44,7 +44,7 @@ const createTableList = (arr: IProducts[], variant: string): AdminProductTableLi
       category: <Category category={arr[0].category} variant={variant}/>,
       currentPrice: <Price price={product.product.currentPrice}/>,
       oldPrice: <Price price={product.product.oldPrice}/>,
-      actions: <Actions/>
+      actions: <Actions tokenKey={product.product.key} category={arr[0].category} productId={product.product.id}/>
     }
   });
   return list;
