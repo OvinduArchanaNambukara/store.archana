@@ -2,18 +2,16 @@ import React, {lazy, Suspense, useEffect, useState} from "react";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import Loading from "../loading/Loading";
-import OrderTable from "../admin/order-table/OrderTable";
-
 
 const Welcome = lazy(() => import("../welcome/Welcome"));
 const SearchBar = lazy(() => import("../search-bar/SearchBar"));
 const CategoryArea = lazy(() => import("../category-area/CategoryArea"));
 const LogInUX = lazy(() => import("../log-in/LogInUX"));
 const RegisterUX = lazy(() => import("../register/RegisterUX"));
+const ProtectedRoute = lazy(() => import("../Routes/ProtectedRoute"));
 const ProductRoutes = lazy(() => import("../Routes/ProductRoutes"));
 const CheckOut = lazy(() => import("../checkout-table/Checkout"));
 const CashOnDelivery = lazy(() => import("../cash-on-delivery/CashOnDelivery"));
-const Admin = lazy(() => import("../admin/add-product/AddProduct"));
 
 const Routes: React.FC = () => {
   let location = useLocation();
@@ -48,8 +46,7 @@ const Routes: React.FC = () => {
                 <CashOnDelivery/>
               </Route>
               <Route path='/my-account'>
-                {/*<ProtectedRoute/>*/}
-                <OrderTable/>
+                <ProtectedRoute/>
               </Route>
               <Route path='/register'>
                 <RegisterUX/>

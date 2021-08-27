@@ -16,6 +16,7 @@ import {toast} from "react-toastify";
 import {processOrderDetails} from "../../functions/ProcessOrderDetails";
 import {clearCart} from "../../store/actions/CartActions";
 import {useHistory} from "react-router-dom";
+import {GET_USER_COMPLETE_ORDERS, GET_USER_PENDING_ORDERS} from "../../graphql/query";
 
 const CashOnDelivery: React.FC = () => {
   const [fullName, setFullName] = useState<string | null>(null);
@@ -167,7 +168,8 @@ const CashOnDelivery: React.FC = () => {
       variables: {
         order: processOrderDetails(deliveryForm, shippingForm, cartState.cartList, changeShippingAddress,
             cartState.subTotal)
-      }
+      },
+      refetchQueries: [{query: GET_USER_COMPLETE_ORDERS}, {query: GET_USER_PENDING_ORDERS}]
     })
         .then(() => {
           toast.success('😘 Process Success');

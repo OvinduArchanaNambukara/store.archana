@@ -9,6 +9,7 @@ import {RootState} from "../../../store/reducers/RootReducer";
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {useMutation} from "@apollo/client";
 import {ADD_PRODUCT} from "../../../graphql/mutation";
+import {GET_ELECTRONICS, GET_FOOD, GET_FRUITS, GET_MEAT, GET_PHARMACY, GET_VEGETABLES} from "../../../graphql/query";
 
 const FormArea: React.FC = () => {
   const [displayOldPrice, setDisplayOldPrice] = useState<boolean>(false);
@@ -98,7 +99,8 @@ const FormArea: React.FC = () => {
               qty: qty,
               category: category,
               old_price: oldPrice
-            }
+            }, refetchQueries: [{query: GET_VEGETABLES}, {query: GET_FRUITS}, {query: GET_MEAT}, {query: GET_PHARMACY},
+              {query: GET_FOOD}, {query: GET_ELECTRONICS}]
           });
         })
         .catch((err: AxiosError) => console.log(err));
