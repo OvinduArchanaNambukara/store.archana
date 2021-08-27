@@ -18,7 +18,7 @@ const ProductImage: React.FC<ItemImageProps> = (props) => {
   const [imgSrc, setImgSrc] = useState('/');
 
   useEffect(() => {
-    getImage(tokenKey).then((data) => setImgSrc(data))
+    //getImage(tokenKey).then((data) => setImgSrc(data))
   }, [tokenKey]);
 
   return (

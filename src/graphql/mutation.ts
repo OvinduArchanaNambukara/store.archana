@@ -41,3 +41,11 @@ export const ORDER_DELIVERED = gql`
     }
   }
 `;
+
+export const DELETE_PRODUCT = gql`
+  mutation($id: String!, $category: String!) {
+    deleteProduct(id: $id, category: $category) {
+      _id
+    }
+  }
+`;
