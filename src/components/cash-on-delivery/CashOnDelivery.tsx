@@ -41,6 +41,7 @@ const CashOnDelivery: React.FC = () => {
   const deliveryForm = useSelector((state: RootState) => state.orderFormReducer.deliveryForm);
   const shippingForm = useSelector((state: RootState) => state.orderFormReducer.shippingForm);
   const cartState = useSelector((state: RootState) => state.cartReducer);
+  const user = useSelector((state: RootState) => state.statusReducer.role);
   const [createOrder] = useMutation(ADD_ORDER);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -160,6 +161,16 @@ const CashOnDelivery: React.FC = () => {
       setMatch(true);
       return;
     }
+    if (cartState.cartList.length === 0) {
+      toast.info('🙄 Add products to cart list');
+      return;
+    }
+
+    if (user === null) {
+      toast.info('🙄 Please sign in to your account');
+      return;
+    }
+
     toast.info('🙄 Loading');
     if (!deliveryForm) {
       return;
@@ -181,11 +192,11 @@ const CashOnDelivery: React.FC = () => {
   }
 
   return (
-      <Container className='cashOnDelivery' fluid={true}>
+      <Container className='cashOnDelivery pr-lg-2'>
         <Row className='mt-1 mx-0 justify-content-center'>
-          <Col xl={10} xs={12} className='px-0'>
+          <Col xl={12} xs={12} className='px-0'>
             <Row className='pl-md-4 pr-md-4'>
-              <Col lg={{span: 7, offset: 5}} xs={12}>
+              <Col lg={{span: 7, offset: 5}} xs={12} className='pr-lg-0'>
                 <SignInArea/>
                 <Row>
                   <Col xs={12} className='px-3'>

@@ -5,7 +5,7 @@ import {Card} from "react-bootstrap";
 
 const TableArea: React.FC = () => {
   return (
-      <Card className='ml-md-4 ml-0 px-3 py-3 my-3 mr-2'>
+      <Card className='ml-md-0 ml-0 px-3 py-3 my-3 mr-0'>
         <TableHeader/>
         <TableBody/>
       </Card>

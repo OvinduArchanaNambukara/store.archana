@@ -6,9 +6,9 @@ import HeaderArea from "./HeaderArea";
 
 const Checkout: React.FC = () => {
   return (
-      <Container fluid={true} className='min-vh-100'>
+      <Container className=''>
         <Row className='mt-4 checkout mx-0 justify-content-center'>
-          <Col xs={12} lg={10} className='px-0'>
+          <Col xs={12} lg={12} className='px-0'>
             <HeaderArea/>
             <TableArea/>
           </Col>
