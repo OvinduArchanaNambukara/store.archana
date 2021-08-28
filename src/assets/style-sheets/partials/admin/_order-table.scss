@@ -80,6 +80,8 @@
 
 @media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-lg) {
   .order-table {
+    font-size: .8em;
+
     tbody {
       .reset-expansion-style {
         h3 {

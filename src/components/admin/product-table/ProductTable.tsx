@@ -157,7 +157,7 @@ const ProductTable: React.FC = () => {
   }
 
   const columns = [
-    {dataField: 'id', text: 'Id', headerAlign: 'center', align: 'center'},
+    {dataField: 'id', text: 'Id', headerAlign: 'center', align: 'center', style: {minWidth: 250}},
     {dataField: 'item', text: 'Item', headerAlign: 'center', align: 'center'},
     {
       dataField: 'name',
@@ -170,6 +170,7 @@ const ProductTable: React.FC = () => {
       }),
       headerAlign: 'center',
       align: 'center',
+      style: {minWidth: 150},
       headerStyle: {
         cursor: "pointer"
       },
@@ -178,8 +179,8 @@ const ProductTable: React.FC = () => {
       }
     },
     {dataField: 'category', text: 'Category', headerAlign: 'center', align: 'center'},
-    {dataField: 'currentPrice', text: 'Current Price', headerAlign: 'center', align: 'center'},
-    {dataField: 'oldPrice', text: 'Old Price', headerAlign: 'center', align: 'center'},
+    {dataField: 'currentPrice', text: 'Current Price', headerAlign: 'center', align: 'center', style: {minWidth: 150}},
+    {dataField: 'oldPrice', text: 'Old Price', headerAlign: 'center', align: 'center', style: {minWidth: 150}},
     {dataField: 'actions', text: 'Actions', headerAlign: 'center', align: 'center'}
   ];
 

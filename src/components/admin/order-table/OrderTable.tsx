@@ -3,7 +3,12 @@ import {OrderListType, OrderStatusType, QueryOrderType} from "../../../types/typ
 import Select, {components, ValueType} from "react-select";
 import filterFactory from "react-bootstrap-table2-filter";
 import {BsSearch} from "react-icons/bs";
-import BootstrapTable, {ExpandRowProps, PageButtonRendererOptions, PaginationOptions} from "react-bootstrap-table-next";
+import BootstrapTable, {
+  ColumnDescription,
+  ExpandRowProps,
+  PageButtonRendererOptions,
+  PaginationOptions
+} from "react-bootstrap-table-next";
 import {Col, Container, Row} from "react-bootstrap";
 import {orderStatusOptions} from "../../../constants/categoryList";
 import {colourStyles} from "../../../custom-styles/custom-selector-styles";
@@ -39,7 +44,7 @@ const OrderTable: React.FC = () => {
   const allCompletedOrders: QueryResult = useQuery(GET_ALL_COMPLETED_ORDERS);
 
   useEffect(() => {
-    if (!allPendingOrders.data || !allPendingOrders.data) {
+    if (!allPendingOrders.data || !allPendingOrders.data || !allCompletedOrders || !allCompletedOrders.data) {
       return;
     }
     setAllPendingOrderTableList(createOrderTableList(allPendingOrders.data.getAllPendingOrders));
@@ -57,9 +62,9 @@ const OrderTable: React.FC = () => {
     setOrderList(list);
   }, [allPendingOrderTableList, allCompletedTableList]);
 
-  const columns = [
-    {dataField: 'orderId', text: 'Order Id', headerAlign: 'center', align: 'center'},
-    {dataField: 'date', text: 'Date', headerAlign: 'center', align: 'center'},
+  const columns: ColumnDescription[] = [
+    {dataField: 'orderId', text: 'Order Id', headerAlign: 'center', align: 'center', style: {minWidth: 250}},
+    {dataField: 'date', text: 'Date', headerAlign: 'center', align: 'center', style: {minWidth: 350}},
     {dataField: 'status', text: 'Status ', headerAlign: 'center', align: 'center'},
     {dataField: 'total', text: 'total', headerAlign: 'center', align: 'center'},
     {dataField: 'actions', text: 'Actions', headerAlign: 'center', align: 'center'}

@@ -119,6 +119,7 @@ export const GET_ALL_PENDING_ORDERS = gql`
         city
         country
         postal_code
+        instructions
         email
         tel
       }
@@ -128,7 +129,6 @@ export const GET_ALL_PENDING_ORDERS = gql`
         city
         country
         postal_code
-        instructions
         tel
       }
     }
@@ -158,6 +158,7 @@ export const GET_ALL_COMPLETED_ORDERS = gql`
         city
         country
         postal_code
+        instructions
         email
         tel
       }
@@ -167,7 +168,6 @@ export const GET_ALL_COMPLETED_ORDERS = gql`
         city
         country
         postal_code
-        instructions
         tel
       }
     }
@@ -197,6 +197,7 @@ export const GET_USER_PENDING_ORDERS = gql`
         city
         country
         postal_code
+        instructions
         email
         tel
       }
@@ -206,7 +207,6 @@ export const GET_USER_PENDING_ORDERS = gql`
         city
         country
         postal_code
-        instructions
         tel
       }
     }
