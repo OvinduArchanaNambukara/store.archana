@@ -77,6 +77,24 @@
   }
 }
 
+@media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-lg) {
+  .product-admin-table {
+    font-size: .8em;
+
+    tbody {
+      .reset-expansion-style {
+        h3 {
+          font-size: 1.1em;
+        }
+
+        h6 {
+          font-size: .8em;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: $layout-breakpoint-xs) {
   .product-admin-table {
     font-size: .8em;
