@@ -175,7 +175,7 @@ export const GET_ALL_COMPLETED_ORDERS = gql`
 `;
 
 export const GET_USER_PENDING_ORDERS = gql`
-  query Query {
+  query {
     getUserPendingOrders {
       _id
       user_id
@@ -214,7 +214,7 @@ export const GET_USER_PENDING_ORDERS = gql`
 `;
 
 export const GET_USER_COMPLETE_ORDERS = gql`
-  query Query {
+  query {
     getUserCompletedOrders {
       _id
       user_id
@@ -236,6 +236,7 @@ export const GET_USER_COMPLETE_ORDERS = gql`
         city
         country
         postal_code
+        instructions
         email
         tel
       }
@@ -245,7 +246,6 @@ export const GET_USER_COMPLETE_ORDERS = gql`
         city
         country
         postal_code
-        instructions
         tel
       }
     }

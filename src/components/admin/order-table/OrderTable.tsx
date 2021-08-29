@@ -44,7 +44,7 @@ const OrderTable: React.FC = () => {
   const allCompletedOrders: QueryResult = useQuery(GET_ALL_COMPLETED_ORDERS);
 
   useEffect(() => {
-    if (!allPendingOrders.data || !allPendingOrders.data || !allCompletedOrders || !allCompletedOrders.data) {
+    if (!allPendingOrders.data || !allCompletedOrders.data) {
       return;
     }
     setAllPendingOrderTableList(createOrderTableList(allPendingOrders.data.getAllPendingOrders));
